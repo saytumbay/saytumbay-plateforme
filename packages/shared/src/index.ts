@@ -1,5 +1,6 @@
 export * from "./domain/types";
 export * from "./domain/rules";
+export * from "./domain/engine";
 export * from "./domain/rbac";
 export * as fmt from "./domain/format";
 export * from "./schemas";

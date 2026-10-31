@@ -181,6 +181,8 @@ export const telemetrySchema = z.object({
   airHumidity: z.number().min(0).max(100).optional(),
   co2: z.number().min(0).max(20000).optional(),
   gas: z.number().min(0).max(100).optional(),
+  /** Version du micrologiciel annoncée par le capteur (suivi des déploiements). */
+  fw: z.string().regex(/^v\d+\.\d+\.\d+$/).optional(),
 });
 
 export type LoginInput = z.infer<typeof loginSchema>;

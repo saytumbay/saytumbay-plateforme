@@ -56,15 +56,19 @@ export default function Reports() {
             </div>
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               <Kpi label="Eau utilisée" value={fmt.num(r.waterTotalM3, 1)} unit="m³" sub={r.season} tone="water" />
-              <Kpi label="Eau économisée" value={r.savedPct} unit="%" sub="par rapport à un arrosage à heure fixe" tone="brand" />
+              <Kpi label="Eau économisée" value={r.savedPct ?? "—"} unit={r.savedPct == null ? undefined : "%"} sub={r.savedPct == null ? "calculée après une saison de comparaison" : "par rapport à un arrosage à heure fixe"} tone="brand" />
               <Kpi label="Jours sous le seuil sec" value={r.daysBelowThreshold} sub="toutes parcelles confondues" tone={r.daysBelowThreshold > 10 ? "sun" : "neutral"} />
               <Kpi label="Irrigations" value={r.irrigations} sub="automatiques, programmées et manuelles" />
             </div>
             <div className="grid gap-6 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
               <Card>
-                <CardHeader title="Eau par mois" subtitle="Eau utilisée et eau économisée grâce aux capteurs" />
+                <CardHeader title="Eau par mois" subtitle={r.savedPct == null ? "Eau utilisée, d’après le journal d’irrigation" : "Eau utilisée et eau économisée grâce aux capteurs"} />
                 <CardBody>
-                  <MonthBars data={r.months.map((m) => ({ month: m.month, value: m.used, extra: m.saved }))} unit="m³" stack={{ label: "Économisée", color: "var(--brand)", mainLabel: "Utilisée" }} color="var(--water)" height={240} ariaLabel="Eau utilisée et économisée par mois" />
+                  {r.savedPct == null ? (
+                    <MonthBars data={r.months.map((m) => ({ month: m.month, value: m.used }))} unit="m³" color="var(--water)" height={240} ariaLabel="Eau utilisée par mois" />
+                  ) : (
+                    <MonthBars data={r.months.map((m) => ({ month: m.month, value: m.used, extra: m.saved ?? 0 }))} unit="m³" stack={{ label: "Économisée", color: "var(--brand)", mainLabel: "Utilisée" }} color="var(--water)" height={240} ariaLabel="Eau utilisée et économisée par mois" />
+                  )}
                   <table className="sr-only">
                     <caption>Eau par mois</caption>
                     <tbody>
@@ -72,7 +76,7 @@ export default function Reports() {
                         <tr key={m.month}>
                           <th>{monthShort(m.month)}</th>
                           <td>{m.used} m³ utilisés</td>
-                          <td>{m.saved} m³ économisés</td>
+                          {m.saved != null && <td>{m.saved} m³ économisés</td>}
                         </tr>
                       ))}
                     </tbody>

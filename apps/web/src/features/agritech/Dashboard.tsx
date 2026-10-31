@@ -85,8 +85,8 @@ export default function Dashboard() {
             </section>
 
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              <Kpi label="Surface suivie" value={fmt.num(d.areaHa, 1)} unit="ha" sub={`+${fmt.num(d.areaTrendHa, 1)} ha depuis le début de la saison`} icon={<Sprout className="size-[18px]" aria-hidden />} tone="brand" to="/app/parcelles" />
-              <Kpi label="Eau économisée" value={d.water.savedPct} unit="%" sub={`par rapport à un arrosage à heure fixe (${fmt.m3(d.water.savedM3)} ce mois)`} icon={<Droplets className="size-[18px]" aria-hidden />} tone="water" to="/app/rapports" />
+              <Kpi label="Surface suivie" value={fmt.num(d.areaHa, 1)} unit="ha" sub={d.areaTrendHa > 0 ? `+${fmt.num(d.areaTrendHa, 1)} ha depuis le début de la saison` : fmt.plural(d.parcels.length, "parcelle suivie", "parcelles suivies")} icon={<Sprout className="size-[18px]" aria-hidden />} tone="brand" to="/app/parcelles" />
+              <Kpi label="Eau économisée" value={d.water.savedPct ?? "—"} unit={d.water.savedPct == null ? undefined : "%"} sub={d.water.savedPct == null || d.water.savedM3 == null ? "calculée après une saison de comparaison" : `par rapport à un arrosage à heure fixe (${fmt.m3(d.water.savedM3)} ce mois)`} icon={<Droplets className="size-[18px]" aria-hidden />} tone="water" to="/app/rapports" />
               <Kpi label="Capteurs en ligne" value={`${d.devices.online} / ${d.devices.total}`} sub={d.devices.offline.length ? `${d.devices.offline.join(", ")} hors ligne` : "Tous transmettent"} icon={<RadioTower className="size-[18px]" aria-hidden />} tone={d.devices.offline.length ? "sun" : "brand"} to="/app/capteurs" />
               <Kpi label="Batteries faibles" value={d.devices.lowBattery.length} sub={d.devices.lowBattery.length ? `${d.devices.lowBattery.join(", ")} à remplacer` : "Aucune à prévoir"} icon={<BatteryLow className="size-[18px]" aria-hidden />} tone={d.devices.lowBattery.length ? "danger" : "neutral"} to="/app/capteurs" />
             </div>

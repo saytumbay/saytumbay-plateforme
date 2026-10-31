@@ -43,7 +43,8 @@ export interface Overview {
   tasks: Task[];
   weather: WeatherNow;
   devices: { total: number; online: number; offline: string[]; lowBattery: string[] };
-  water: { monthM3: number; savedPct: number; savedM3: number; months: Array<{ month: string; total: number; byParcel: Record<string, number> }> };
+  /** savedPct / savedM3 : null tant qu'aucune saison de référence (arrosage à heure fixe) n'a été mesurée. */
+  water: { monthM3: number; savedPct: number | null; savedM3: number | null; months: Array<{ month: string; total: number; byParcel: Record<string, number> }> };
   equipment: { pump: Pump; valves: Valve[] };
   storage: Array<Pick<WarehouseSnapshot, "risk" | "riskScore" | "stockT" | "temp" | "humidity"> & { id: string; name: string; product: string; variety: string; days: number | null }>;
   areaHa: number;
@@ -95,9 +96,9 @@ export interface AgriReport {
   season: string;
   seasons: string[];
   waterTotalM3: number;
-  savedPct: number;
+  savedPct: number | null;
   daysBelowThreshold: number;
-  months: Array<{ month: string; used: number; saved: number }>;
+  months: Array<{ month: string; used: number; saved: number | null }>;
   byParcel: Array<{ parcelId: string; code: string; crop: string; m3: number; avgMoisture: number | null; dryDays: number | null; color: string }>;
   alertsCount: Record<string, number>;
   irrigations: number;
