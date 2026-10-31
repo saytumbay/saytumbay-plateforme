@@ -67,16 +67,16 @@ export function ActionList({ alerts, onIrrigate, limit = 6, compact, showModule 
       </EmptyState>
     );
   return (
-    <ul className="flex flex-col divide-y divide-line">
+    <ul className="@container flex flex-col divide-y divide-line">
       {list.map((a) => {
         const I = KIND_ICON[a.kind];
         const link = linkFor(a);
         const taken = a.status === "prise_en_charge";
         const crit = a.severity === "critique";
         return (
-          <li key={a.id} className={cn("relative flex flex-col gap-3 py-4 pl-4 sm:flex-row sm:items-center", compact && "py-3")}>
+          <li key={a.id} className={cn("relative flex flex-col gap-3 py-4 pl-4 @2xl:flex-row @2xl:items-center", compact && "py-3")}>
             <span className={cn("absolute left-0 top-4 bottom-4 w-1 rounded-full", crit ? "bg-danger" : a.severity === "attention" ? "bg-sun" : "bg-water")} aria-hidden />
-            <div className={cn("flex size-10 shrink-0 items-center justify-center rounded-xl max-sm:hidden", crit ? "bg-danger-soft text-danger-ink" : a.severity === "attention" ? "bg-sun-soft text-sun-ink" : "bg-water-soft text-water-ink")}>
+            <div className={cn("hidden size-10 shrink-0 items-center justify-center rounded-xl @2xl:flex", crit ? "bg-danger-soft text-danger-ink" : a.severity === "attention" ? "bg-sun-soft text-sun-ink" : "bg-water-soft text-water-ink")}>
               <I className="size-5" aria-hidden />
             </div>
             <div className="min-w-0 flex-1">
@@ -94,7 +94,7 @@ export function ActionList({ alerts, onIrrigate, limit = 6, compact, showModule 
               <p className="font-display text-[15.5px] font-semibold leading-snug">{a.title}</p>
               {!compact && <p className="mt-0.5 text-sm text-ink-2">{a.advice}</p>}
             </div>
-            <div className="flex shrink-0 flex-wrap gap-2 sm:justify-end">
+            <div className="flex shrink-0 flex-wrap gap-2 @2xl:justify-end">
               {a.kind === "sol_sec" && onIrrigate && canIrrigate ? (
                 <Button size="sm" icon={<Droplets className="size-4" aria-hidden />} onClick={() => onIrrigate(a.source.id)}>
                   Arroser

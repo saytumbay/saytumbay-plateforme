@@ -139,6 +139,9 @@
   --color-onion-soft: var(--onion-soft);
   --color-offline: var(--offline);
   --color-offline-soft: var(--offline-soft);
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-series-3: var(--series-3);
 
   --shadow-1: var(--shadow-1);
   --shadow-2: var(--shadow-2);
@@ -228,3 +231,15 @@
   .leaflet-container a { color: var(--water-ink); }
   .scrollbar-thin { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
 }
+
+/* Impression et export PDF : contenu seul, fond blanc, pas de navigation. */
+@media print {
+  :root, .dark { color-scheme: light; --bg: #fff; --surface: #fff; --surface-2: #f3f5f3; --ink: #000; --ink-2: #222; --ink-3: #444; --line: #ccc; }
+  aside, header.sticky, nav[aria-label="Navigation rapide"], .demo-stripes, .no-print, [data-sonner-toaster] { display: none !important; }
+  main { padding: 0 !important; max-width: none !important; }
+  body { background: #fff !important; }
+  section, article, .rounded-xl { break-inside: avoid; box-shadow: none !important; }
+  a { text-decoration: none; color: inherit; }
+  .print-only { display: block !important; }
+}
+.print-only { display: none; }

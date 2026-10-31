@@ -188,6 +188,70 @@ export function MonthBars({ data, unit, height = 220, highlightLast = true, colo
   );
 }
 
+/** Courbes mensuelles (axe catégoriel), 2 à 3 séries comparées sur une même échelle. Montants abrégés en « k ». */
+export function MonthLines({ data, series, unit, height = 240, ariaLabel }: { data: Array<{ month: string } & Record<string, number | string>>; series: Array<{ key: string; name: string; color?: string; dashed?: boolean }>; unit: string; height?: number; ariaLabel: string }) {
+  const rows = data.map((d) => ({ ...d, label: monthShort(d.month) }));
+  const colors = series.map((s, i) => s.color ?? SERIES[i] ?? SERIES[0]!);
+  const k = (v: number) => (Math.abs(v) >= 1000 ? `${fmt.num(v / 1000)} k` : fmt.num(v));
+  return (
+    <figure aria-label={ariaLabel} role="img" className="w-full">
+      <div style={{ height }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart data={rows} margin={{ top: 8, right: 16, bottom: 0, left: -4 }}>
+            <CartesianGrid vertical={false} stroke="var(--chart-grid)" />
+            <XAxis dataKey="label" tick={axisTick} axisLine={false} tickLine={false} padding={{ left: 12, right: 12 }} />
+            <YAxis tick={axisTick} axisLine={false} tickLine={false} width={48} tickFormatter={k} />
+            <Tooltip
+              cursor={{ stroke: "var(--ink-3)", strokeWidth: 1, strokeDasharray: "3 3" }}
+              content={({ active, payload, label }) =>
+                active && payload?.length ? (
+                  <div className="rounded-lg border border-line bg-surface px-3 py-2 text-[13px] shadow-2">
+                    <p className="mb-1 text-[12px] text-ink-3">{label}</p>
+                    {payload.map((p) => (
+                      <p key={String(p.dataKey)} className="flex items-center gap-2">
+                        <span className="h-0.5 w-3 rounded-full" style={{ background: p.color }} aria-hidden />
+                        <span className="text-ink-2">{series.find((s) => s.key === p.dataKey)?.name}</span>
+                        <span className="ml-auto pl-3 font-display font-semibold tabular">
+                          {fmt.num(Number(p.value))}&nbsp;{unit}
+                        </span>
+                      </p>
+                    ))}
+                  </div>
+                ) : null
+              }
+            />
+            {series.map((s, i) => (
+              <Line key={s.key} type="linear" dataKey={s.key} stroke={colors[i]} strokeWidth={2} strokeDasharray={s.dashed ? "5 4" : undefined} dot={{ r: 3.5, strokeWidth: 2, stroke: "var(--surface)", fill: colors[i] }} activeDot={{ r: 5, strokeWidth: 2, stroke: "var(--surface)" }} isAnimationActive={false} />
+            ))}
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+      <figcaption className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-ink-2">
+        {series.map((s, i) => (
+          <span key={s.key} className="inline-flex items-center gap-2">
+            <svg width="16" height="4" aria-hidden>
+              <line x1="0" y1="2" x2="16" y2="2" stroke={colors[i]} strokeWidth="2" strokeDasharray={s.dashed ? "4 3" : undefined} />
+            </svg>
+            {s.name}
+          </span>
+        ))}
+      </figcaption>
+    </figure>
+  );
+}
+
+/** « d’octobre », « de mai » : nom du mois avec la préposition élidée. */
+export function ofMonth(key: string): string {
+  const [y, m] = key.split("-").map(Number) as [number, number];
+  const name = new Date(Date.UTC(y, m - 1, 15)).toLocaleDateString("fr-FR", { month: "long", timeZone: "UTC" });
+  return /^[aeiouyéèh]/i.test(name) ? `d’${name}` : `de ${name}`;
+}
+
+export function monthLong(key: string): string {
+  const [y, m] = key.split("-").map(Number) as [number, number];
+  return new Date(Date.UTC(y, m - 1, 15)).toLocaleDateString("fr-FR", { month: "long", timeZone: "UTC" });
+}
+
 export function monthShort(key: string): string {
   const [y, m] = key.split("-").map(Number) as [number, number];
   return new Date(Date.UTC(y, m - 1, 15)).toLocaleDateString("fr-FR", { month: "short", timeZone: "UTC" }).replace(".", "");
