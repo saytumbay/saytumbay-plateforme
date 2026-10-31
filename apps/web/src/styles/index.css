@@ -1,0 +1,230 @@
+@import "tailwindcss";
+@import "@fontsource-variable/sora";
+@import "@fontsource-variable/atkinson-hyperlegible-next";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Jetons SaytuMbay.
+  - Fond « brume » #F4F7F5 repris du fond clair officiel du logo v11 (pas de crème chaud).
+  - Vert marque #0F6B45 et bleu « eau » #1597B3 = couleurs du logo.
+  - Soleil (sec, attention), piment (critique), violet de Galmi (module Onion).
+  - Lisible en plein soleil : contrastes ≥ 4,5:1 pour le texte, jamais d'état par la couleur seule.
+*/
+:root {
+  --bg: #f4f7f5;
+  --surface: #ffffff;
+  --surface-2: #ebf1ed;
+  --surface-3: #dfe8e2;
+  --line: #d6e0d9;
+  --line-strong: #b9c7bd;
+  --ink: #0e1f18;
+  --ink-2: #3f5248;
+  --ink-3: #5f7067;
+  --brand: #0f6b45;
+  --brand-strong: #0a4f33;
+  --brand-soft: #dbefe3;
+  --brand-ink: #ffffff;
+  --water: #1597b3;
+  --water-ink: #0b5568;
+  --water-soft: #d9eff5;
+  --sun: #c98a12;
+  --sun-ink: #6f4b00;
+  --sun-soft: #fbefd2;
+  --danger: #c2361f;
+  --danger-ink: #8f2414;
+  --danger-soft: #f9e0da;
+  --onion: #8e2c55;
+  --onion-ink: #6e1d40;
+  --onion-soft: #f4e0e9;
+  --offline: #7d857f;
+  --offline-soft: #e8ebe8;
+  --focus: #1597b3;
+  --shadow-1: 0 1px 2px rgb(14 31 24 / 0.06);
+  --shadow-2: 0 8px 28px -12px rgb(14 31 24 / 0.22);
+  --shadow-3: 0 24px 60px -20px rgb(14 31 24 / 0.35);
+  --series-1: #2a78d6;
+  --series-2: #d55181;
+  --series-3: #7a5c00;
+  --chart-grid: #e3eae5;
+  --logo-disc: #0f6b45;
+  --logo-orbit: #1597b3;
+  --logo-sensor: #1597b3;
+  --logo-word: #0a1f1a;
+  --logo-tag: #0f6b45;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0a1612;
+  --surface: #0f201a;
+  --surface-2: #142a21;
+  --surface-3: #1b3529;
+  --line: #22382e;
+  --line-strong: #31503f;
+  --ink: #e6efe9;
+  --ink-2: #b1c3b8;
+  --ink-3: #8a9d92;
+  --brand: #2bd47d;
+  --brand-strong: #6ae3a4;
+  --brand-soft: #123d2a;
+  --brand-ink: #062015;
+  --water: #4fd8ef;
+  --water-ink: #8fe7f5;
+  --water-soft: #0f3540;
+  --sun: #f0b642;
+  --sun-ink: #f6cd78;
+  --sun-soft: #3b2c0b;
+  --danger: #ff7a5c;
+  --danger-ink: #ffab98;
+  --danger-soft: #44190f;
+  --onion: #e98bb4;
+  --onion-ink: #f3b6d1;
+  --onion-soft: #3d1529;
+  --offline: #8c968f;
+  --offline-soft: #1f2c26;
+  --focus: #4fd8ef;
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-2: 0 10px 30px -12px rgb(0 0 0 / 0.6);
+  --shadow-3: 0 24px 60px -20px rgb(0 0 0 / 0.7);
+  --series-1: #3987e5;
+  --series-2: #d55181;
+  --series-3: #a9852a;
+  --chart-grid: #1d3329;
+  --logo-disc: #2bd47d;
+  --logo-orbit: #4fd8ef;
+  --logo-sensor: #4fd8ef;
+  --logo-word: #ffffff;
+  --logo-tag: #4fd8ef;
+  color-scheme: dark;
+}
+
+/* Logo sur fond vert marque (bandeaux, écrans de connexion) : version inversée. */
+.logo-on-brand {
+  --logo-disc: #2bd47d;
+  --logo-orbit: #4fd8ef;
+  --logo-sensor: #4fd8ef;
+  --logo-word: #ffffff;
+  --logo-tag: #9ff0c4;
+}
+
+@theme inline {
+  --font-display: "Sora Variable", "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, sans-serif;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
+  --color-water: var(--water);
+  --color-water-ink: var(--water-ink);
+  --color-water-soft: var(--water-soft);
+  --color-sun: var(--sun);
+  --color-sun-ink: var(--sun-ink);
+  --color-sun-soft: var(--sun-soft);
+  --color-danger: var(--danger);
+  --color-danger-ink: var(--danger-ink);
+  --color-danger-soft: var(--danger-soft);
+  --color-onion: var(--onion);
+  --color-onion-ink: var(--onion-ink);
+  --color-onion-soft: var(--onion-soft);
+  --color-offline: var(--offline);
+  --color-offline-soft: var(--offline-soft);
+
+  --shadow-1: var(--shadow-1);
+  --shadow-2: var(--shadow-2);
+  --shadow-3: var(--shadow-3);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --animate-pulse-soft: pulse-soft 2.4s var(--ease-in-out) infinite;
+  --animate-fade-in: fade-in 180ms var(--ease-out);
+  --animate-fade-out: fade-out 140ms ease-in;
+  --animate-sheet-in: sheet-in 260ms var(--ease-out);
+  --animate-sheet-out: sheet-out 180ms ease-in;
+  --animate-sheet-up: sheet-up 260ms var(--ease-out);
+  --animate-sheet-down: sheet-down 180ms ease-in;
+  --animate-pop-in: pop-in 180ms var(--ease-out);
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes sheet-in { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes sheet-out { from { transform: none; opacity: 1; } to { transform: translateX(24px); opacity: 0; } }
+  @keyframes sheet-up { from { transform: translateY(32px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes sheet-down { from { transform: none; opacity: 1; } to { transform: translateY(32px); opacity: 0; } }
+  @keyframes pop-in { from { transform: scale(0.97); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.5;
+    font-feature-settings: "kern";
+  }
+  h1, h2, h3, h4 {
+    @apply font-display text-ink;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  .tabular, td, .num { font-variant-numeric: tabular-nums; }
+  ::selection { background: color-mix(in oklab, var(--water) 30%, transparent); }
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  button, [role="button"] { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  input, select, textarea, button { font: inherit; color: inherit; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply sr-only;
+  }
+  .skip-link:focus {
+    @apply not-sr-only fixed left-3 top-3 z-[100] rounded-md bg-brand px-4 py-2 font-display text-sm font-semibold text-brand-ink;
+  }
+  /* Bandeau à rayures pour les données simulées : se lit sans couleur. */
+  .demo-stripes {
+    background-image: repeating-linear-gradient(-45deg, color-mix(in oklab, var(--sun) 16%, transparent) 0 8px, transparent 8px 16px);
+  }
+  .leaflet-container {
+    font-family: var(--font-sans);
+    background: var(--surface-2);
+  }
+  .leaflet-container a { color: var(--water-ink); }
+  .scrollbar-thin { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+}

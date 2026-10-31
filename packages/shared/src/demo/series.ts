@@ -91,13 +91,25 @@ function soilMoistureRaw(id: string, p: SoilProfile, tMs: number, anchor: number
   return decay - dry - 1.2 * diurnal(tMs, 14) + smooth(id, tMs, 0.9);
 }
 
-export function soilValue(id: string, metric: Metric, tMs: number, anchor: number): number | null {
+/** Correction appliquée à l'humidité du sol (ex. irrigation lancée pendant la démo). */
+let soilAdjust: ((deviceId: string, tMs: number) => number) | null = null;
+export function setSoilAdjust(fn: ((deviceId: string, tMs: number) => number) | null) {
+  soilAdjust = fn;
+}
+/** Alias de séries : un capteur remplacé reprend l'historique de l'ancien. */
+const ALIASES: Record<string, string> = {};
+export function setSeriesAlias(newId: string, oldId: string) {
+  ALIASES[newId] = ALIASES[oldId] ?? oldId;
+}
+
+export function soilValue(id0: string, metric: Metric, tMs: number, anchor: number): number | null {
+  const id = ALIASES[id0] ?? id0;
   const p = SOIL[id];
   if (!p) return null;
   if (p.offlineAtRel != null && tMs > anchor + p.offlineAtRel) return null;
   switch (metric) {
     case "soilMoisture": {
-      const v = p.target + soilMoistureRaw(id, p, tMs, anchor) - soilMoistureRaw(id, p, anchor, anchor);
+      const v = p.target + soilMoistureRaw(id, p, tMs, anchor) - soilMoistureRaw(id, p, anchor, anchor) + (soilAdjust?.(id0, tMs) ?? 0);
       return round1(Math.max(4, Math.min(62, v + jitter(id, tMs, 0.25))));
     }
     case "soilTemp":
@@ -165,7 +177,8 @@ function ramp(tMs: number, anchor: number, days: number): number {
   return 1 + Math.min(0.25, (x - 1) * 0.5); // après l'ancrage : la tendance continue doucement
 }
 
-export function storeValue(id: string, metric: Metric, tMs: number, anchor: number): number | null {
+export function storeValue(id0: string, metric: Metric, tMs: number, anchor: number): number | null {
+  const id = ALIASES[id0] ?? id0;
   const p = STORE[id];
   if (!p) return null;
   if (p.offlineAtRel != null && tMs > anchor + p.offlineAtRel) return null;
@@ -202,7 +215,7 @@ export function setBatteryTargets(map: Record<string, number | null>) {
   for (const [k, v] of Object.entries(map)) if (v != null) BATTERY_AT_ANCHOR[k] = v;
 }
 function batteryValue(id: string, tMs: number, anchor: number): number | null {
-  const b = BATTERY_AT_ANCHOR[id];
+  const b = BATTERY_AT_ANCHOR[id] ?? BATTERY_AT_ANCHOR[ALIASES[id] ?? ""];
   if (b == null) return null;
   // ≈ 0,15 point par jour
   return Math.max(0, Math.min(100, Math.round(b - ((tMs - anchor) / D) * 0.15)));
