@@ -16,3 +16,4 @@ apps/web/.overflow.mjs
 apps/web/.apismoke.mjs
 infra/.env
 infra/mosquitto/passwd
+site-demo-a-publier/
