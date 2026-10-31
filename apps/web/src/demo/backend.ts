@@ -65,6 +65,8 @@ import { getState, save, type DemoState } from "./store";
 
 export const DEMO_PASSWORD = "Demo-SaytuMbay-2026";
 export const DEMO_TOTP = "246810";
+/** Codes de secours de démonstration (identiques pour tous les comptes, usage unique). */
+export const DEMO_RECOVERY = Array.from({ length: 8 }, (_, i) => `${((4837 * (i + 3)) % 9000) + 1000}-${((7919 * (i + 5)) % 9000) + 1000}`);
 
 const MIN = 60_000;
 const D = 24 * 60 * MIN;
@@ -253,7 +255,12 @@ on("POST", "/auth/totp", async ({ s, body }) => {
   const b = parse(totpSchema, body);
   await wait(250);
   if (!s.pendingTotp || s.pendingTotp.challengeId !== b.challengeId) throw new ApiError(401, "defi_expire", "La vérification a expiré. Reprenez la connexion.");
-  if (b.code !== DEMO_TOTP) throw new ApiError(401, "code_invalide", "Code incorrect. Vérifiez l’heure de votre téléphone et réessayez.");
+  const recovery = b.code.includes("-");
+  if (recovery) {
+    const used = (s.usedRecovery ??= []);
+    if (!DEMO_RECOVERY.includes(b.code) || used.includes(b.code)) throw new ApiError(401, "code_invalide", "Code de secours inconnu ou déjà utilisé.");
+    used.push(b.code);
+  } else if (b.code !== DEMO_TOTP) throw new ApiError(401, "code_invalide", "Code incorrect. Vérifiez l’heure de votre téléphone et réessayez.");
   s.sessionUserId = s.pendingTotp.userId;
   s.pendingTotp = null;
   s.activeOrgId = null;
@@ -355,7 +362,8 @@ on("POST", "/me/totp/enable", ({ s, body }) => {
   if (code !== DEMO_TOTP) throw new ApiError(422, "validation", "Code incorrect.", { fields: { code: `Code incorrect (démo : ${DEMO_TOTP})` } });
   c.user.twoFactorEnabled = true;
   audit(s, "double authentification activée", c.user.email);
-  return { recoveryCodes: Array.from({ length: 8 }, (_, i) => `${(4837 * (i + 3)) % 9000 + 1000}-${(7919 * (i + 5)) % 9000 + 1000}`) };
+  s.usedRecovery = [];
+  return { recoveryCodes: [...DEMO_RECOVERY] };
 });
 
 on("GET", "/me/sessions", ({ s }) => {

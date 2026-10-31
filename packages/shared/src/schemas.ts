@@ -21,7 +21,8 @@ export const loginSchema = z.object({
 
 export const totpSchema = z.object({
   challengeId: z.string().min(16).max(128),
-  code: z.string().trim().regex(/^\d{6}$/, "Code à 6 chiffres"),
+  /** Code TOTP à 6 chiffres, ou code de secours à usage unique (1234-5678). */
+  code: z.string().trim().regex(/^(\d{6}|\d{4}-\d{4})$/, "Code à 6 chiffres, ou code de secours au format 1234-5678"),
 });
 
 export const forgotSchema = z.object({ email: z.string().trim().toLowerCase().email("Adresse e-mail invalide").max(254) });

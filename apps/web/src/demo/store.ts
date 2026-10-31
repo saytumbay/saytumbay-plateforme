@@ -20,6 +20,8 @@ export interface DemoState extends DemoSeed {
   /** Irrigations lancées pendant la démo. */
   runs: Array<{ parcelId: string; startedAt: number; durationMin: number; stoppedAt: number | null; by: string }>;
   loginFailures: Record<string, { count: number; until: number }>;
+  /** Codes de secours déjà utilisés (usage unique). */
+  usedRecovery?: string[];
 }
 
 let state: DemoState | null = null;

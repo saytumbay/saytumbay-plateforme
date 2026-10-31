@@ -170,6 +170,8 @@
   @keyframes sheet-up { from { transform: translateY(32px); opacity: 0; } to { transform: none; opacity: 1; } }
   @keyframes sheet-down { from { transform: none; opacity: 1; } to { transform: translateY(32px); opacity: 0; } }
   @keyframes pop-in { from { transform: scale(0.97); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes plan-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes plan-pulse { 0% { transform: scale(1); opacity: 0.9; } 70% { transform: scale(2.6); opacity: 0; } 100% { transform: scale(2.6); opacity: 0; } }
   @keyframes pulse-soft {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.45; }
@@ -243,3 +245,7 @@
   .print-only { display: block !important; }
 }
 .print-only { display: none; }
+
+/* Point d'attention sur une parcelle sèche (plan dessiné). Désactivé si l'utilisateur réduit les animations. */
+.plan-pulse { animation: plan-pulse 2.2s var(--ease-out) infinite; }
+@media (prefers-reduced-motion: reduce) { .plan-pulse { animation: none; opacity: 0.6; } }

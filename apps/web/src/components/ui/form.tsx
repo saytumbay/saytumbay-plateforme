@@ -173,7 +173,7 @@ export function Checkbox({ checked, onCheckedChange, label, id: idProp, invalid 
         checked={checked}
         onCheckedChange={(v) => onCheckedChange(v === true)}
         aria-invalid={invalid || undefined}
-        className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border-2 border-line-strong bg-surface data-[state=checked]:border-brand data-[state=checked]:bg-brand aria-[invalid=true]:border-danger"
+        className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-[5px] border-2 border-line-strong bg-surface data-[state=checked]:border-brand data-[state=checked]:bg-brand aria-[invalid=true]:border-danger"
       >
         <RCheckbox.Indicator>
           <Check className="size-3.5 text-brand-ink" strokeWidth={3} aria-hidden />
