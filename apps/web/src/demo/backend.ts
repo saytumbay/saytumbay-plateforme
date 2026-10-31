@@ -59,7 +59,7 @@ import {
   WATER_BY_MONTH,
   PARCEL_COLORS,
 } from "@saytumbay/shared/demo";
-import type { ZodTypeAny, z } from "zod";
+import type { z } from "zod";
 import { ApiError } from "../lib/api";
 import { getState, save, type DemoState } from "./store";
 
@@ -76,7 +76,7 @@ const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const rid = (p: string) => `${p}-${Math.random().toString(36).slice(2, 10)}`;
 const nowIso = () => new Date().toISOString();
 
-function parse<S extends ZodTypeAny>(schema: S, body: unknown): z.infer<S> {
+function parse<S extends z.ZodType>(schema: S, body: unknown): z.infer<S> {
   const r = schema.safeParse(body);
   if (!r.success) {
     const fields: Record<string, string> = {};

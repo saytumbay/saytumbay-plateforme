@@ -37,7 +37,7 @@ export const acceptInviteSchema = z
     lastName: z.string().trim().min(1).max(60),
     password: passwordPolicy,
     confirm: z.string(),
-    acceptTerms: z.literal(true, { errorMap: () => ({ message: "Acceptez les conditions pour continuer" }) }),
+    acceptTerms: z.literal(true, { error: "Acceptez les conditions pour continuer" }),
   })
   .refine((v) => v.password === v.confirm, { message: "Les deux mots de passe ne correspondent pas", path: ["confirm"] });
 
@@ -65,8 +65,8 @@ export const parcelSchema = z.object({
   variety: z.string().trim().max(60).optional(),
   areaHa: z.number().positive().max(10000),
   soil: z.enum(["sableux", "sablo-argileux", "argileux", "limoneux"]),
-  plantedAt: z.string().date(),
-  harvestAt: z.string().date(),
+  plantedAt: z.iso.date(),
+  harvestAt: z.iso.date(),
   responsibleId: z.string().max(40),
   moisture: moistureRangeSchema,
   polygon: z.array(z.tuple([z.number().min(-90).max(90), z.number().min(-180).max(180)])).min(3).max(200).optional(),
@@ -118,7 +118,7 @@ export const lotSchema = z.object({
   variety: z.string().trim().min(1).max(60),
   quantityT: z.number().positive().max(5000),
   zoneIds: z.array(z.string().max(20)).min(1).max(20),
-  enteredAt: z.string().date(),
+  enteredAt: z.iso.date(),
   maxDays: z.number().int().min(7).max(400),
   origin: z.string().trim().max(80).default(""),
 });
@@ -126,7 +126,7 @@ export const lotSchema = z.object({
 export const taskSchema = z.object({
   title: z.string().trim().min(3, "Décrivez la tâche").max(140),
   assigneeId: z.string().max(40).nullable(),
-  due: z.string().date(),
+  due: z.iso.date(),
   module: z.enum(["agritech", "onion"]),
   link: z.object({ type: z.enum(["parcelle", "capteur", "entrepot", "lot"]), id: z.string().max(40) }).nullable().optional(),
 });
@@ -158,7 +158,7 @@ export const contactSchema = z.object({
   phone: phoneSn,
   profile: z.enum(["producteur", "cooperative", "commercant", "partenaire", "autre"]),
   message: z.string().trim().min(10, "Quelques mots de plus, s’il vous plaît").max(1500),
-  consent: z.literal(true, { errorMap: () => ({ message: "Votre accord est nécessaire pour être recontacté" }) }),
+  consent: z.literal(true, { error: "Votre accord est nécessaire pour être recontacté" }),
   /** Champ piège anti-robot : doit rester vide. */
   website: z.string().max(0).optional().default(""),
 });
