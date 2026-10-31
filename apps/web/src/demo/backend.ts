@@ -221,7 +221,7 @@ const on = (method: string, path: string, h: Handler) => routes.push([method, pa
 
 /* Authentification */
 
-on("GET", "/auth/session", ({ s }) => sessionOf(s));
+on("GET", "/auth/session", ({ s }) => (s.sessionUserId ? sessionOf(s) : null));
 
 on("POST", "/auth/login", async ({ s, body }) => {
   const b = parse(loginSchema, body);

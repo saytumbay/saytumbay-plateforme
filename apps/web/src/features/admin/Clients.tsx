@@ -9,7 +9,8 @@ import { useCan } from "@/lib/auth";
 import { PageHeader } from "@/components/ui/page";
 import { Card } from "@/components/ui/card";
 import { QueryView } from "@/components/ui/feedback";
-import { DataTable, Kpi } from "@/components/ui/data";
+import { Kpi } from "@/components/ui/data";
+import { DataTable } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
 export const ORG_TYPE = { cooperative: "Coopérative", gie: "GIE", entreprise: "Entreprise", exploitation: "Exploitation" } as const;

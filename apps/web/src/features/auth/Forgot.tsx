@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { z } from "zod";
-import { ArrowLeft, MailCheck } from "lucide-react";
+import { ArrowLeft, MessageSquareText } from "lucide-react";
 import { forgotSchema } from "@saytumbay/shared";
 import { api, IS_DEMO } from "@/lib/api";
 import { usePageTitle } from "@/components/ui/page";
@@ -12,7 +12,7 @@ import { Button, ButtonLink } from "@/components/ui/button";
 import { Field, FormError, Input } from "@/components/ui/form";
 import { AuthLayout, AuthTitle } from "./AuthLayout";
 
-/** Jeton de démonstration (le vrai jeton arrive par e-mail, 32 octets aléatoires, valable 30 minutes). */
+/** Jeton de démonstration (le vrai jeton arrive par SMS, 32 octets aléatoires, valable 30 minutes). */
 export const DEMO_RESET_TOKEN = "demo-reinitialisation-0000000000000000";
 
 export default function Forgot() {
@@ -28,14 +28,14 @@ export default function Forgot() {
       {sentTo ? (
         <div role="status">
           <div className="mb-6 flex size-12 items-center justify-center rounded-xl bg-brand-soft text-brand-strong dark:text-brand">
-            <MailCheck className="size-6" aria-hidden />
+            <MessageSquareText className="size-6" aria-hidden />
           </div>
-          <AuthTitle title="Vérifiez vos e-mails">
-            Si un compte existe pour <strong className="font-semibold text-ink">{sentTo}</strong>, un lien pour choisir un nouveau mot de passe vient d’être envoyé. Il reste valable 30 minutes.
+          <AuthTitle title="Vérifiez vos SMS">
+            Si un compte existe pour <strong className="font-semibold text-ink">{sentTo}</strong>, un lien pour choisir un nouveau mot de passe vient d’être envoyé par SMS au numéro du compte. Il reste valable 30 minutes.
           </AuthTitle>
           <ul className="flex flex-col gap-2 text-[14px] leading-relaxed text-ink-2">
-            <li>Rien reçu ? Regardez dans les indésirables, puis réessayez dans quelques minutes.</li>
-            <li>Plus accès à cette adresse ? Le responsable de votre organisation peut vous renvoyer une invitation.</li>
+            <li>Rien reçu ? Vérifiez que votre téléphone capte, puis réessayez dans quelques minutes.</li>
+            <li>Nouveau numéro ? Le responsable de votre organisation peut le corriger et vous renvoyer une invitation.</li>
           </ul>
           <div className="mt-8 flex flex-wrap gap-2">
             {IS_DEMO && <ButtonLink to={`/reinitialiser?jeton=${DEMO_RESET_TOKEN}`}>Ouvrir le lien de démonstration</ButtonLink>}
@@ -46,7 +46,7 @@ export default function Forgot() {
         </div>
       ) : (
         <>
-          <AuthTitle title="Mot de passe oublié">Indiquez l’adresse e-mail de votre compte. Nous vous envoyons un lien pour en choisir un nouveau.</AuthTitle>
+          <AuthTitle title="Mot de passe oublié">Indiquez l’adresse e-mail de votre compte. Nous envoyons un lien par SMS au numéro associé pour choisir un nouveau mot de passe.</AuthTitle>
           <form noValidate className="flex flex-col gap-4" onSubmit={form.handleSubmit((v) => send.mutate(v))}>
             <FormError>{send.error?.message}</FormError>
             <Field label="Adresse e-mail" error={form.formState.errors.email?.message}>

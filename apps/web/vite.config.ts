@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => {
         manifest: {
           name: "SaytuMbay",
           short_name: "SaytuMbay",
-          description: "Surveiller ses parcelles et ses stocks, être prévenu à temps.",
+          description: "Capteurs de sol et de stockage, alertes SMS et tableau de bord.",
           lang: "fr",
           start_url: "/app",
           scope: "/",
@@ -36,9 +36,16 @@ export default defineConfig(({ mode }) => {
         workbox: {
           navigateFallback: "/index.html",
           navigateFallbackDenylist: [/^\/api\//],
-          globPatterns: ["**/*.{js,css,html,svg,png,woff2,webmanifest}"],
-          maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+          // Pré-cache limité à la coquille (~200 Ko compressés) : sur une connexion mobile, on ne télécharge pas
+          // d'avance les graphiques, la carte ou la console. Les autres morceaux sont mis en cache à la première visite.
+          globPatterns: ["index.html", "assets/index-*.{js,css}", "assets/react-*.js", "assets/ui-*.js", "assets/*.woff2", "favicon.svg", "icons/icon-192.png"],
+          maximumFileSizeToCacheInBytes: 1024 * 1024,
           runtimeCaching: [
+            {
+              urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith("/assets/"),
+              handler: "CacheFirst",
+              options: { cacheName: "morceaux-appli", expiration: { maxEntries: 150, maxAgeSeconds: 60 * 24 * 3600 } },
+            },
             {
               urlPattern: ({ url }) => url.hostname.endsWith("arcgisonline.com") || url.hostname.endsWith("tile.openstreetmap.org"),
               handler: "CacheFirst",
@@ -64,11 +71,13 @@ export default defineConfig(({ mode }) => {
       chunkSizeWarningLimit: 700,
       rollupOptions: {
         output: {
-          manualChunks: {
-            react: ["react", "react-dom", "react-router"],
-            charts: ["recharts"],
-            map: ["leaflet", "react-leaflet"],
-            ui: ["radix-ui", "cmdk", "sonner", "motion"],
+          manualChunks(id) {
+            if (!id.includes("node_modules")) return undefined;
+            if (/node_modules\/(react|react-dom|scheduler|react-router)\//.test(id)) return "react";
+            if (/node_modules\/(recharts|d3-|victory-vendor|decimal\.js|eventemitter3|immer|reselect|@reduxjs|react-redux)/.test(id)) return "charts";
+            if (/node_modules\/(leaflet|react-leaflet|@react-leaflet)\//.test(id)) return "map";
+            if (/node_modules\/(radix-ui|@radix-ui|cmdk|sonner|@floating-ui|react-remove-scroll|aria-hidden|use-sidecar|use-callback-ref|tslib)/.test(id)) return "ui";
+            return undefined;
           },
         },
       },

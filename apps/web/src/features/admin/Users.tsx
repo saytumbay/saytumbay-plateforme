@@ -7,7 +7,8 @@ import { api } from "@/lib/api";
 import { PageHeader } from "@/components/ui/page";
 import { Card } from "@/components/ui/card";
 import { QueryView, EmptyState } from "@/components/ui/feedback";
-import { Avatar, DataTable, FilterChips } from "@/components/ui/data";
+import { Avatar, FilterChips } from "@/components/ui/data";
+import { DataTable } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/form";
 

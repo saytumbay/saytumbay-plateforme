@@ -46,7 +46,8 @@ export default function OnionReports() {
             <Card>
               <CardHeader title="Par magasin" />
               <CardBody className="pt-2">
-                <table className="w-full text-sm">
+                <div className="-mx-5 overflow-x-auto px-5">
+                <table className="w-full min-w-[520px] text-sm">
                   <caption className="sr-only">Synthèse par magasin</caption>
                   <thead>
                     <tr className="border-b border-line text-left font-display text-[12.5px] text-ink-3">
@@ -69,6 +70,7 @@ export default function OnionReports() {
                     ))}
                   </tbody>
                 </table>
+                </div>
               </CardBody>
             </Card>
             <Callout tone="info" title="Mesurer les pertes évitées, honnêtement">

@@ -8,7 +8,7 @@ import { LIVE_MS } from "@/lib/hooks";
 import { PageHeader } from "@/components/ui/page";
 import { Card } from "@/components/ui/card";
 import { QueryView } from "@/components/ui/feedback";
-import { DataTable } from "@/components/ui/data";
+import { DataTable } from "@/components/ui/table";
 import { RiskBadge } from "@/components/ui/badge";
 import { PRODUCT_LABEL, STORAGE_LABEL, ZoneStrip } from "./shared";
 

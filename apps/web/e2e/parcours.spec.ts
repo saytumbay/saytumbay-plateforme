@@ -1,0 +1,105 @@
+import { axe, demoLogin, expect, noHorizontalScroll, test } from "./fixtures";
+
+test.describe("site public", () => {
+  test("accueil : contenu, accessibilité, pas d'erreur ni de débordement", async ({ page, errors }) => {
+    await page.goto("/");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("parcelle a soif");
+    await expect(page.getByRole("img", { name: /Plan des six parcelles/ })).toBeVisible();
+    expect(await noHorizontalScroll(page)).toBe(true);
+    expect(await axe(page)).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+
+  test("formulaire de contact : validation puis envoi", async ({ page }) => {
+    await page.goto("/#contact");
+    await page.getByRole("button", { name: "Envoyer la demande" }).click();
+    await expect(page.getByText("Indiquez votre nom")).toBeVisible();
+    await page.getByLabel("Nom et prénom").fill("Awa Test");
+    await page.getByLabel("Téléphone ou WhatsApp").fill("77 123 45 67");
+    await page.getByLabel("Votre besoin").fill("Trois parcelles d’oignon à Mboro, surveillance de l’humidité.");
+    await page.getByRole("checkbox", { name: /J’accepte que SaytuMbay/ }).click();
+    await page.getByRole("button", { name: "Envoyer la demande" }).click();
+    await expect(page.getByRole("status")).toContainText("votre message est bien arrivé");
+  });
+
+  test("pages légales accessibles", async ({ page }) => {
+    for (const path of ["/confidentialite", "/securite", "/cookies"]) {
+      await page.goto(path);
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      expect(await axe(page), path).toEqual([]);
+    }
+  });
+});
+
+test.describe("connexion", () => {
+  test("mauvais mot de passe : message clair, pas de fuite d'information", async ({ page }) => {
+    await page.goto("/connexion");
+    await page.getByLabel("Adresse e-mail").fill("awa.ndiaye@demo.saytumbay.com");
+    await page.getByLabel("Mot de passe", { exact: true }).fill("mauvais");
+    await page.getByRole("button", { name: "Se connecter" }).click();
+    await expect(page.getByRole("alert")).toContainText("E-mail ou mot de passe incorrect");
+  });
+
+  test("console : double authentification exigée", async ({ page }) => {
+    await page.goto("/connexion");
+    await page.getByLabel("Adresse e-mail").fill("mame.sow@demo.saytumbay.com");
+    await page.getByLabel("Mot de passe", { exact: true }).fill("Demo-SaytuMbay-2026");
+    await page.getByRole("button", { name: "Se connecter" }).click();
+    await expect(page.getByRole("heading", { name: "Vérification en deux étapes" })).toBeVisible();
+    await page.getByLabel("Code de vérification").fill("246810");
+    await page.waitForURL(/\/admin/);
+    await expect(page.getByRole("heading", { name: "Clients et parc" })).toBeVisible();
+  });
+});
+
+test.describe("espace client", () => {
+  test("tableau de bord : alertes, parcelles, accessibilité", async ({ page, errors }) => {
+    await demoLogin(page, "Responsable de coopérative");
+    await expect(page.getByRole("heading", { name: /Bonjour Awa/ })).toBeVisible();
+    await expect(page.getByText("Parcelle B est sèche").first()).toBeVisible();
+    expect(await noHorizontalScroll(page)).toBe(true);
+    expect(await axe(page)).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+
+  test("lancer puis arrêter une irrigation", async ({ page }) => {
+    await demoLogin(page, "Responsable de coopérative");
+    await page.goto("/app/irrigation");
+    await page.getByRole("button", { name: /^Arroser/ }).first().click();
+    const sheet = page.getByRole("dialog");
+    await sheet.getByRole("button", { name: /^Arroser \d+ min/ }).click();
+    await expect(sheet).toBeHidden();
+    await expect(page.getByRole("button", { name: /^Arrêter/ }).first()).toBeVisible();
+    await page.getByRole("button", { name: /^Arrêter/ }).first().click();
+    await expect(page.getByText("Irrigation arrêtée. La vanne est fermée.")).toBeVisible();
+  });
+
+  test("pages principales sans erreur ni débordement", async ({ page, errors }) => {
+    await demoLogin(page, "Responsable de coopérative");
+    for (const path of ["/app/parcelles", "/app/parcelles/p-b", "/app/irrigation", "/app/capteurs", "/app/alertes", "/app/taches", "/app/membres", "/app/rapports", "/app/onion", "/app/onion/entrepots/wh-mboro", "/app/onion/lots", "/app/onion/rapports", "/app/parametres"]) {
+      await page.goto(path);
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      expect(await noHorizontalScroll(page), path).toBe(true);
+    }
+    expect(errors).toEqual([]);
+  });
+
+  test("un technicien ne voit pas les actions réservées", async ({ page }) => {
+    await demoLogin(page, "Technicien terrain");
+    await page.goto("/app/membres");
+    await expect(page.getByRole("button", { name: /Inviter/ })).toHaveCount(0);
+  });
+});
+
+test.describe("console", () => {
+  test("pages de la console sans erreur ni débordement", async ({ page, errors }) => {
+    await demoLogin(page, "Équipe SaytuMbay");
+    for (const path of ["/admin/clients", "/admin/clients/org-thies", "/admin/parc", "/admin/facturation", "/admin/couts", "/admin/utilisateurs", "/admin/journal"]) {
+      await page.goto(path);
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      expect(await noHorizontalScroll(page), path).toBe(true);
+    }
+    expect(await axe(page)).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+});

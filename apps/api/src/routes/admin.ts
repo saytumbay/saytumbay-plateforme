@@ -243,8 +243,8 @@ export function adminRoutes(app: FastifyInstance, ctx: AppContext) {
     const subs = (await r.subscriptions.listAll()).map((x) => x.data);
     const paying = subs.filter((s) => s.plan !== "essai");
     const sensorsPaying = paying.reduce((a, s) => a + s.sensors, 0);
-    // Coût direct par capteur : matériel amorti + SMS + terrain, ramené au nombre de capteurs installés.
-    const direct = lines.filter((l) => l.category === "materiel" || l.category === "sms" || l.category === "terrain").reduce((a, l) => a + l.amount, 0);
+    // Coût direct par capteur payant : capteurs amortis + SMS. Passerelles, serveur, 4G et terrain sont des coûts fixes.
+    const direct = lines.filter((l) => (l.category === "materiel" && /capteur/i.test(l.label)) || l.category === "sms").reduce((a, l) => a + l.amount, 0);
     return { lines, finance: await finance(), sensorsInstalled: devs.length, sensorsPaying, fixedRevenue: paying.reduce((a, s) => a + s.baseFcfa, 0), variablePerSensor: devs.length ? Math.round(direct / Math.max(1, sensorsPaying)) : 0 };
   });
 

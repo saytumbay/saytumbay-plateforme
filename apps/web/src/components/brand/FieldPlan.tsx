@@ -78,7 +78,7 @@ export function FieldPlan({ parcels, palette = "theme", selected, onSelect, clas
   const ink = palette === "night" ? "#eaf3ee" : "var(--ink)";
   const sub = palette === "night" ? "#a9bdb2" : "var(--ink-3)";
   return (
-    <svg viewBox={VIEWBOX} className={cn("block h-auto w-full overflow-visible", className)} role="img" aria-label={title}>
+    <svg viewBox={VIEWBOX} className={cn("block h-auto w-full overflow-visible", className)} role={onSelect ? "group" : "img"} aria-label={onSelect ? title : `${title}. ${parcels.map((p) => `Parcelle ${p.code}, ${p.crop.toLowerCase()} : ${p.value == null ? "capteur hors ligne" : `${p.value} %`}`).join(" ; ")}.`}>
       <defs>
         {parcels.map((p) => {
           const g = GEOM[p.code];
@@ -114,7 +114,7 @@ export function FieldPlan({ parcels, palette = "theme", selected, onSelect, clas
                   },
                   className: "cursor-pointer outline-none [&:focus-visible>polygon:first-of-type]:stroke-[3]",
                 }
-              : { "aria-label": label })}
+              : {})}
             style={animate ? { animation: `plan-in 700ms var(--ease-out) ${120 + i * 90}ms both` } : undefined}
           >
             <polygon points={g.points} fill={c} fillOpacity={off ? 0.06 : isSel ? 0.34 : 0.2} stroke={c} strokeWidth={isSel ? 2.6 : 1.4} strokeDasharray={off ? "4 3" : undefined} strokeLinejoin="round" style={{ transition: "fill 400ms, stroke 400ms, fill-opacity 200ms, stroke-width 200ms" }} />

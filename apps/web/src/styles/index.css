@@ -163,12 +163,14 @@
   --animate-sheet-up: sheet-up 260ms var(--ease-out);
   --animate-sheet-down: sheet-down 180ms ease-in;
   --animate-pop-in: pop-in 180ms var(--ease-out);
+  --animate-step-in: step-in 240ms var(--ease-out);
   @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
   @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
   @keyframes sheet-in { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
   @keyframes sheet-out { from { transform: none; opacity: 1; } to { transform: translateX(24px); opacity: 0; } }
   @keyframes sheet-up { from { transform: translateY(32px); opacity: 0; } to { transform: none; opacity: 1; } }
   @keyframes sheet-down { from { transform: none; opacity: 1; } to { transform: translateY(32px); opacity: 0; } }
+  @keyframes step-in { from { transform: translateX(16px); opacity: 0; } to { transform: none; opacity: 1; } }
   @keyframes pop-in { from { transform: scale(0.97); opacity: 0; } to { transform: none; opacity: 1; } }
   @keyframes acc-down { from { height: 0; opacity: 0; } to { height: var(--radix-accordion-content-height); opacity: 1; } }
   @keyframes acc-up { from { height: var(--radix-accordion-content-height); opacity: 1; } to { height: 0; opacity: 0; } }
@@ -269,3 +271,14 @@
 .prose-sb th, .prose-sb td { text-align: left; vertical-align: top; padding: 0.6em 0.75em 0.6em 0; border-bottom: 1px solid var(--line); }
 .prose-sb th { color: var(--ink); font-weight: 600; font-family: var(--font-display); font-size: 13.5px; }
 .prose-sb code { font-size: 0.9em; background: var(--surface-2); border-radius: 4px; padding: 0.1em 0.35em; }
+
+/*
+  Une grille sans colonnes déclarées garde une seule colonne qui ne s'élargit pas à son contenu
+  (sinon un tableau large ou un texte tronqué élargit toute la page sur téléphone).
+  Couche « base » : toute classe grid-cols-* l'emporte.
+*/
+@layer base {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  /* Les textes « sr-only » (position absolue) d'un tableau défilant restent dans son cadre au lieu d'élargir la page. */
+  .overflow-x-auto, .overflow-auto { position: relative; }
+}

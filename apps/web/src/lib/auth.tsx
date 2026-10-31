@@ -26,7 +26,12 @@ export function useSession() {
 export function useSetSession() {
   const qc = useQueryClient();
   return (s: SessionUser | null) => {
-    if (s === null) qc.clear();
+    // Changement de personne sur l'appareil : on vide aussi les réponses de l'API gardées hors ligne,
+    // pour qu'un compte ne voie jamais les données mises en cache par un autre.
+    if (s === null || s.user.id !== qc.getQueryData<SessionUser | null>(SESSION_KEY)?.user.id) {
+      if (s === null) qc.clear();
+      if (typeof caches !== "undefined") void caches.delete("api-lecture").catch(() => undefined);
+    }
     qc.setQueryData(SESSION_KEY, s);
   };
 }

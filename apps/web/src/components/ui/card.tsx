@@ -15,7 +15,7 @@ export function CardHeader({ title, subtitle, actions, className, id, level = 2 
         </H>
         {subtitle && <p className="mt-1 text-sm text-ink-3">{subtitle}</p>}
       </div>
-      {actions && <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div>}
+      {actions && <div className="flex max-w-full flex-wrap items-center gap-2">{actions}</div>}
     </header>
   );
 }

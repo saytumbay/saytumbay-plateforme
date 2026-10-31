@@ -21,7 +21,8 @@ export function authRoutes(app: FastifyInstance, ctx: AppContext) {
   const { db } = ctx;
   const strict = { config: { rateLimit: { max: 10, timeWindow: "1 minute" } } };
 
-  app.get("/auth/session", async (req) => sessionUser(ctx, req));
+  /** Visiteur anonyme : `null` (200) plutôt qu'une erreur, pour ne pas polluer la console du site public. */
+  app.get("/auth/session", async (req) => (req.user ? sessionUser(ctx, req) : null));
 
   app.post("/auth/login", strict, async (req, reply) => {
     const b = parse(loginSchema, req.body);

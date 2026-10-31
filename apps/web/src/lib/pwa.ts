@@ -13,7 +13,8 @@ export function registerServiceWorker() {
           });
         },
         onOfflineReady() {
-          toast.success("SaytuMbay est prêt à fonctionner hors ligne.");
+          // Utile à un membre connecté, sans intérêt pour un visiteur du site public.
+          if (/^\/(app|admin)/.test(location.pathname)) toast.success("SaytuMbay est prêt à fonctionner hors ligne.");
         },
       });
     })

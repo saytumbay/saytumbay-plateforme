@@ -13,3 +13,4 @@ apps/api/data/
 apps/web/.shots.mjs
 apps/web/tile.png
 apps/web/.overflow.mjs
+apps/web/.apismoke.mjs

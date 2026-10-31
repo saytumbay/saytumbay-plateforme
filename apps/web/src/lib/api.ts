@@ -120,7 +120,7 @@ const del = <T>(p: string) => request<T>("DELETE", p);
 
 export const api = {
   auth: {
-    session: () => get<SessionUser>("/auth/session"),
+    session: () => get<SessionUser | null>("/auth/session"),
     login: (b: { email: string; password: string; remember?: boolean }) => post<LoginResult>("/auth/login", b),
     totp: (b: { challengeId: string; code: string }) => post<SessionUser>("/auth/totp", b),
     logout: () => post<void>("/auth/logout"),

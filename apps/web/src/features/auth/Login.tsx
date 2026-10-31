@@ -3,7 +3,6 @@ import { Link, Navigate, useNavigate, useSearchParams } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { z } from "zod";
 import { ArrowLeft, Building2, HardHat, KeyRound, ShieldCheck, Smartphone } from "lucide-react";
 import { loginSchema, type SessionUser } from "@saytumbay/shared";
@@ -24,27 +23,24 @@ export default function Login() {
   const navigate = useNavigate();
   const setSession = useSetSession();
   const [challenge, setChallenge] = useState<{ id: string; email: string } | null>(null);
-  const reduce = useReducedMotion();
   const done = (s: SessionUser) => {
     setSession(s);
     navigate(safeNext(params.get("suite")) ?? homeFor(s), { replace: true });
   };
   if (isPending) return <Splash />;
   if (session && !challenge) return <Navigate to={safeNext(params.get("suite")) ?? homeFor(session)} replace />;
-  const slide = reduce ? {} : { initial: { opacity: 0, x: 16 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -16 }, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] as const } };
   return (
     <AuthLayout>
-      <AnimatePresence mode="wait" initial={false}>
-        {challenge ? (
-          <motion.div key="totp" {...slide}>
-            <TotpStep challenge={challenge} onBack={() => setChallenge(null)} onDone={done} />
-          </motion.div>
-        ) : (
-          <motion.div key="login" {...slide}>
-            <CredentialsStep onTotp={setChallenge} onDone={done} notice={params.get("motif")} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Changement d'étape : courte entrée latérale en CSS (désactivée si l'utilisateur réduit les animations). */}
+      {challenge ? (
+        <div key="totp" className="animate-step-in">
+          <TotpStep challenge={challenge} onBack={() => setChallenge(null)} onDone={done} />
+        </div>
+      ) : (
+        <div key="login" className="animate-step-in">
+          <CredentialsStep onTotp={setChallenge} onDone={done} notice={params.get("motif")} />
+        </div>
+      )}
     </AuthLayout>
   );
 }
