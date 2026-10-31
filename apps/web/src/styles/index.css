@@ -170,8 +170,8 @@
   @keyframes sheet-up { from { transform: translateY(32px); opacity: 0; } to { transform: none; opacity: 1; } }
   @keyframes sheet-down { from { transform: none; opacity: 1; } to { transform: translateY(32px); opacity: 0; } }
   @keyframes pop-in { from { transform: scale(0.97); opacity: 0; } to { transform: none; opacity: 1; } }
-  @keyframes plan-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  @keyframes plan-pulse { 0% { transform: scale(1); opacity: 0.9; } 70% { transform: scale(2.6); opacity: 0; } 100% { transform: scale(2.6); opacity: 0; } }
+  @keyframes acc-down { from { height: 0; opacity: 0; } to { height: var(--radix-accordion-content-height); opacity: 1; } }
+  @keyframes acc-up { from { height: var(--radix-accordion-content-height); opacity: 1; } to { height: 0; opacity: 0; } }
   @keyframes pulse-soft {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.45; }
@@ -246,6 +246,26 @@
 }
 .print-only { display: none; }
 
+/* Animations référencées hors utilitaires Tailwind (styles en ligne) : déclarées en CSS global pour ne pas être élaguées. */
+@keyframes plan-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes plan-pulse { 0% { transform: scale(1); opacity: 0.9; } 70% { transform: scale(2.6); opacity: 0; } 100% { transform: scale(2.6); opacity: 0; } }
+
 /* Point d'attention sur une parcelle sèche (plan dessiné). Désactivé si l'utilisateur réduit les animations. */
 .plan-pulse { animation: plan-pulse 2.2s var(--ease-out) infinite; }
 @media (prefers-reduced-motion: reduce) { .plan-pulse { animation: none; opacity: 0.6; } }
+
+/* Texte courant des pages d'information (sans greffon typographique). */
+.prose-sb { color: var(--ink-2); font-size: 16px; line-height: 1.7; }
+.prose-sb > * + * { margin-top: 0.9em; }
+.prose-sb strong { color: var(--ink); font-weight: 600; }
+.prose-sb a { color: var(--brand); text-decoration: underline; text-underline-offset: 2px; }
+.dark .prose-sb a { color: var(--brand); }
+.prose-sb ul { list-style: disc; padding-left: 1.25em; }
+.prose-sb ol { list-style: decimal; padding-left: 1.4em; }
+.prose-sb li + li { margin-top: 0.35em; }
+.prose-sb li::marker { color: var(--ink-3); }
+.prose-sb h3 { color: var(--ink); font-family: var(--font-display); font-weight: 600; font-size: 17px; margin-top: 1.4em; }
+.prose-sb table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.prose-sb th, .prose-sb td { text-align: left; vertical-align: top; padding: 0.6em 0.75em 0.6em 0; border-bottom: 1px solid var(--line); }
+.prose-sb th { color: var(--ink); font-weight: 600; font-family: var(--font-display); font-size: 13.5px; }
+.prose-sb code { font-size: 0.9em; background: var(--surface-2); border-radius: 4px; padding: 0.1em 0.35em; }

@@ -3,9 +3,10 @@ import { Link } from "react-router";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/cn";
 
-export function usePageTitle(title: string) {
+/** Titre de l'onglet. `null` : page d'accueil (titre complet du site). */
+export function usePageTitle(title: string | null) {
   useEffect(() => {
-    document.title = `${title} · SaytuMbay`;
+    document.title = title ? `${title} · SaytuMbay` : "SaytuMbay · Capteurs et alertes SMS pour parcelles et magasins de stockage";
   }, [title]);
 }
 

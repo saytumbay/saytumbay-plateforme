@@ -3,7 +3,7 @@
  * de l'humidité du sol. Même géométrie que la carte de l'espace client (voir packages/shared/src/demo/seed.ts),
  * en mètres locaux, sans dépendre du module de démonstration.
  */
-import { useId, useMemo } from "react";
+import { useId } from "react";
 import { cn } from "@/lib/cn";
 
 export type PlanState = "sec" | "optimal" | "humide" | "indisponible";
@@ -49,6 +49,26 @@ function localPlan(): Record<string, { pts: Array<[number, number]>; box: [numbe
 
 const PLAN = localPlan();
 
+/** Géométrie pré-calculée une fois (le plan est redessiné à chaque image quand le héros anime l'humidité). */
+const GEOM = Object.fromEntries(
+  Object.entries(PLAN).map(([code, g], i) => {
+    const pts = g.pts.map(rot);
+    const [x0, y0, x1, y1] = g.box;
+    const furrows: string[] = [];
+    if (i % 2 === 1) for (let x = x0; x <= x1; x += 5) furrows.push(`M${rot([x, y0]).join(",")}L${rot([x, y1]).join(",")}`);
+    else for (let y = y0; y <= y1; y += 5) furrows.push(`M${rot([x0, y]).join(",")}L${rot([x1, y]).join(",")}`);
+    return [code, { points: pts.map((q) => q.map((v) => v.toFixed(2)).join(",")).join(" "), furrows: furrows.join(""), cx: pts.reduce((a, q) => a + q[0], 0) / pts.length, cy: pts.reduce((a, q) => a + q[1], 0) / pts.length }];
+  }),
+) as Record<string, { points: string; furrows: string; cx: number; cy: number }>;
+
+const VIEWBOX = (() => {
+  const all = Object.values(PLAN).flatMap((p) => p.pts.map(rot));
+  const xs = all.map((p) => p[0]);
+  const ys = all.map((p) => p[1]);
+  const pad = 10;
+  return `${Math.min(...xs) - pad} ${Math.min(...ys) - pad} ${Math.max(...xs) - Math.min(...xs) + pad * 2} ${Math.max(...ys) - Math.min(...ys) + pad * 2}`;
+})();
+
 const NIGHT: Record<PlanState, string> = { sec: "#f0b642", optimal: "#2bd47d", humide: "#4fd8ef", indisponible: "#8c968f" };
 const THEME: Record<PlanState, string> = { sec: "var(--sun)", optimal: "var(--brand)", humide: "var(--water)", indisponible: "var(--offline)" };
 
@@ -57,39 +77,25 @@ export function FieldPlan({ parcels, palette = "theme", selected, onSelect, clas
   const colors = palette === "night" ? NIGHT : THEME;
   const ink = palette === "night" ? "#eaf3ee" : "var(--ink)";
   const sub = palette === "night" ? "#a9bdb2" : "var(--ink-3)";
-  const geo = useMemo(() => {
-    const all = Object.values(PLAN).flatMap((p) => p.pts.map(rot));
-    const xs = all.map((p) => p[0]);
-    const ys = all.map((p) => p[1]);
-    const pad = 10;
-    return { vb: `${Math.min(...xs) - pad} ${Math.min(...ys) - pad} ${Math.max(...xs) - Math.min(...xs) + pad * 2} ${Math.max(...ys) - Math.min(...ys) + pad * 2}` };
-  }, []);
   return (
-    <svg viewBox={geo.vb} className={cn("block h-auto w-full overflow-visible", className)} role="img" aria-label={title}>
+    <svg viewBox={VIEWBOX} className={cn("block h-auto w-full overflow-visible", className)} role="img" aria-label={title}>
       <defs>
         {parcels.map((p) => {
-          const g = PLAN[p.code];
+          const g = GEOM[p.code];
           if (!g) return null;
           return (
             <clipPath key={p.code} id={`${uid}-c-${p.code}`}>
-              <polygon points={g.pts.map(rot).map((q) => q.join(",")).join(" ")} />
+              <polygon points={g.points} />
             </clipPath>
           );
         })}
       </defs>
       {parcels.map((p, i) => {
-        const g = PLAN[p.code];
+        const g = GEOM[p.code];
         if (!g) return null;
-        const pts = g.pts.map(rot);
         const c = colors[p.state];
         const off = p.state === "indisponible";
-        const [x0, y0, x1, y1] = g.box;
-        const vertical = i % 2 === 1;
-        const furrows: Array<[[number, number], [number, number]]> = [];
-        if (vertical) for (let x = x0; x <= x1; x += 5) furrows.push([rot([x, y0]), rot([x, y1])]);
-        else for (let y = y0; y <= y1; y += 5) furrows.push([rot([x0, y]), rot([x1, y])]);
-        const cx = pts.reduce((a, q) => a + q[0], 0) / pts.length;
-        const cy = pts.reduce((a, q) => a + q[1], 0) / pts.length;
+        const { cx, cy } = g;
         const isSel = selected === p.code;
         const Tag = onSelect ? "a" : "g";
         const label = `Parcelle ${p.code}, ${p.crop} : ${p.value == null ? "capteur hors ligne" : `${p.value} % d’humidité`}`;
@@ -111,12 +117,8 @@ export function FieldPlan({ parcels, palette = "theme", selected, onSelect, clas
               : { "aria-label": label })}
             style={animate ? { animation: `plan-in 700ms var(--ease-out) ${120 + i * 90}ms both` } : undefined}
           >
-            <polygon points={pts.map((q) => q.join(",")).join(" ")} fill={c} fillOpacity={off ? 0.06 : isSel ? 0.34 : 0.2} stroke={c} strokeWidth={isSel ? 2.6 : 1.4} strokeDasharray={off ? "4 3" : undefined} strokeLinejoin="round" style={{ transition: "fill-opacity 200ms, stroke-width 200ms" }} />
-            <g clipPath={`url(#${uid}-c-${p.code})`} stroke={c} strokeOpacity={off ? 0.18 : 0.32} strokeWidth={0.7}>
-              {furrows.map(([a, b], k) => (
-                <line key={k} x1={a[0]} y1={a[1]} x2={b[0]} y2={b[1]} />
-              ))}
-            </g>
+            <polygon points={g.points} fill={c} fillOpacity={off ? 0.06 : isSel ? 0.34 : 0.2} stroke={c} strokeWidth={isSel ? 2.6 : 1.4} strokeDasharray={off ? "4 3" : undefined} strokeLinejoin="round" style={{ transition: "fill 400ms, stroke 400ms, fill-opacity 200ms, stroke-width 200ms" }} />
+            <path d={g.furrows} clipPath={`url(#${uid}-c-${p.code})`} stroke={c} strokeOpacity={off ? 0.18 : 0.32} strokeWidth={0.7} fill="none" style={{ transition: "stroke 400ms" }} />
             {p.state === "sec" && (
               <g aria-hidden>
                 <circle cx={cx} cy={cy - 14} r={3.2} fill={c} className="plan-pulse" style={{ transformOrigin: `${cx}px ${cy - 14}px`, transformBox: "view-box" }} />
