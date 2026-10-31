@@ -1,0 +1,18 @@
+{
+  "name": "saytumbay-plateforme",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Plateforme SaytuMbay : site public, espace client (AgriTech, Onion), console admin et API IoT.",
+  "type": "module",
+  "workspaces": ["packages/*", "apps/*"],
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "npm run dev -w @saytumbay/web",
+    "dev:api": "npm run dev -w @saytumbay/api",
+    "build": "npm run build -w @saytumbay/shared && npm run build -w @saytumbay/web && npm run build -w @saytumbay/api",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  }
+}
