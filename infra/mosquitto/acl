@@ -1,0 +1,13 @@
+# L'API lit toutes les mesures.
+user api
+topic read saytumbay/+/+/data
+topic read application/+/device/+/event/up
+
+# ChirpStack publie les remontées LoRaWAN.
+user chirpstack
+topic write application/#
+
+# Exemple : passerelle de la Coopérative de Thiès, limitée à son organisation.
+# Créer une entrée par passerelle : user gw-<org>  /  topic write saytumbay/<org>/+/data
+user gw-org-thies
+topic write saytumbay/org-thies/+/data

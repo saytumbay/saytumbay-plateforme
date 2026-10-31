@@ -73,9 +73,9 @@ function CostsView({ d, subs }: { d: CostsState; subs: Array<{ orgId: string; or
           </CardBody>
         </Card>
 
-        <section aria-labelledby="sim-title" className="flex flex-col gap-5 rounded-2xl bg-ink p-5 text-bg shadow-2 sm:p-6">
+        <section aria-labelledby="sim-title" className="flex flex-col gap-5 rounded-2xl border border-transparent bg-[#0b1a14] p-5 text-[#eaf3ee] shadow-2 dark:border-white/10 sm:p-6">
           <div>
-            <h2 id="sim-title" className="font-display text-lg font-semibold text-bg">
+            <h2 id="sim-title" className="font-display text-lg font-semibold text-white">
               Simuler le tarif
             </h2>
             <p className="mt-1 text-[13.5px] opacity-70">Forfaits de base actuels compris ({fmt.fcfa(d.fixedRevenue)} par mois). Coût direct d’un capteur : {fmt.fcfa(VAR)} par mois.</p>
@@ -86,9 +86,9 @@ function CostsView({ d, subs }: { d: CostsState; subs: Array<{ orgId: string; or
             {[
               ["Revenus / mois", fmt.num(simRev), ""],
               ["Coûts / mois", fmt.num(simCost), ""],
-              ["Marge / mois", signed(simM), simM < 0 ? "text-[#ff9b80] dark:text-danger-ink" : "text-[#5be39a] dark:text-brand-strong"],
+              ["Marge / mois", signed(simM), simM < 0 ? "text-[#ff9b80]" : "text-[#5be39a]"],
             ].map(([l, v, c]) => (
-              <div key={l} className="rounded-xl bg-bg/10 px-3 py-2.5">
+              <div key={l} className="rounded-xl bg-white/[0.07] px-3 py-2.5">
                 <dt className="text-[12.5px] opacity-70">{l}</dt>
                 <dd className={cn("font-display text-lg font-semibold tabular sm:text-xl", c)}>{v}</dd>
               </div>
@@ -166,7 +166,7 @@ function Range({ label, min, max, step, value, onChange, display, mark }: { labe
           {display}
         </output>
       </div>
-      <input id={id} type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} aria-valuetext={display} className="h-8 w-full cursor-pointer accent-[#2bd47d] dark:accent-brand" />
+      <input id={id} type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} aria-valuetext={display} className="h-8 w-full cursor-pointer accent-[#2bd47d]" />
       {mark && mark.value >= min && mark.value <= max && (
         <div className="relative h-4 text-[11.5px] opacity-60" aria-hidden>
           <span className={cn("absolute whitespace-nowrap", pos > 70 ? "-translate-x-full pr-0" : "-translate-x-[5px]")} style={{ left: `calc(${pos / 100} * (100% - 16px) + 8px)` }}>

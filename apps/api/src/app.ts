@@ -33,7 +33,6 @@ export async function buildApp(o: BuildOptions) {
     // Nombre de sauts de confiance (Caddy devant l'API) : req.ip devient l'adresse réelle du client.
     trustProxy: o.env.TRUST_PROXY > 0 ? (o.env.TRUST_PROXY as unknown as boolean) : false,
     bodyLimit: 256 * 1024,
-    disableRequestLogging: o.env.NODE_ENV === "test",
     // Identifiants de requête non devinables, renvoyés au client pour le support.
     genReqId: () => crypto.randomUUID(),
   });

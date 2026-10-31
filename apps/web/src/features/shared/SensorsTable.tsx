@@ -164,10 +164,10 @@ function AddSensorSheet({ open, onOpenChange, kinds }: { open: boolean; onOpenCh
   const onion = kinds.includes("stockage");
   const parcels = useQuery({ queryKey: ["parcels"], queryFn: api.parcels.list, enabled: open && !onion });
   const whs = useQuery({ queryKey: ["warehouses"], queryFn: api.warehouses.list, enabled: open && onion });
-  const form = useForm<z.input<typeof deviceRegisterSchema>>({ resolver: zodResolver(deviceRegisterSchema), defaultValues: { id: onion ? "OS-105" : "AS-0012", parcelId: "", warehouseId: "", zoneId: "" } });
+  const form = useForm<z.input<typeof deviceRegisterSchema>>({ resolver: zodResolver(deviceRegisterSchema), defaultValues: { id: onion ? "OS-105" : "AS-0012", parcelId: "", warehouseId: "", zoneId: "", devEui: "" } });
   const wid = form.watch("warehouseId");
   const reg = useMutation({
-    mutationFn: (v: z.input<typeof deviceRegisterSchema>) => api.devices.register({ id: v.id, parcelId: v.parcelId || undefined, warehouseId: v.warehouseId || undefined, zoneId: v.zoneId || undefined }),
+    mutationFn: (v: z.input<typeof deviceRegisterSchema>) => api.devices.register({ id: v.id, parcelId: v.parcelId || undefined, warehouseId: v.warehouseId || undefined, zoneId: v.zoneId || undefined, devEui: v.devEui || undefined }),
     onSuccess: (d) => {
       qc.invalidateQueries({ queryKey: ["devices"] });
       toast.success(`${d.id} ajouté.`, { description: "Il apparaîtra en ligne à sa première mesure (10 minutes au plus)." });
@@ -182,7 +182,7 @@ function AddSensorSheet({ open, onOpenChange, kinds }: { open: boolean; onOpenCh
       open={open}
       onOpenChange={onOpenChange}
       title={onion ? "Ajouter une sonde" : "Ajouter un capteur"}
-      description="L’identifiant est imprimé sur le boîtier, sous le QR code."
+      description="Enregistrez le boîtier avant de le poser : ses mesures apparaîtront dès la première remontée."
       footer={
         <>
           <Button variant="secondary" onClick={() => onOpenChange(false)}>
@@ -197,10 +197,13 @@ function AddSensorSheet({ open, onOpenChange, kinds }: { open: boolean; onOpenCh
       <form id="form-capteur" noValidate className="flex flex-col gap-4" onSubmit={form.handleSubmit((v) => reg.mutate(v))}>
         <FormError>{reg.isError && !(reg.error instanceof ApiError && [409, 422].includes(reg.error.status)) ? reg.error.message : null}</FormError>
         <Callout tone="info" icon={<QrCode className="size-4" aria-hidden />}>
-          Sur téléphone, l’application ouvre l’appareil photo pour lire le QR code du boîtier.
+          L’identifiant SaytuMbay et le DevEUI sont imprimés sur l’étiquette du boîtier.
         </Callout>
         <Field label="Identifiant" hint={onion ? "Format OS-105" : "Format AS-0012"} error={form.formState.errors.id?.message} required>
           <Input autoCapitalize="characters" autoComplete="off" spellCheck={false} {...form.register("id")} />
+        </Field>
+        <Field label="DevEUI" optional hint="Nécessaire pour recevoir les mesures via ChirpStack" error={form.formState.errors.devEui?.message}>
+          <Input autoComplete="off" spellCheck={false} inputMode="text" placeholder="a84041000181a2b3" {...form.register("devEui")} />
         </Field>
         {onion ? (
           <>

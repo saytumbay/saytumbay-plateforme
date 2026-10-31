@@ -150,7 +150,7 @@ export const api = {
   devices: {
     list: () => get<DeviceRow[]>("/devices"),
     get: (id: string) => get<DeviceDetail>(`/devices/${id}`),
-    register: (b: { id: string; parcelId?: string; warehouseId?: string; zoneId?: string }) => post<DeviceRow>("/devices", b),
+    register: (b: { id: string; parcelId?: string; warehouseId?: string; zoneId?: string; devEui?: string }) => post<DeviceRow>("/devices", b),
     replace: (id: string, newId: string) => post<DeviceRow>(`/devices/${id}/replace`, { newId }),
   },
   series: (device: string, metric: Metric, from: number, to: number) => get<Series>("/series", { device, metric, from, to }),

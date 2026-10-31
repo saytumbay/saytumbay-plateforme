@@ -96,6 +96,14 @@ export const deviceRegisterSchema = z.object({
   parcelId: z.string().max(40).optional(),
   warehouseId: z.string().max(40).optional(),
   zoneId: z.string().max(40).optional(),
+  /** DevEUI LoRaWAN (étiquette du boîtier) : relie les remontées ChirpStack à ce capteur. */
+  devEui: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .regex(/^[0-9a-f]{16}$/, "16 caractères hexadécimaux, imprimés sur l’étiquette du boîtier")
+    .optional()
+    .or(z.literal("")),
 });
 
 export const thresholdsSchema = z.object({

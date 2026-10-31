@@ -1,0 +1,82 @@
+# Pile complète sur un VPS (Hostinger KVM ou autre) : Caddy (HTTPS automatique), API, PostgreSQL, Mosquitto.
+# Démarrage : cp infra/.env.example infra/.env (puis remplir), construire le site, puis
+#   docker compose -f infra/docker-compose.yml --env-file infra/.env up -d --build
+# Voir docs/DEPLOIEMENT.md.
+
+name: saytumbay
+
+services:
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443", "443:443/udp"]
+    environment:
+      DOMAIN: ${DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ../apps/web/dist:/srv/www:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [api]
+
+  api:
+    build: { context: .., dockerfile: apps/api/Dockerfile }
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 4000
+      TRUST_PROXY: 1
+      APP_URL: https://${DOMAIN}
+      DATABASE_URL: postgres://saytumbay:${POSTGRES_PASSWORD}@db:5432/saytumbay
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      MQTT_URL: mqtt://mosquitto:1883
+      MQTT_USERNAME: api
+      MQTT_PASSWORD: ${MQTT_API_PASSWORD}
+      SMS_PROVIDER: ${SMS_PROVIDER:-console}
+      ORANGE_CLIENT_ID: ${ORANGE_CLIENT_ID:-}
+      ORANGE_CLIENT_SECRET: ${ORANGE_CLIENT_SECRET:-}
+      ORANGE_SENDER: ${ORANGE_SENDER:-}
+      ORANGE_SENDER_NAME: ${ORANGE_SENDER_NAME:-}
+      SEED_DEMO: ${SEED_DEMO:-false}
+      DEMO_LOGIN: ${DEMO_LOGIN:-false}
+      SIMULATOR: ${SIMULATOR:-false}
+    depends_on:
+      db: { condition: service_healthy }
+      mosquitto: { condition: service_started }
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: ["no-new-privileges:true"]
+
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: saytumbay
+      POSTGRES_USER: saytumbay
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes: [pg_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U saytumbay -d saytumbay"]
+      interval: 10s
+      retries: 6
+    # Aucun port publié : la base n'est joignable que par l'API.
+
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    restart: unless-stopped
+    # 8883 (MQTT sur TLS) pour les passerelles ; 1883 reste interne au réseau Docker.
+    ports: ["8883:8883"]
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./mosquitto/acl:/mosquitto/config/acl:ro
+      - ./mosquitto/passwd:/mosquitto/config/passwd:ro
+      - caddy_data:/certs:ro
+      - mosquitto_data:/mosquitto/data
+
+volumes:
+  caddy_data:
+  caddy_config:
+  pg_data:
+  mosquitto_data:

@@ -357,7 +357,6 @@ function InspectionSheet({ open, onOpenChange, d, zone }: { open: boolean; onOpe
         <Field label="Remarque" optional>
           <Textarea rows={3} placeholder="Odeur, bulbes mous, germination…" {...form.register("note")} />
         </Field>
-        <p className="text-[13px] text-ink-3">Sur téléphone, vous pourrez joindre une photo depuis l’application.</p>
       </form>
     </Sheet>
   );

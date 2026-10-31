@@ -36,7 +36,7 @@ export default function Confidentialite() {
               <h3>Données agricoles et de stockage</h3>
               <ul>
                 <li>Mesures des capteurs : humidité, température et salinité du sol ; température, humidité, CO₂ et gaz dans les magasins ; niveau de batterie et qualité du signal.</li>
-                <li>Contours des parcelles, cultures, irrigations, lots, contrôles visuels et photos, tâches et alertes.</li>
+                <li>Contours des parcelles, cultures, irrigations, lots, contrôles visuels, tâches et alertes.</li>
               </ul>
               <p>Ces données concernent d’abord l’exploitation. Elles deviennent personnelles lorsqu’elles sont rattachées à une personne identifiable, par exemple l’exploitant responsable d’une parcelle.</p>
               <h3>Demandes de contact</h3>

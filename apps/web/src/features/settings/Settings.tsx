@@ -286,7 +286,7 @@ function Notifications() {
       <CardHeader title="Comment être prévenu" subtitle="Les alertes critiques partent toujours par SMS au responsable, même si vous désactivez ce canal pour vous." />
       <CardBody className="flex flex-col gap-5">
         <Switch label="SMS" description="Fonctionne sur un téléphone simple, sans internet. Recommandé." checked={n.sms} onCheckedChange={(v) => set("sms", v)} />
-        <Switch label="E-mail" description="Un récapitulatif des alertes et des rapports." checked={n.email} onCheckedChange={(v) => set("email", v)} />
+        <Switch label="E-mail" description="Récapitulatif des alertes et des rapports, dès que l’envoi d’e-mails sera activé pour votre organisation." checked={n.email} onCheckedChange={(v) => set("email", v)} />
         <Switch label="Notifications de l’application" description="Sur ce téléphone, si l’application est installée." checked={n.push} onCheckedChange={(v) => set("push", v)} />
       </CardBody>
     </Card>

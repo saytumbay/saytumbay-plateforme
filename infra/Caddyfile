@@ -1,0 +1,50 @@
+# Site et API sur le même domaine : cookies « first-party », pas de CORS.
+# Caddy obtient et renouvelle seul le certificat Let's Encrypt.
+{
+	email {$ACME_EMAIL}
+}
+
+www.{$DOMAIN} {
+	redir https://{$DOMAIN}{uri} permanent
+}
+
+{$DOMAIN} {
+	encode zstd gzip
+
+	# En-têtes identiques à apps/web/security-headers.ts (vérifiés par les tests e2e).
+	header {
+		Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+		Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://server.arcgisonline.com https://*.tile.openstreetmap.org; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(self), payment=(), usb=()"
+		Cross-Origin-Opener-Policy "same-origin"
+		X-Frame-Options "DENY"
+		-Server
+	}
+
+	handle /api/* {
+		reverse_proxy api:4000 {
+			header_up X-Forwarded-Proto {scheme}
+		}
+	}
+
+	handle {
+		root * /srv/www
+		# Fichiers à nom haché : cache d'un an ; index.html et service worker : toujours revalidés.
+		@hashed path /assets/*
+		header @hashed Cache-Control "public, max-age=31536000, immutable"
+		@fresh path /index.html /sw.js /manifest.webmanifest /registerSW.js
+		header @fresh Cache-Control "no-cache"
+		try_files {path} /index.html
+		file_server
+	}
+
+	log {
+		output file /data/access.log {
+			roll_size 20MiB
+			roll_keep 10
+		}
+		format json
+	}
+}

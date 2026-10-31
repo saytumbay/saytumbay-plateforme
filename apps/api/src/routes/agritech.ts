@@ -217,11 +217,12 @@ export function agritechRoutes(app: FastifyInstance, ctx: AppContext) {
     const c = await need(ctx, req, "capteurs:gerer");
     const b = parse(deviceRegisterSchema, req.body);
     if (await r.devices.find(b.id)) throw conflict("doublon", `Le capteur ${b.id} est déjà enregistré.`, { id: "Identifiant déjà enregistré" });
+    if (b.devEui && (await r.devices.findByRef(b.devEui))) throw conflict("doublon", "Ce DevEUI est déjà rattaché à un autre capteur.", { devEui: "DevEUI déjà utilisé" });
     if (b.parcelId && !(await r.parcels.get(c.orgId, b.parcelId))) throw new HttpError(422, "validation", "Parcelle inconnue.", { fields: { parcelId: "Parcelle inconnue" } });
     if (b.warehouseId && !(await r.warehouses.get(c.orgId, b.warehouseId))) throw new HttpError(422, "validation", "Entrepôt inconnu.", { fields: { warehouseId: "Entrepôt inconnu" } });
     const kind: Device["kind"] = b.id.startsWith("AS") ? "sol" : b.id.startsWith("OS") ? "stockage" : "passerelle";
     const dev: Device = { id: b.id, orgId: c.orgId, kind, model: kind === "sol" ? "Dragino LSE01" : kind === "stockage" ? "Dragino LHT65N + sonde" : "Dragino LPS8N", parcelId: b.parcelId ?? null, warehouseId: b.warehouseId ?? null, zoneId: b.zoneId ?? null, siteId: null, battery: null, signal: 0, rssi: null, firmware: "—", status: "hors_ligne", lastSeenAt: null, installedAt: ctx.now().toISOString(), simulated: false };
-    await r.devices.insert(c.orgId, dev.id, dev);
+    await r.devices.insert(c.orgId, dev.id, { ...dev, devEui: b.devEui || null }, b.devEui || null);
     if (b.parcelId) {
       const p = (await r.parcels.get(c.orgId, b.parcelId))!;
       await r.parcels.update(c.orgId, p.id, { sensorIds: [...p.sensorIds, dev.id] });

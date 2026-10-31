@@ -7,7 +7,7 @@ const pkg = JSON.parse(readFileSync(new URL("./package.json", import.meta.url), 
 const external = Object.keys(pkg.dependencies).filter((d) => !d.startsWith("@saytumbay/"));
 
 await build({
-  entryPoints: ["src/server.ts", "src/db/seed-cli.ts"],
+  entryPoints: ["src/server.ts", "src/db/seed-cli.ts", "src/db/bootstrap-cli.ts"],
   outdir: "dist",
   bundle: true,
   platform: "node",

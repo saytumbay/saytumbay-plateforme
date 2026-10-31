@@ -30,7 +30,7 @@ export default function Conditions() {
           body: (
             <ul>
               <li>Pas de tentative d’accès aux données d’une autre organisation, ni de contournement des protections.</li>
-              <li>Pas d’envoi de contenus illicites dans les champs libres ou les photos.</li>
+              <li>Pas d’envoi de contenus illicites dans les champs libres.</li>
               <li>Pas d’usage automatisé abusif de la plateforme. Une interface de programmation peut être ouverte sur demande.</li>
             </ul>
           ),

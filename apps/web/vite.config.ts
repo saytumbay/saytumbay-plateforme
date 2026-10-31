@@ -1,3 +1,4 @@
+import { SECURITY_HEADERS } from "./security-headers";
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -6,7 +7,8 @@ import path from "node:path";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-  const apiMode = env.VITE_API_MODE ?? (mode === "api" ? "api" : "demo");
+  // Développement : démo dans le navigateur. `vite build` (production) : vraie API. `--mode demo` : démo statique.
+  const apiMode = env.VITE_API_MODE ?? (mode === "api" || mode === "production" ? "api" : "demo");
   return {
     define: { "import.meta.env.VITE_API_MODE": JSON.stringify(apiMode) },
     resolve: { alias: { "@": path.resolve(__dirname, "src") } },
@@ -61,6 +63,7 @@ export default defineConfig(({ mode }) => {
         },
       }),
     ],
+    preview: { headers: SECURITY_HEADERS },
     server: {
       port: 5173,
       proxy: apiMode === "api" ? { "/api": { target: env.VITE_API_PROXY ?? "http://localhost:4000", changeOrigin: false } } : undefined,
