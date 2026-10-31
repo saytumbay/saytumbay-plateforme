@@ -1,0 +1,8 @@
+# SaytuMbay
+User-agent: *
+Allow: /
+Disallow: /app
+Disallow: /admin
+Disallow: /invitation/
+Disallow: /reinitialiser
+Sitemap: https://saytumbay.com/sitemap.xml
