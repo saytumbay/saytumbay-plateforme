@@ -71,7 +71,7 @@ export default function Securite() {
           body: (
             <>
               <p>
-                Vous pensez avoir trouvé une faille ? Écrivez à <Todo>adresse e-mail sécurité</Todo> avec une description et les étapes pour la reproduire. Nous accusons réception sous 3 jours ouvrés et vous tenons informé de la correction.
+                Vous pensez avoir trouvé une faille ? Écrivez à <a href="mailto:contact@saytumbay.com">contact@saytumbay.com</a> (objet « Sécurité ») avec une description et les étapes pour la reproduire. Nous accusons réception sous 3 jours ouvrés et vous tenons informé de la correction.
               </p>
               <p>Merci de ne pas accéder aux données d’autrui, de ne pas perturber le service et de nous laisser le temps de corriger avant toute publication. Nous ne poursuivrons pas une recherche menée de bonne foi dans ces limites.</p>
             </>

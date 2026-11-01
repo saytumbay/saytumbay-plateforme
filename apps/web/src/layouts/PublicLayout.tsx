@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
-import { Menu, MessageCircle } from "lucide-react";
+import { Mail, Menu, MessageCircle } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/overlay";
@@ -8,6 +8,8 @@ import { useSession, homeFor } from "@/lib/auth";
 import { cn } from "@/lib/cn";
 
 export const WHATSAPP = { display: "77 833 57 81", href: "https://wa.me/221778335781?text=" + encodeURIComponent("Bonjour SaytuMbay, je souhaite en savoir plus sur vos capteurs.") };
+/** Adresses e-mail de l'équipe (actives). */
+export const EMAIL = { contact: "contact@saytumbay.com", tidiane: "tidianesow@saytumbay.com", ibrahima: "ibrahimafall@saytumbay.com" };
 /** Ligne directe de Tidiane Sow, directeur général (WhatsApp). */
 export const TIDIANE = { name: "Tidiane Sow", display: "77 088 94 08", href: "https://wa.me/221770889408?text=" + encodeURIComponent("Bonjour Tidiane, je souhaite en savoir plus sur les capteurs SaytuMbay.") };
 
@@ -164,6 +166,11 @@ function PublicFooter() {
                 <MessageCircle className="size-4 shrink-0" aria-hidden /> <span>
                   {TIDIANE.name} <span className="whitespace-nowrap font-mono text-[13.5px]">{TIDIANE.display}</span>
                 </span>
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${EMAIL.contact}`} className="inline-flex items-center gap-2 hover:text-ink">
+                <Mail className="size-4 shrink-0" aria-hidden /> {EMAIL.contact}
               </a>
             </li>
             <li>

@@ -17,7 +17,7 @@ export default function Confidentialite() {
           title: "Responsable du traitement",
           body: (
             <p>
-              SaytuMbay, <Todo>forme juridique et adresse du siège</Todo>, Dakar, Sénégal. Pour toute question sur vos données : <Todo>adresse e-mail dédiée</Todo> ou WhatsApp au +221 77 833 57 81.
+              SaytuMbay, <Todo>forme juridique et adresse du siège</Todo>, Dakar, Sénégal. Pour toute question sur vos données : <a href="mailto:contact@saytumbay.com">contact@saytumbay.com</a> ou WhatsApp au +221 77 833 57 81.
             </p>
           ),
         },
@@ -134,7 +134,7 @@ export default function Confidentialite() {
             <>
               <p>Vous pouvez demander l’accès à vos données, leur rectification, leur suppression, ou vous opposer à leur traitement pour un motif légitime. Depuis votre espace, la rubrique Paramètres, onglet « Mes données », permet aussi d’exporter vos informations.</p>
               <p>
-                Écrivez à <Todo>adresse e-mail dédiée</Todo> en précisant votre nom et votre organisation. Nous répondons sous 30 jours au plus. En cas de désaccord, vous pouvez saisir la Commission de Protection des Données Personnelles du Sénégal (
+                Écrivez à <a href="mailto:contact@saytumbay.com">contact@saytumbay.com</a> en précisant votre nom et votre organisation. Nous répondons sous 30 jours au plus. En cas de désaccord, vous pouvez saisir la Commission de Protection des Données Personnelles du Sénégal (
                 <a href="https://www.cdp.sn" target="_blank" rel="noopener noreferrer">
                   cdp.sn
                 </a>

@@ -1,26 +1,38 @@
 # Points à valider par l'équipe
 
-Ce que le code ne peut pas décider seul. Classés par urgence.
+Ce que le code ne peut pas décider seul. Classés par urgence. Mis à jour le 1er novembre 2026.
 
 ## Avant toute mise en ligne
 
-1. **Mentions légales et confidentialité** : forme juridique, capital, RCCM, NINEA, adresse du siège, directeur de publication, adresse e-mail de contact et de sécurité, hébergeur retenu. Ces champs apparaissent entre crochets surlignés sur les pages `/mentions-legales`, `/confidentialite`, `/conditions`, `/securite`. Le site affiche un bandeau « Document de travail » tant qu'ils ne sont pas remplis (`draft` dans `LegalPage`).
-2. **Relecture juridique** des conditions et de la politique de confidentialité, et déclaration à la CDP.
-3. **Nom commercial** : votre présentation d'entreprise signale que « Saaytu Mbay » est utilisé par Jokalante ; vérifier à l'OAPI avant d'investir davantage dans la marque.
+1. **Mentions légales** (en cours) : forme juridique, capital, RCCM, NINEA, adresse du siège, directeur de la publication, hébergeur. Ces champs apparaissent entre crochets surlignés sur `/mentions-legales`, `/confidentialite`, `/conditions` et `/securite`. Le site affiche un bandeau « Document de travail » tant qu'ils ne sont pas remplis (`draft` dans `LegalPage`). Les adresses e-mail sont déjà en place (`contact@`, `tidianesow@`, `ibrahimafall@saytumbay.com`).
+2. **Déclaration à la CDP** : à confirmer avec le numéro de récépissé. Aucune trace publique n'a été trouvée, ce qui est normal : la CDP ne publie pas de registre consultable par entreprise. Point d'attention : un hébergement hors du Sénégal (Hostinger) est un transfert de données à l'étranger, qui relève en principe d'une **demande d'autorisation**, pas d'une simple déclaration. Contact : `contactcdp@cdp.sn`, formulaires sur cdp.sn.
+3. **Relecture juridique** des conditions d'utilisation et de la politique de confidentialité.
 
 ## Produit
 
-4. **Commande d'irrigation** : les maquettes prévoyaient le pilotage des vannes depuis l'application ; la présentation d'entreprise annonce une v1 « surveillance seule ». La plateforme gère les deux (journal, règles, commandes manuelles) ; le site public présente les vannes connectées « en option ». Décider ce qui est vendu en v1, puis masquer l'irrigation commandée si besoin.
-5. **Économies d'eau** : aucun pourcentage n'est affiché sans saison de comparaison (« calculée après une saison de comparaison »). La démo navigateur affiche 38 %, valeur d'exemple. Définir la méthode de référence (arrosage à heure fixe sur une parcelle témoin) avant de communiquer un chiffre.
-6. **Tarifs** : la page Coûts montre qu'à 2 500 FCFA par capteur, chaque capteur coûte plus qu'il ne rapporte (coût direct ≈ 3 900 FCFA/mois). Aucun prix n'est publié sur le site ; à trancher avant les pilotes payants.
-7. **Codec ChirpStack** : la correspondance des champs Dragino LSE01 (`water_SOIL`, `temp_SOIL`, `conduct_SOIL`, `Bat`) suit le décodeur habituel du fabricant ; la confirmer avec le profil réellement configuré. Même chose pour la future sonde de stockage.
+4. **Critères de réussite des pilotes** : proposition dans [PILOTE.md](PILOTE.md), à valider. Le site dit seulement « objectifs fixés ensemble avant la pose ».
+5. **Tarifs** : la page Coûts montre qu'à 2 500 FCFA par capteur, chaque capteur coûte plus qu'il ne rapporte (coût direct ≈ 3 900 FCFA/mois). Aucun prix n'est publié sur le site ; à trancher avant les pilotes payants, y compris le prix réduit du pilote.
+6. **Économies d'eau** : aucun pourcentage n'est affiché sans saison de comparaison. La démo navigateur affiche 38 %, valeur d'exemple. La méthode de référence est la parcelle témoin arrosée comme d'habitude.
+7. **Codec ChirpStack** : le capteur de référence est la Dragino LSE01. La correspondance des champs (`water_SOIL`, `temp_SOIL`, `conduct_SOIL`, `Bat`) suit le décodeur habituel du fabricant ; la confirmer avec le profil réellement configuré. Même chose pour la future sonde de stockage.
+8. **Moteur du prototype COC'2026** (dossier `saytumbay` sur le Raspberry Pi) : repérage des mesures anormales (Isolation Forest) et risque fongique, annoncés « en cours » sur le site. À reprendre dans la plateforme et à tester sur de vraies mesures avant de les présenter comme disponibles. Le calcul d'évapotranspiration du prototype sous-estime fortement (0,1 à 0,4 mm/j) ; la plateforme utilise Hargreaves.
 
 ## Exploitation
 
-8. **Opérateur SMS** : contrat Orange (ou autre), numéro et nom d'expéditeur.
-9. **Création des parcelles et capteurs d'un nouveau client** : se fait depuis l'espace client (parcelles, capteurs avec DevEUI). Un import CSV accélérerait la pose des pilotes.
-10. **Fin de contrat** : outil d'export complet et de suppression d'une organisation (procédure promise dans la politique de confidentialité).
-11. **SMS en wolof** : les textes des SMS d'alerte sont rédigés mais pas encore relus. Les faire relire par une personne qui parle wolof, puis les activer : voir [SMS-WOLOF.md](SMS-WOLOF.md). L'interface reste en français.
+9. **Opérateur SMS** (inconnu pour l'instant) : contrat Orange ou autre, numéro et nom d'expéditeur.
+10. **SMS en wolof** (relecteur à trouver) : voir [SMS-WOLOF.md](SMS-WOLOF.md).
+11. **Photos et logo** : les photos du site viennent de Wikimedia Commons ; les remplacer par les vôtres quand elles existent ([PHOTOS.md](PHOTOS.md)). Les fichiers SVG officiels du logo de la charte sont à récupérer auprès de Tidiane.
+12. **Création des parcelles et capteurs d'un nouveau client** : se fait depuis l'espace client. Un import CSV accélérerait la pose des pilotes.
+13. **Fin de contrat** : outil d'export complet et de suppression d'une organisation (procédure promise dans la politique de confidentialité).
+
+## Décisions prises
+
+- **Nom** : SaytuMbay, en un mot. Le site, la charte et l'article COC'2026 l'utilisent déjà ; l'équipe ne voit pas de conflit avec « Saaytu Mbay ».
+- **Domaine** : `saytumbay.com`, acheté chez Hostinger.
+- **Irrigation commandée** : prévue ; la plateforme garde la commande des vannes (« selon le matériel » sur le site).
+- **Capteur de sol** : Dragino LSE01 (et non le ZTS-3002 du prototype).
+- **Équipe affichée** : Tidiane Sow et Ibrahima Fall. L'article est cité « Tidiane Sow, Ibrahima Fall et al. » ; la liste complète des auteurs reste sur HAL.
+- **Photo d'enfants** : retirée ; photo dont le lieu est incertain écartée.
+- **Mise en ligne** : rien n'est poussé ni déployé sans demande explicite.
 
 ## Ce qui n'a pas été repris des maquettes, volontairement
 

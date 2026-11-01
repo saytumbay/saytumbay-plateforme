@@ -32,8 +32,8 @@ export default function Overview() {
   return (
     <>
       <FieldBanner
-        photo="recolte"
-        position="50% 70%"
+        photo="sac"
+        position="60% 30%"
         title="Stockage des oignons"
         subtitle="Conditions de conservation dans vos magasins, rangée par rangée."
         summary={ws.data ? storageSummary(ws.data) : "Chargement de vos magasins…"}

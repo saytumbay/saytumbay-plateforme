@@ -10,7 +10,7 @@ import { Button, ButtonLink } from "@/components/ui/button";
 import { SignTrace } from "@/components/brand/SignTrace";
 import { Photo } from "@/components/ui/photo";
 import { useReveal } from "@/lib/reveal";
-import { TIDIANE, WHATSAPP } from "@/layouts/PublicLayout";
+import { EMAIL, TIDIANE, WHATSAPP } from "@/layouts/PublicLayout";
 import { cn } from "@/lib/cn";
 import { ContactForm } from "./ContactForm";
 
@@ -231,7 +231,7 @@ function Context() {
           <p>Dans les magasins, l’oignon commence à pourrir au cœur des sacs, là où personne ne regarde. Quand l’odeur arrive à la porte, une partie du stock est déjà perdue.</p>
           </div>
           <div data-reveal="1">
-            <Photo name="sac" alt="Une femme porte sur la tête un grand sac d’oignons rouges." sizes="(min-width: 1024px) 560px, 100vw" position="50% 35%" frameClassName="aspect-[16/10] rounded-[24px]" />
+            <Photo name="niague" alt="Champ d’oignons à Niague Noflaye, avec des maraîchers au travail au fond de la parcelle." sizes="(min-width: 1024px) 560px, 100vw" position="50% 60%" frameClassName="aspect-[16/10] rounded-[24px]" />
           </div>
         </div>
         <p className="mt-10 max-w-[62ch] border-l-4 border-sun pl-5 font-display text-[clamp(19px,2vw,23px)] font-semibold leading-snug text-ink">Ces pertes préviennent presque toujours. Notre travail : rendre ces signaux visibles assez tôt pour agir.</p>
@@ -486,7 +486,7 @@ function Onion() {
           </ul>
         </div>
         <div className="flex flex-col gap-6 self-start lg:order-1" data-reveal="1">
-          <Photo name="recolte" alt="Un producteur sénégalais montre des oignons rouges de sa récolte." sizes="(min-width: 1024px) 560px, 100vw" position="50% 45%" frameClassName="aspect-square rounded-[24px]" />
+          <Photo name="sac" alt="Une femme porte sur la tête un grand sac d’oignons rouges." sizes="(min-width: 1024px) 560px, 100vw" position="50% 30%" frameClassName="aspect-[16/10] rounded-[24px]" />
           <div className="rounded-[20px] border border-line bg-surface p-4 sm:p-5">
             <StoreIllustration />
           </div>
@@ -599,7 +599,8 @@ const SUPPORT = ["Incubateur TÀGGU NDAW ÑI, Université Cheikh Anta Diop", "Af
 /** Article présenté au COC'2026 et archivé sur HAL (métadonnées vérifiées sur l'archive ouverte). */
 const PAPER = {
   title: "SaytuMbay : une plateforme IoT-IA pour l’agriculture de précision au Sénégal",
-  authors: "Tidiane Sow, Ibrahima Fall, Souaibou Dieng, Modou Dell",
+  /** Forme courte d'usage : la liste complète des auteurs reste sur la notice HAL. */
+  authors: "Tidiane Sow, Ibrahima Fall et al.",
   venue: "Colloque sur les Objets et systèmes Connectés COC’2026 · Thiès, 25-26 mars 2026",
   url: "https://hal.science/hal-05571878v1",
 };
@@ -692,16 +693,16 @@ function FieldToMarket() {
 /* ——— Travaillons ensemble : trois publics, trois portes d'entrée ——— */
 
 const AUDIENCES: Array<{ title: string; text: string; cta: string; to: string }> = [
-  { title: "Producteurs, coopératives, stockeurs", text: "Devenez l’un de nos premiers sites pilotes : installation, formation et suivi, à prix réduit. Les critères de réussite sont écrits ensemble avant la pose.", cta: "Proposer mon site", to: "/?profil=cooperative#contact" },
+  { title: "Producteurs, coopératives, stockeurs", text: "Devenez l’un de nos premiers sites pilotes : installation, formation et suivi, à prix réduit. Les objectifs sont fixés ensemble avant la pose.", cta: "Proposer mon site", to: "/?profil=cooperative#contact" },
   { title: "Investisseurs, bailleurs, incubateurs", text: "Financez l’équipement des premiers sites et la croissance d’une équipe qui conçoit, installe et maintient ses solutions au Sénégal.", cta: "Recevoir notre présentation", to: "/?profil=financeur#contact" },
   { title: "États, collectivités, ONG, programmes", text: "Équipez un programme de stockage, d’irrigation ou de chaîne du froid, avec des données mesurées sur le terrain plutôt qu’estimées.", cta: "Parler de votre programme", to: "/?profil=institution#contact" },
 ];
 
 const PILOT = [
   { title: "Visite et cadrage", text: "Sur place, nous choisissons les indicateurs et estimons le gain attendu avec vous." },
-  { title: "Pilote à prix réduit", text: "Les critères de réussite sont écrits avant la pose. Un pilote payé est un pilote suivi des deux côtés." },
+  { title: "Objectifs fixés ensemble", text: "Avant la pose, on écrit ce qu’on veut voir à la fin : alertes reçues à temps, arrosages mieux placés, sacs sauvés. Pilote à prix réduit." },
   { title: "Trente jours de test", text: "Capteurs, alertes et accès à la plateforme, avec une formation de l’équipe sur place." },
-  { title: "Bilan, puis abonnement", text: "Si les critères sont atteints, le service continue : supervision, maintenance et rapports." },
+  { title: "Bilan, puis abonnement", text: "On regarde ensemble si les objectifs sont atteints. Si oui, le service continue : supervision, maintenance et rapports." },
 ];
 
 function Together() {
@@ -761,6 +762,7 @@ function Team() {
           </h2>
           <div className="mt-5 flex max-w-[58ch] flex-col gap-4 text-[17px] leading-relaxed text-ink-2">
             <p>Réseaux, objets connectés, logiciel : nous concevons la solution, l’installons avec des techniciens partenaires et la maintenons dans la durée.</p>
+            <p>Nous nous sommes rencontrés en master à l’École supérieure polytechnique (ESP) de l’Université Cheikh Anta Diop de Dakar, où SaytuMbay est né.</p>
             <p>Nous commençons au Sénégal, avec des organisations d’ici. Mais l’eau qui manque, la chaleur qui abîme et les récoltes qui se perdent sont les mêmes partout où l’on cultive. C’est pour cela que nous construisons une solution capable d’aller bien au-delà.</p>
           </div>
         </div>
@@ -796,7 +798,7 @@ const FAQ = [
   { q: "Pour quelles cultures et quels usages ?", a: "Le maraîchage irrigué (oignon, tomate, chou, piment, gombo…) et le stockage d’oignon et de pomme de terre. Pour une chambre froide, un forage ou un autre équipement, parlons-en : le même socle s’adapte." },
   { q: "Et si un capteur tombe en panne ?", a: "La plateforme le signale dès qu’il ne répond plus ou que sa pile faiblit, et crée une tâche pour le technicien. Un capteur remplacé garde l’historique de l’ancien." },
   { q: "À qui appartiennent les données ?", a: "À votre organisation. Vous pouvez les exporter à tout moment. Leur traitement suit la loi sénégalaise n° 2008-12 sur les données personnelles ; le détail est dans notre politique de confidentialité." },
-  { q: "Combien ça coûte ?", a: "Cela dépend du nombre de capteurs et du site. Chaque projet commence par une visite, puis un pilote à prix réduit avec des critères de réussite écrits. Écrivez-nous pour en parler." },
+  { q: "Combien ça coûte ?", a: "Cela dépend du nombre de capteurs et du site. Chaque projet commence par une visite, puis un pilote à prix réduit avec des objectifs fixés ensemble. Écrivez-nous pour en parler." },
   { q: "Qui installe et qui forme ?", a: "Notre équipe, avec des techniciens partenaires sur le terrain. La formation se fait sur place, en wolof ou en français." },
 ];
 
@@ -863,6 +865,9 @@ function Contact() {
             <WhatsAppLink href={TIDIANE.href}>
               {TIDIANE.name}, directeur général · <span className="font-mono text-[15px] font-medium">{TIDIANE.display}</span>
             </WhatsAppLink>
+            <a href={`mailto:${EMAIL.contact}`} className="mt-2 inline-flex items-center gap-2 font-mono text-[15px] text-[#f4efe6] underline underline-offset-4 hover:text-white">
+              {EMAIL.contact}
+            </a>
           </div>
         </div>
         <div className="rounded-[24px] bg-surface p-5 text-ink shadow-3 sm:p-8">

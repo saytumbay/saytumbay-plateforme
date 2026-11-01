@@ -2,16 +2,16 @@
 
 ## Aujourd'hui
 
-Le site utilise six vraies photos prises au Sénégal et publiées sur Wikimedia Commons, sous licence **CC BY-SA 4.0**. Elles montrent le contexte (cultures, récoltes, marché) : ni clients, ni sites SaytuMbay.
+Le site utilise six vraies photos prises au Sénégal (lieu vérifié pour chacune, aucun enfant), publiées sur Wikimedia Commons, sous licence **CC BY-SA 4.0**. Elles montrent le contexte (cultures, récoltes, marché) : ni clients, ni sites SaytuMbay.
 
 La licence impose de citer l'auteur et la licence. C'est fait sous chaque photo et dans les mentions légales (section « Crédits »). Elle autorise l'usage commercial.
 
 | Fichier | Où | Sujet | Auteur |
 |---|---|---|---|
 | `champ-goutte` | Accueil, héros | Main qui sort un oignon, goutte-à-goutte (Diamniadio) | Pacocreat |
-| `sac` | Accueil, « Le problème » | Sac d'oignons porté vers le marché | Thiam Babel Design |
+| `niague` | Accueil, « Le problème » | Champ d'oignons à Niague Noflaye | Zul pro le Geni |
+| `sac` | Accueil, Onion ; tableau de bord Onion | Sac d'oignons porté vers le marché | Thiam Babel Design |
 | `rangs` | Accueil, AgriTech | Rangs d'oignon irrigués (Diamniadio) | Pacocreat |
-| `recolte` | Accueil, Onion | Producteur et sa récolte d'oignons | NoahElhardt |
 | `diamniadio` | Accueil, « Du champ au marché » ; écran de connexion | Parcelle d'oignons | Wuzyprod |
 | `marche` | Accueil, « Du champ au marché » | Marché de Case Ba, Parcelles Assainies | Pacocreat |
 

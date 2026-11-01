@@ -1,0 +1,5 @@
+Contact: mailto:contact@saytumbay.com
+Expires: 2027-11-01T00:00:00.000Z
+Preferred-Languages: fr, en
+Canonical: https://saytumbay.com/.well-known/security.txt
+Policy: https://saytumbay.com/securite

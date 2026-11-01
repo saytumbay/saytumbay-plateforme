@@ -52,4 +52,4 @@ Dépendances de production : `npm audit --omit=dev` → 0 vulnérabilité (31 oc
 
 ## Signaler une faille
 
-Procédure publique sur la page `/securite` du site. Prévoir une adresse dédiée et un fichier `/.well-known/security.txt` (RFC 9116) une fois l'adresse créée.
+Procédure publique sur la page `/securite` du site. Contact : `contact@saytumbay.com`, publié aussi dans `/.well-known/security.txt` (RFC 9116, à renouveler avant le 1er novembre 2027).
