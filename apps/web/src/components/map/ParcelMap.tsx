@@ -67,7 +67,7 @@ export function ParcelMap({ parcels, height = 420, selected, onSelect, interacti
           const icon = L.divIcon({
             className: "",
             iconSize: [0, 0],
-            html: `<div style="transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;font-family:'Sora Variable',system-ui,sans-serif;pointer-events:none"><span style="width:28px;height:28px;border-radius:50%;background:#0e1f18;color:#fff;border:2.5px solid ${col};display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700">${s.parcel.code}</span><span style="white-space:nowrap;background:rgba(14,31,24,.85);color:#fff;font-size:12px;font-weight:600;padding:2px 7px;border-radius:6px">${txt}</span></div>`,
+            html: `<div style="transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;font-family:'Sora Variable',system-ui,sans-serif;pointer-events:none"><span style="width:28px;height:28px;border-radius:50%;background:#0b2e24;color:#fff;border:2.5px solid ${col};display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700">${s.parcel.code}</span><span style="white-space:nowrap;background:rgba(14,31,24,.85);color:#fff;font-size:12px;font-weight:600;padding:2px 7px;border-radius:6px">${txt}</span></div>`,
           });
           return <Marker key={`m-${s.parcel.id}`} position={ll} icon={icon} interactive={false} keyboard={false} />;
         })}

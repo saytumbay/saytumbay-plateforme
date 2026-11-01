@@ -26,7 +26,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const dark = pref === "sombre" || (pref === "systeme" && systemDark);
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
-    document.querySelector('meta[name="theme-color"]:not([media])')?.setAttribute("content", dark ? "#0A1612" : "#0F6B45");
+    document.querySelector('meta[name="theme-color"]:not([media])')?.setAttribute("content", dark ? "#08231B" : "#0F5A44");
   }, [dark]);
   const setPref = useCallback((p: ThemePref) => {
     setPrefState(p);

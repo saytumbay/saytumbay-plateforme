@@ -73,7 +73,7 @@ function CostsView({ d, subs }: { d: CostsState; subs: Array<{ orgId: string; or
           </CardBody>
         </Card>
 
-        <section aria-labelledby="sim-title" className="flex flex-col gap-5 rounded-2xl border border-transparent bg-[#0b1a14] p-5 text-[#eaf3ee] shadow-2 dark:border-white/10 sm:p-6">
+        <section aria-labelledby="sim-title" className="flex flex-col gap-5 rounded-2xl border border-transparent bg-[#0b2e24] p-5 text-[#f4efe6] shadow-2 dark:border-white/10 sm:p-6">
           <div>
             <h2 id="sim-title" className="font-display text-lg font-semibold text-white">
               Simuler le tarif
@@ -166,7 +166,7 @@ function Range({ label, min, max, step, value, onChange, display, mark }: { labe
           {display}
         </output>
       </div>
-      <input id={id} type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} aria-valuetext={display} className="h-8 w-full cursor-pointer accent-[#2bd47d]" />
+      <input id={id} type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} aria-valuetext={display} className="h-8 w-full cursor-pointer accent-[#4cc98a]" />
       {mark && mark.value >= min && mark.value <= max && (
         <div className="relative h-4 text-[11.5px] opacity-60" aria-hidden>
           <span className={cn("absolute whitespace-nowrap", pos > 70 ? "-translate-x-full pr-0" : "-translate-x-[5px]")} style={{ left: `calc(${pos / 100} * (100% - 16px) + 8px)` }}>

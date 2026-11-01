@@ -218,7 +218,7 @@ function TwoFactor({ enabled, required }: { enabled: boolean; required: boolean 
     },
   });
   useEffect(() => {
-    if (setup) QRCode.toDataURL(setup.otpauth, { margin: 1, width: 200, color: { dark: "#0e1f18", light: "#ffffff" } }).then(setQr);
+    if (setup) QRCode.toDataURL(setup.otpauth, { margin: 1, width: 200, color: { dark: "#0b2e24", light: "#ffffff" } }).then(setQr);
   }, [setup]);
   return (
     <Card>

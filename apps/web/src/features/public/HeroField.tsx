@@ -108,11 +108,11 @@ export function HeroField() {
   const past = EVENTS.filter((e) => t >= e.at);
 
   return (
-    <div ref={box} className="relative overflow-hidden rounded-[28px] bg-[#0b1a14] text-[#eaf3ee] shadow-3">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_55%_at_55%_40%,rgba(43,212,125,0.12),transparent_70%)]" aria-hidden />
+    <div ref={box} className="relative overflow-hidden rounded-[28px] bg-[#0b2e24] text-[#f4efe6] shadow-3">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_55%_at_55%_40%,rgba(239,106,34,0.10),transparent_70%)]" aria-hidden />
       <div className="relative grid gap-0 md:grid-cols-[minmax(0,1fr)_250px]">
         <div className="p-5 pb-3 sm:p-7 sm:pb-4">
-          <div className="flex items-baseline justify-between gap-4 text-[13px] text-[#a9bdb2]">
+          <div className="flex items-baseline justify-between gap-4 text-[13px] text-[#aab8b0]">
             <span>Exploitation de Mboro, Niayes</span>
             <span className="font-display text-[22px] font-semibold tabular text-white" aria-live="off">
               {clock(t)}
@@ -123,8 +123,8 @@ export function HeroField() {
           </div>
         </div>
         <div className="flex flex-col gap-3 border-t border-white/10 p-5 sm:p-6 md:border-l md:border-t-0">
-          <div className={cn("rounded-2xl bg-[#f4f7f5] p-3.5 text-[#0e1f18] shadow-2 transition-all duration-500", smsVisible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0")} aria-hidden={!smsVisible}>
-            <p className="flex items-center justify-between text-[11.5px] font-semibold text-[#5f7067]">
+          <div className={cn("rounded-2xl bg-[#f4efe6] p-3.5 text-[#0b2e24] shadow-2 transition-all duration-500", smsVisible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0")} aria-hidden={!smsVisible}>
+            <p className="flex items-center justify-between text-[11.5px] font-semibold text-[#5b6660]">
               <span>SMS · SaytuMbay</span>
               <span className="tabular">09 h 45</span>
             </p>
@@ -135,9 +135,9 @@ export function HeroField() {
               const on = past.includes(e);
               return (
                 <li key={e.at} className={cn("flex gap-2.5 transition-opacity duration-300", on ? "opacity-100" : "opacity-25")}>
-                  <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", { sun: "bg-[#f0b642]", brand: "bg-[#2bd47d]", offline: "bg-[#8c968f]", water: "bg-[#4fd8ef]" }[e.tone])} aria-hidden />
+                  <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", { sun: "bg-[#ff8a4c]", brand: "bg-[#4cc98a]", offline: "bg-[#8c968f]", water: "bg-[#4fd8ef]" }[e.tone])} aria-hidden />
                   <span>
-                    <span className="font-semibold tabular text-white">{clock(e.at)}</span> <span className="text-[#c9d8cf]">{e.text}</span>
+                    <span className="font-semibold tabular text-white">{clock(e.at)}</span> <span className="text-[#d6dbd2]">{e.text}</span>
                   </span>
                 </li>
               );
@@ -173,9 +173,9 @@ export function HeroField() {
             setT(Number(e.target.value));
           }}
           aria-valuetext={`${clock(t)}, parcelle B à ${b} %`}
-          className="h-8 min-w-0 flex-1 cursor-pointer accent-[#2bd47d]"
+          className="h-8 min-w-0 flex-1 cursor-pointer accent-[#4cc98a]"
         />
-        <span className="hidden text-[12.5px] text-[#a9bdb2] sm:inline">Faites glisser pour rejouer la journée</span>
+        <span className="hidden text-[12.5px] text-[#aab8b0] sm:inline">Faites glisser pour rejouer la journée</span>
       </div>
     </div>
   );

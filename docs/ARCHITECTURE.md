@@ -53,7 +53,7 @@ Horodatage du capteur accepté s'il est plausible, sinon heure de réception. Me
 ## Web
 
 - React 19, react-router 7 (routes chargées à la demande), TanStack Query (cache, rafraîchissement 60 s), react-hook-form + zod, Radix UI, Recharts, Leaflet.
-- Design system en jetons CSS (clair et sombre), polices auto-hébergées (Sora, Atkinson Hyperlegible Next), logo officiel v11 en tracés exacts.
+- Design system en jetons CSS (clair et sombre) d'après la charte graphique v1.0 (vert forêt, orange signal, sable, nuit), polices auto-hébergées (Sora pour titres et texte, IBM Plex Mono pour les mesures), logo officiel v11 en tracés exacts, recoloré selon la charte.
 - PWA : installable, coquille pré-cachée (~230 Ko transférés), morceaux mis en cache à la première visite, réponses de l'API en « réseau d'abord » (vidées au changement de compte).
 - Premier chargement du site public : ~200 Ko compressés. Graphiques, carte et console ne se chargent qu'avec leurs pages.
 

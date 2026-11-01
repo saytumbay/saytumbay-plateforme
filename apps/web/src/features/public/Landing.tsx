@@ -499,19 +499,19 @@ function Faq() {
 
 function Contact() {
   return (
-    <section id="contact" className="scroll-mt-20 bg-[#0b1a14] text-[#eaf3ee]" aria-labelledby="contact-titre">
+    <section id="contact" className="scroll-mt-20 bg-[#0b2e24] text-[#f4efe6]" aria-labelledby="contact-titre">
       <div className={cn(wrap, "grid gap-12 py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20 lg:py-28")}>
         <div>
           <h2 id="contact-titre" className="font-display text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.08] tracking-[-0.03em] text-white text-balance">
             Venez voir les capteurs sur une de vos parcelles.
           </h2>
-          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#c9d8cf]">Laissez-nous un numéro : nous vous rappelons pour organiser une visite et une démonstration sur place.</p>
-          <a href={WHATSAPP.href} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex h-12 items-center gap-2.5 rounded-xl bg-[#2bd47d] px-5 font-display text-[15.5px] font-semibold text-[#06231a] hover:bg-[#46e290]">
+          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Laissez-nous un numéro : nous vous rappelons pour organiser une visite et une démonstration sur place.</p>
+          <a href={WHATSAPP.href} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex h-12 items-center gap-2.5 rounded-xl bg-[#4cc98a] px-5 font-display text-[15.5px] font-semibold text-[#06231a] hover:bg-[#6fd8a3]">
             <MessageCircle className="size-5" aria-hidden /> WhatsApp {WHATSAPP.display}
           </a>
-          <p className="mt-4 text-[15.5px] text-[#c9d8cf]">
+          <p className="mt-4 text-[15.5px] text-[#d6dbd2]">
             Ou écrivez directement à {TIDIANE.name}, directeur général, sur WhatsApp au{" "}
-            <a href={TIDIANE.href} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap font-semibold text-white underline underline-offset-2 hover:text-[#2bd47d]">
+            <a href={TIDIANE.href} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap font-semibold text-white underline underline-offset-2 hover:text-[#4cc98a]">
               {TIDIANE.display}
             </a>
             .

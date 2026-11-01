@@ -39,8 +39,8 @@ export function AuthLayout({ children, aside }: { children: ReactNode; aside?: R
           <span className="ml-auto">© {new Date().getFullYear()} SaytuMbay, Dakar</span>
         </footer>
       </div>
-      <aside className="relative hidden overflow-hidden bg-[#0b1a14] text-[#eaf3ee] lg:flex lg:flex-col" aria-label="Aperçu de l’exploitation de démonstration">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_60%_at_60%_45%,rgba(43,212,125,0.10),transparent_70%)]" aria-hidden />
+      <aside className="relative hidden overflow-hidden bg-[#0b2e24] text-[#f4efe6] lg:flex lg:flex-col" aria-label="Aperçu de l’exploitation de démonstration">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_60%_at_60%_45%,rgba(239,106,34,0.10),transparent_70%)]" aria-hidden />
         {aside ?? <PlanAside />}
       </aside>
     </div>
@@ -50,10 +50,10 @@ export function AuthLayout({ children, aside }: { children: ReactNode; aside?: R
 function PlanAside() {
   return (
     <div className="relative flex flex-1 flex-col justify-between gap-8 p-12 xl:p-16">
-      <div className="flex items-center gap-3 text-[13px] text-[#a9bdb2]">
+      <div className="flex items-center gap-3 text-[13px] text-[#aab8b0]">
         <span className="relative flex size-2">
-          <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#2bd47d] opacity-60 motion-reduce:hidden" />
-          <span className="relative inline-flex size-2 rounded-full bg-[#2bd47d]" />
+          <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#4cc98a] opacity-60 motion-reduce:hidden" />
+          <span className="relative inline-flex size-2 rounded-full bg-[#4cc98a]" />
         </span>
         Exploitation de Mboro · 6 parcelles · relevé toutes les 15 minutes{IS_DEMO ? " (simulé)" : ""}
       </div>
@@ -62,10 +62,10 @@ function PlanAside() {
       </div>
       <div className="max-w-[460px]">
         <p className="font-display text-[22px] font-semibold leading-snug tracking-tight text-white">La parcelle B est à 18 %. Le SMS est déjà parti.</p>
-        <p className="mt-3 text-[15px] leading-relaxed text-[#a9bdb2]">Des sondes enterrées à 20 cm mesurent l’humidité du sol. Quand une parcelle passe sous son seuil, la personne responsable reçoit une alerte, même sans internet.</p>
-        <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-[#c9d8cf]" aria-label="Légende">
-          <Legend color="#f0b642" label="À irriguer" />
-          <Legend color="#2bd47d" label="Bonne humidité" />
+        <p className="mt-3 text-[15px] leading-relaxed text-[#aab8b0]">Des sondes enterrées à 20 cm mesurent l’humidité du sol. Quand une parcelle passe sous son seuil, la personne responsable reçoit une alerte, même sans internet.</p>
+        <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-[#d6dbd2]" aria-label="Légende">
+          <Legend color="#ff8a4c" label="À irriguer" />
+          <Legend color="#4cc98a" label="Bonne humidité" />
           <Legend color="#4fd8ef" label="Trop humide" />
           <Legend color="#8c968f" label="Capteur hors ligne" dashed />
         </ul>

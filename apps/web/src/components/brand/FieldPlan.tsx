@@ -69,14 +69,14 @@ const VIEWBOX = (() => {
   return `${Math.min(...xs) - pad} ${Math.min(...ys) - pad} ${Math.max(...xs) - Math.min(...xs) + pad * 2} ${Math.max(...ys) - Math.min(...ys) + pad * 2}`;
 })();
 
-const NIGHT: Record<PlanState, string> = { sec: "#f0b642", optimal: "#2bd47d", humide: "#4fd8ef", indisponible: "#8c968f" };
+const NIGHT: Record<PlanState, string> = { sec: "#ff8a4c", optimal: "#4cc98a", humide: "#4fd8ef", indisponible: "#8c968f" };
 const THEME: Record<PlanState, string> = { sec: "var(--sun)", optimal: "var(--brand)", humide: "var(--water)", indisponible: "var(--offline)" };
 
 export function FieldPlan({ parcels, palette = "theme", selected, onSelect, className, animate = true, labelStyle = "full", title = "Plan des parcelles et humidité du sol" }: { parcels: PlanParcel[]; palette?: "night" | "theme"; selected?: string | null; onSelect?: (code: string) => void; className?: string; animate?: boolean; labelStyle?: "full" | "letter"; title?: string }) {
   const uid = useId().replace(/:/g, "");
   const colors = palette === "night" ? NIGHT : THEME;
-  const ink = palette === "night" ? "#eaf3ee" : "var(--ink)";
-  const sub = palette === "night" ? "#a9bdb2" : "var(--ink-3)";
+  const ink = palette === "night" ? "#f4efe6" : "var(--ink)";
+  const sub = palette === "night" ? "#aab8b0" : "var(--ink-3)";
   return (
     <svg viewBox={VIEWBOX} className={cn("block h-auto w-full overflow-visible", className)} role={onSelect ? "group" : "img"} aria-label={onSelect ? title : `${title}. ${parcels.map((p) => `Parcelle ${p.code}, ${p.crop.toLowerCase()} : ${p.value == null ? "capteur hors ligne" : `${p.value} %`}`).join(" ; ")}.`}>
       <defs>

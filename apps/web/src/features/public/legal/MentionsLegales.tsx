@@ -81,7 +81,7 @@ export default function MentionsLegales() {
           body: (
             <ul>
               <li>Fonds de carte : Esri World Imagery et contributeurs OpenStreetMap.</li>
-              <li>Polices : Sora et Atkinson Hyperlegible Next, sous licence SIL Open Font License.</li>
+              <li>Polices : Sora et IBM Plex Mono, sous licence SIL Open Font License.</li>
               <li>Icônes : Lucide, sous licence ISC.</li>
             </ul>
           ),
