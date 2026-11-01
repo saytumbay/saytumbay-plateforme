@@ -510,8 +510,8 @@ function Contact() {
             <MessageCircle className="size-5" aria-hidden /> WhatsApp {WHATSAPP.display}
           </a>
           <p className="mt-4 text-[15.5px] text-[#c9d8cf]">
-            Ou appelez {TIDIANE.name}, directeur général, au{" "}
-            <a href={TIDIANE.href} className="whitespace-nowrap font-semibold text-white underline underline-offset-2 hover:text-[#2bd47d]">
+            Ou écrivez directement à {TIDIANE.name}, directeur général, sur WhatsApp au{" "}
+            <a href={TIDIANE.href} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap font-semibold text-white underline underline-offset-2 hover:text-[#2bd47d]">
               {TIDIANE.display}
             </a>
             .

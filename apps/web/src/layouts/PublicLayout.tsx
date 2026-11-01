@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
-import { Menu, MessageCircle, Phone } from "lucide-react";
+import { Menu, MessageCircle } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/overlay";
@@ -8,8 +8,8 @@ import { useSession, homeFor } from "@/lib/auth";
 import { cn } from "@/lib/cn";
 
 export const WHATSAPP = { display: "77 833 57 81", href: "https://wa.me/221778335781?text=" + encodeURIComponent("Bonjour SaytuMbay, je souhaite en savoir plus sur vos capteurs.") };
-/** Ligne directe de Tidiane Sow, directeur général. */
-export const TIDIANE = { name: "Tidiane Sow", display: "77 088 94 08", href: "tel:+221770889408" };
+/** Ligne directe de Tidiane Sow, directeur général (WhatsApp). */
+export const TIDIANE = { name: "Tidiane Sow", display: "77 088 94 08", href: "https://wa.me/221770889408?text=" + encodeURIComponent("Bonjour Tidiane, je souhaite en savoir plus sur les capteurs SaytuMbay.") };
 
 const NAV = [
   { to: "/#agritech", label: "AgriTech" },
@@ -114,8 +114,8 @@ function PublicHeader() {
           <a href={WHATSAPP.href} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[15px] font-semibold text-brand hover:bg-brand-soft">
             <MessageCircle className="size-[18px]" aria-hidden /> WhatsApp {WHATSAPP.display}
           </a>
-          <a href={TIDIANE.href} className="inline-flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[15px] font-semibold text-brand hover:bg-brand-soft">
-            <Phone className="size-[18px]" aria-hidden /> {TIDIANE.name} : {TIDIANE.display}
+          <a href={TIDIANE.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[15px] font-semibold text-brand hover:bg-brand-soft">
+            <MessageCircle className="size-[18px]" aria-hidden /> WhatsApp {TIDIANE.name} : {TIDIANE.display}
           </a>
         </div>
       </Sheet>
@@ -160,8 +160,8 @@ function PublicFooter() {
               </a>
             </li>
             <li>
-              <a href={TIDIANE.href} className="inline-flex items-center gap-2 hover:text-ink">
-                <Phone className="size-4" aria-hidden /> {TIDIANE.name} : {TIDIANE.display}
+              <a href={TIDIANE.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-ink">
+                <MessageCircle className="size-4" aria-hidden /> WhatsApp {TIDIANE.name} : {TIDIANE.display}
               </a>
             </li>
             <li>
