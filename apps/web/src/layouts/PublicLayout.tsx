@@ -7,7 +7,8 @@ import { Sheet } from "@/components/ui/overlay";
 import { useSession, homeFor } from "@/lib/auth";
 import { cn } from "@/lib/cn";
 
-export const WHATSAPP = { display: "77 833 57 81", href: "https://wa.me/221778335781?text=" + encodeURIComponent("Bonjour SaytuMbay, je souhaite en savoir plus sur vos capteurs.") };
+/** Numéro WhatsApp principal du site (celui d'Ibrahima Fall, directeur technique). */
+export const WHATSAPP = { name: "Ibrahima Fall", display: "77 833 57 81", href: "https://wa.me/221778335781?text=" + encodeURIComponent("Bonjour SaytuMbay, je souhaite en savoir plus sur vos capteurs.") };
 /** Adresses e-mail de l'équipe (actives). */
 export const EMAIL = { contact: "contact@saytumbay.com", tidiane: "tidianesow@saytumbay.com", ibrahima: "ibrahimafall@saytumbay.com" };
 /** Ligne directe de Tidiane Sow, directeur général (WhatsApp). */
@@ -113,12 +114,11 @@ function PublicHeader() {
           <ButtonLink to={session ? homeFor(session) : "/connexion"} variant="secondary" size="lg">
             {session ? "Ouvrir mon espace" : "Se connecter"}
           </ButtonLink>
-          <a href={WHATSAPP.href} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[15px] font-semibold text-brand hover:bg-brand-soft">
-            <MessageCircle className="size-[18px]" aria-hidden /> WhatsApp {WHATSAPP.display}
-          </a>
-          <a href={TIDIANE.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[15px] font-semibold text-brand hover:bg-brand-soft">
-            <MessageCircle className="size-[18px]" aria-hidden /> WhatsApp {TIDIANE.name} : {TIDIANE.display}
-          </a>
+          {[TIDIANE, WHATSAPP].map((c, i) => (
+            <a key={c.display} href={c.href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[15px] font-semibold text-brand hover:bg-brand-soft", i === 0 && "mt-2")}>
+              <MessageCircle className="size-[18px]" aria-hidden /> {c.name} · <span className="font-mono text-[14px]">{c.display}</span>
+            </a>
+          ))}
         </div>
       </Sheet>
     </header>
@@ -156,18 +156,16 @@ function PublicFooter() {
         <div>
           <h2 className="font-display text-[14px] font-semibold">Nous joindre</h2>
           <ul className="mt-3 flex flex-col gap-2.5 text-[14.5px] text-ink-2">
-            <li>
-              <a href={WHATSAPP.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-ink">
-                <MessageCircle className="size-4 shrink-0" aria-hidden /> WhatsApp <span className="whitespace-nowrap font-mono text-[13.5px]">{WHATSAPP.display}</span>
-              </a>
-            </li>
-            <li>
-              <a href={TIDIANE.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-ink">
-                <MessageCircle className="size-4 shrink-0" aria-hidden /> <span>
-                  {TIDIANE.name} <span className="whitespace-nowrap font-mono text-[13.5px]">{TIDIANE.display}</span>
-                </span>
-              </a>
-            </li>
+            {[TIDIANE, WHATSAPP].map((c) => (
+              <li key={c.display}>
+                <a href={c.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-ink">
+                  <MessageCircle className="size-4 shrink-0" aria-hidden />
+                  <span>
+                    {c.name} <span className="whitespace-nowrap font-mono text-[13.5px]">{c.display}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
             <li>
               <a href={`mailto:${EMAIL.contact}`} className="inline-flex items-center gap-2 hover:text-ink">
                 <Mail className="size-4 shrink-0" aria-hidden /> {EMAIL.contact}

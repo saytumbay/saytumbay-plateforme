@@ -2,7 +2,7 @@ import { useEffect, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { Accordion } from "radix-ui";
-import { ArrowRight, ArrowUpRight, BellRing, BookOpen, ChevronDown, ClipboardCheck, Droplets, Ear, FileBarChart2, FileCheck2, Gauge, MessageCircle, Radio, Scale, Signal, SlidersHorizontal, Smartphone, Sprout, Sun, ThermometerSun, Wallet, Warehouse, Waves, Wind, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BellRing, BookOpen, ChevronDown, ClipboardCheck, Droplets, Ear, FileBarChart2, FileCheck2, Gauge, MessageCircle, Radio, Satellite, Scale, Signal, SlidersHorizontal, Smartphone, Sprout, Sun, ThermometerSun, Wallet, Warehouse, Waves, Wind, Zap } from "lucide-react";
 import { api, IS_DEMO } from "@/lib/api";
 import { homeFor, useSetSession } from "@/lib/auth";
 import { usePageTitle } from "@/components/ui/page";
@@ -33,6 +33,7 @@ export default function Landing() {
       <Hero />
       <Context />
       <InAction />
+      <SkyAndGround />
       <Method />
       <Equipment />
       <AgriTech />
@@ -205,6 +206,67 @@ function InAction() {
           ))}
         </ol>
         <p className="mt-6 font-mono text-[12.5px] text-ink-3">Exemple. Le seuil se règle selon la culture et la parcelle.</p>
+      </div>
+    </section>
+  );
+}
+
+/* ——— Satellite et capteurs : complémentaires, pas concurrents ——— */
+
+const SKY = ["La vigueur des plantes, champ par champ, sur de grandes surfaces", "Un passage tous les 5 jours environ", "Masqué par les nuages en saison des pluies", "Ne voit ni l’eau sous la surface, ni l’intérieur des magasins"];
+const GROUND = ["L’eau du sol, à la profondeur des racines", "Une mesure toutes les 15 minutes, jour et nuit, nuages ou pas", "Le cœur des sacs : chaleur, humidité, gaz de pourriture", "Une alerte SMS au bon responsable, avec quoi faire"];
+
+function SkyAndGround() {
+  return (
+    <section className="border-t border-line bg-surface" aria-labelledby="ciel-titre">
+      <div className={cn(wrap, "py-20 lg:py-28")}>
+        <div className="max-w-[64ch]" data-reveal>
+          <p className={cn(eyebrow, "text-brand")}>Satellite et capteurs</p>
+          <h2 id="ciel-titre" className={cn(h2, "mt-3")}>
+            Le satellite voit vos champs d’en haut. Nos capteurs voient ce qu’il ne voit pas.
+          </h2>
+          <p className="mt-5 text-[17px] leading-relaxed text-ink-2">Les images satellites montrent la santé des cultures sur de grandes surfaces. Elles ne disent pas s’il reste de l’eau là où sont les racines, ni ce qui se passe au cœur d’un magasin. C’est là que nous mesurons.</p>
+        </div>
+        <div className="relative mt-12 grid gap-5 lg:grid-cols-2 lg:gap-8">
+          <div className="rounded-[20px] border border-line bg-bg p-6 sm:p-7" data-reveal>
+            <p className="flex items-center gap-3 font-display text-[19px] font-semibold">
+              <span className="flex size-11 items-center justify-center rounded-full bg-surface-3 text-ink-2">
+                <Satellite className="size-5" aria-hidden />
+              </span>
+              Vu du ciel
+            </p>
+            <ul className="mt-5 flex flex-col gap-3 text-[15.5px] leading-relaxed text-ink-2">
+              {SKY.map((t) => (
+                <li key={t} className="flex gap-3">
+                  <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-ink-3" aria-hidden />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <span className="absolute left-1/2 top-1/2 z-10 hidden size-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-surface font-display text-[22px] font-semibold text-brand shadow-2 lg:flex" aria-hidden>
+            +
+          </span>
+          <div className="rounded-[20px] border border-brand/30 bg-brand-soft p-6 sm:p-7" data-reveal="1">
+            <p className="flex items-center gap-3 font-display text-[19px] font-semibold">
+              <span className="flex size-11 items-center justify-center rounded-full bg-brand text-brand-ink">
+                <Radio className="size-5" aria-hidden />
+              </span>
+              Au sol et dans le magasin
+            </p>
+            <ul className="mt-5 flex flex-col gap-3 text-[15.5px] leading-relaxed text-ink">
+              {GROUND.map((t) => (
+                <li key={t} className="flex gap-3">
+                  <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun" aria-hidden />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <p className="mt-8 max-w-[70ch] border-l-4 border-sun pl-5 font-display text-[clamp(18px,1.8vw,21px)] font-semibold leading-snug" data-reveal>
+          Ensemble, c’est le plus fiable, des parcelles maraîchères aux grandes exploitations. Combiner les deux, c’est la direction que nous prenons, seuls ou avec des partenaires.
+        </p>
       </div>
     </section>
   );
@@ -792,6 +854,7 @@ function Team() {
 
 const FAQ = [
   { q: "Où en est SaytuMbay ?", a: "La plateforme est construite et se découvre en démonstration. Le projet a été présenté au colloque COC’2026 à Thiès, et l’article est en accès libre sur HAL. Nous préparons nos premiers sites pilotes avec des coopératives : c’est le bon moment pour nous rejoindre, comme utilisateur, partenaire ou financeur." },
+  { q: "Utilisez-vous les images satellites ?", a: "Pas encore dans la plateforme. Les images satellites gratuites montrent la santé des cultures vue d’en haut, sur de grandes surfaces ; nos capteurs mesurent ce qu’elles ne voient pas, l’eau du sol et l’intérieur des magasins. Combiner les deux est la direction que nous prenons, seuls ou avec des partenaires." },
   { q: "J’ai déjà une pompe ou un arrosage automatique. Est-ce utile ?", a: "Oui. Les capteurs s’ajoutent à votre installation sans rien remplacer : ils disent quand arroser et vérifient que l’eau arrive bien dans le sol. Quand le matériel le permet, l’arrosage peut aussi se commander depuis l’application." },
   { q: "Faut-il internet sur la parcelle ?", a: "Non. Les capteurs parlent par radio LoRaWAN à une passerelle installée dans un local proche, qui envoie les mesures par la 4G. Les alertes arrivent par SMS, sans application ni données mobiles." },
   { q: "Qui reçoit les alertes ?", a: "La personne responsable de la parcelle ou du magasin, désignée par votre organisation. Chaque membre voit uniquement ce qui le concerne : un exploitant ses parcelles, un technicien les capteurs, le responsable l’ensemble." },
@@ -863,7 +926,7 @@ function Contact() {
               {TIDIANE.name} · <span className="font-mono text-[15px] font-medium">{TIDIANE.display}</span>
             </WhatsAppLink>
             <WhatsAppLink href={WHATSAPP.href}>
-              WhatsApp <span className="font-mono text-[15px] font-medium">{WHATSAPP.display}</span>
+              {WHATSAPP.name} · <span className="font-mono text-[15px] font-medium">{WHATSAPP.display}</span>
             </WhatsAppLink>
             <a href={`mailto:${EMAIL.contact}`} className="mt-2 inline-flex items-center gap-2 font-mono text-[15px] text-[#f4efe6] underline underline-offset-4 hover:text-white">
               {EMAIL.contact}

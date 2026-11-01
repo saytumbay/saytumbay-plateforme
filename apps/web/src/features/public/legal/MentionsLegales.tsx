@@ -26,8 +26,8 @@ export default function MentionsLegales() {
                 <li>
                   NINEA : <Todo>numéro d’identification nationale</Todo>
                 </li>
-                <li>Téléphone et WhatsApp : +221 77 833 57 81</li>
                 <li>Téléphone et WhatsApp de Tidiane Sow, directeur général : +221 77 088 94 08</li>
+                <li>Téléphone et WhatsApp d’Ibrahima Fall, directeur technique : +221 77 833 57 81</li>
                 <li>
                   E-mail : <a href="mailto:contact@saytumbay.com">contact@saytumbay.com</a> ; Tidiane Sow, directeur général : <a href="mailto:tidianesow@saytumbay.com">tidianesow@saytumbay.com</a> ; Ibrahima Fall, directeur technique : <a href="mailto:ibrahimafall@saytumbay.com">ibrahimafall@saytumbay.com</a>
                 </li>
