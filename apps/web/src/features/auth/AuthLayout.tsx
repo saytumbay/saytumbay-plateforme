@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { Logo } from "@/components/brand/Logo";
 import { FieldPlan, DEMO_PLAN } from "@/components/brand/FieldPlan";
 import { IS_DEMO } from "@/lib/api";
+import { Photo, PhotoCredit } from "@/components/ui/photo";
 
 /**
  * Gabarit des pages d'accès : formulaire à gauche, plan de l'exploitation à droite (écrans larges).
@@ -47,20 +48,31 @@ export function AuthLayout({ children, aside }: { children: ReactNode; aside?: R
   );
 }
 
+/** Vraie parcelle en plein cadre (écrans larges seulement), plan de l'exploitation et message par-dessus. */
 function PlanAside() {
   return (
     <div className="relative flex flex-1 flex-col justify-between gap-8 p-12 xl:p-16">
-      <div className="flex items-center gap-3 text-[13px] text-[#aab8b0]">
+      <Photo
+        name="diamniadio"
+        caption={false}
+        alt=""
+        sizes="50vw"
+        position="50% 40%"
+        className="absolute inset-0"
+        frameClassName="h-full [&>img]:opacity-55"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#0b2e24]/40 via-[#0b2e24]/70 to-[#0b2e24]" aria-hidden />
+      <div className="relative flex items-center gap-3 text-[13px] text-[#d6dbd2]">
         <span className="relative flex size-2">
-          <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#4cc98a] opacity-60 motion-reduce:hidden" />
-          <span className="relative inline-flex size-2 rounded-full bg-[#4cc98a]" />
+          <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#ef6a22] opacity-60 motion-reduce:hidden" />
+          <span className="relative inline-flex size-2 rounded-full bg-[#ef6a22]" />
         </span>
         Exploitation de Mboro · 6 parcelles · relevé toutes les 15 minutes{IS_DEMO ? " (simulé)" : ""}
       </div>
-      <div className="mx-auto w-full max-w-[560px]">
+      <div className="relative mx-auto w-full max-w-[460px]">
         <FieldPlan parcels={DEMO_PLAN} palette="night" />
       </div>
-      <div className="max-w-[460px]">
+      <div className="relative max-w-[460px]">
         <p className="font-display text-[22px] font-semibold leading-snug tracking-tight text-white">La parcelle B est à 18 %. Le SMS est déjà parti.</p>
         <p className="mt-3 text-[15px] leading-relaxed text-[#aab8b0]">Des sondes enterrées à 20 cm mesurent l’humidité du sol. Quand une parcelle passe sous son seuil, la personne responsable reçoit une alerte, même sans internet.</p>
         <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-[#d6dbd2]" aria-label="Légende">
@@ -69,6 +81,7 @@ function PlanAside() {
           <Legend color="#4fd8ef" label="Trop humide" />
           <Legend color="#8c968f" label="Capteur hors ligne" dashed />
         </ul>
+        <PhotoCredit name="diamniadio" className="mt-6 text-[#aab8b0] [&_a:hover]:text-white" />
       </div>
     </div>
   );

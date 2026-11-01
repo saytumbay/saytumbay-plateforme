@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { PHOTOS } from "@/assets/photos";
 import { LegalPage, Todo } from "./LegalPage";
 
 export default function MentionsLegales() {
@@ -83,6 +84,24 @@ export default function MentionsLegales() {
               <li>Fonds de carte : Esri World Imagery et contributeurs OpenStreetMap.</li>
               <li>Polices : Sora et IBM Plex Mono, sous licence SIL Open Font License.</li>
               <li>Icônes : Lucide, sous licence ISC.</li>
+              <li>
+                Photographies prises au Sénégal, publiées sur Wikimedia Commons, recadrées et réduites. Elles illustrent le contexte agricole : les personnes et les lieux montrés ne sont ni des clients ni des sites SaytuMbay.
+                <ul>
+                  {Object.values(PHOTOS).map((p) => (
+                    <li key={p.source}>
+                      {p.place} : photo{" "}
+                      <a href={p.source} target="_blank" rel="noopener noreferrer">
+                        {p.author}
+                      </a>
+                      , licence{" "}
+                      <a href={p.licenseUrl} target="_blank" rel="noopener noreferrer">
+                        {p.license}
+                      </a>
+                      .
+                    </li>
+                  ))}
+                </ul>
+              </li>
             </ul>
           ),
         },

@@ -8,6 +8,8 @@ import { homeFor, useSetSession } from "@/lib/auth";
 import { usePageTitle } from "@/components/ui/page";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { SignTrace } from "@/components/brand/SignTrace";
+import { Photo, PhotoCredit } from "@/components/ui/photo";
+import { useReveal } from "@/lib/reveal";
 import { TIDIANE, WHATSAPP } from "@/layouts/PublicLayout";
 import { cn } from "@/lib/cn";
 import { HeroField } from "./HeroField";
@@ -20,6 +22,7 @@ const h2 = "font-display text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.
 
 export default function Landing() {
   usePageTitle(null);
+  useReveal();
   const { hash } = useLocation();
   useEffect(() => {
     if (!hash) return;
@@ -30,11 +33,13 @@ export default function Landing() {
     <>
       <Hero />
       <Context />
+      <InAction />
       <Method />
       <AgriTech />
       <Onion />
       <Beyond />
       <Status />
+      <FieldToMarket />
       <Together />
       <Team />
       <Faq />
@@ -97,7 +102,59 @@ function Hero() {
           , en wolof : veiller sur l’agriculture.
         </p>
       </div>
-      <HeroField />
+      <HeroPhoto />
+    </section>
+  );
+}
+
+/** Une vraie parcelle, et ce que SaytuMbay y ajoute : une mesure et une alerte au bon moment. */
+function HeroPhoto() {
+  return (
+    <Photo
+      name="champGoutte"
+      priority
+      alt="Main d’un maraîcher qui sort un oignon rouge de la terre, à côté d’un tuyau de goutte-à-goutte."
+      sizes="(min-width: 1024px) 620px, 100vw"
+      position="40% 55%"
+      frameClassName="hero-photo aspect-[4/5] rounded-[28px] sm:aspect-[5/4] lg:aspect-[4/5]"
+    >
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0b2e24]/70 to-transparent" aria-hidden />
+      <p className="anim-chip absolute right-4 top-4 inline-flex items-center gap-2 rounded-full bg-[#f4efe6] px-3.5 py-2 font-mono text-[13px] font-medium text-[#0b2e24] shadow-2 sm:right-5 sm:top-5">
+        <span className="size-2 rounded-full bg-[#ef6a22]" aria-hidden />
+        Sol · 18 % · sous le seuil
+      </p>
+      <div className="anim-sms absolute inset-x-4 bottom-4 rounded-2xl bg-[#f4efe6] p-4 text-[#0b2e24] shadow-3 sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-[340px]">
+        <p className="flex items-center justify-between font-mono text-[11.5px] text-[#5b6660]">
+          <span>SMS · SaytuMbay</span>
+          <span>09:45</span>
+        </p>
+        <p className="mt-1.5 text-[14.5px] leading-snug">
+          <span className="font-semibold">Coop. Thiès : Parcelle B est sèche (18 %).</span> Lancer une irrigation ou vérifier que la règle automatique est active.
+        </p>
+        <p className="mt-2 text-[11.5px] text-[#5b6660]">Exemple d’alerte, texte réel de la plateforme.</p>
+      </div>
+    </Photo>
+  );
+}
+
+/* ——— La démonstration interactive (ancien héros) ——— */
+
+function InAction() {
+  return (
+    <section id="en-action" className="scroll-mt-20" aria-labelledby="action-titre">
+      <div className={cn(wrap, "grid items-center gap-10 py-20 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-14 lg:py-28")}>
+        <div data-reveal>
+          <p className={cn(eyebrow, "text-brand")}>En action</p>
+          <h2 id="action-titre" className={cn(h2, "mt-3")}>
+            Une journée sur une exploitation, en dix secondes.
+          </h2>
+          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-ink-2">L’humidité de la parcelle B baisse, l’alerte part par SMS, l’irrigation la remonte. Faites glisser le curseur pour rejouer la journée.</p>
+          <p className="mt-4 font-mono text-[12.5px] text-ink-3">Données simulées, mêmes règles que la plateforme.</p>
+        </div>
+        <div data-reveal="1">
+          <HeroField />
+        </div>
+      </div>
     </section>
   );
 }
@@ -117,9 +174,14 @@ function Context() {
             </a>
           </sup>
         </p>
-        <div className="mt-10 grid gap-8 text-[16.5px] leading-relaxed text-ink-2 md:grid-cols-2 md:gap-14">
+        <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-14">
+          <div className="flex flex-col gap-6 text-[16.5px] leading-relaxed text-ink-2" data-reveal>
           <p>Une bonne partie se joue sans témoin : une parcelle qui sèche pendant un après-midi d’harmattan, une vanne restée ouverte toute la nuit, un sol qui se charge en sel au fil des saisons.</p>
           <p>Dans les magasins, l’oignon commence à pourrir au cœur des sacs, là où personne ne regarde. Quand l’odeur arrive à la porte, une partie du stock est déjà perdue.</p>
+          </div>
+          <div data-reveal="1">
+            <Photo name="sac" alt="Une femme porte sur la tête un grand sac d’oignons rouges." sizes="(min-width: 1024px) 560px, 100vw" position="50% 35%" frameClassName="aspect-[16/10] rounded-[24px]" />
+          </div>
         </div>
         <p className="mt-10 max-w-[62ch] border-l-4 border-sun pl-5 font-display text-[clamp(19px,2vw,23px)] font-semibold leading-snug text-ink">Ces pertes préviennent presque toujours. Notre travail : rendre ces signaux visibles assez tôt pour agir.</p>
         <p id="source-1" className="mt-10 max-w-[80ch] text-[13px] text-ink-3">
@@ -160,7 +222,7 @@ function Method() {
         <ol className="relative mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
           <span className="absolute left-0 right-0 top-[21px] hidden h-0.5 bg-brand/25 lg:block" aria-hidden />
           {METHOD.map((s, i) => (
-            <li key={s.title} className="relative">
+            <li key={s.title} className="relative" data-reveal={i}>
               <span className="relative flex size-11 items-center justify-center rounded-full bg-brand text-brand-ink">
                 <s.icon className="size-5" aria-hidden />
               </span>
@@ -214,7 +276,13 @@ function AgriTech() {
             ))}
           </dl>
         </div>
-        <ProductPeek />
+        <div className="self-start" data-reveal="1">
+          <Photo name="rangs" caption={false} alt="Rangs d’oignons dans une parcelle de Diamniadio, avec leurs lignes d’irrigation au goutte-à-goutte." sizes="(min-width: 1024px) 560px, 100vw" frameClassName="aspect-[16/11] rounded-[24px]" />
+          <div className="relative -mt-20 px-3 sm:-mt-28 sm:px-6">
+            <ProductPeek />
+          </div>
+          <PhotoCredit name="rangs" className="mt-4 px-1" />
+        </div>
       </div>
     </section>
   );
@@ -262,8 +330,8 @@ function ProductPeek() {
         <ul className="grid gap-3 sm:grid-cols-3">
           {PEEK.map((p) => (
             <li key={p.code} className="rounded-xl border border-line p-3.5">
-              <p className="flex items-baseline justify-between gap-2">
-                <span className="font-display text-[15px] font-semibold">Parcelle {p.code}</span>
+              <p className="flex flex-wrap items-baseline justify-between gap-x-2">
+                <span className="whitespace-nowrap font-display text-[15px] font-semibold">Parcelle {p.code}</span>
                 <span className="text-[12px] text-ink-3">{p.crop}</span>
               </p>
               <p className="mt-2 font-mono text-[26px] font-medium leading-none tabular">
@@ -321,7 +389,13 @@ function Onion() {
             ))}
           </ul>
         </div>
-        <StoreIllustration />
+        <div className="self-start lg:order-1" data-reveal="1">
+          <Photo name="recolte" caption={false} alt="Un producteur sénégalais montre des oignons rouges de sa récolte." sizes="(min-width: 1024px) 560px, 100vw" position="50% 60%" frameClassName="aspect-[5/4] rounded-[24px]" />
+          <div className="relative -mt-16 rounded-[20px] border border-line bg-surface p-4 shadow-2 sm:mx-6 sm:-mt-24 sm:p-5">
+            <StoreIllustration />
+          </div>
+          <PhotoCredit name="recolte" className="mt-4 px-1" />
+        </div>
       </div>
     </section>
   );
@@ -335,7 +409,7 @@ function StoreIllustration() {
     { id: "R4", temp: 26, hum: 67, tone: "ok" },
   ] as const;
   return (
-    <figure className="self-center lg:order-1">
+    <figure>
       <svg viewBox="0 0 520 330" className="h-auto w-full" role="img" aria-label="Coupe d’un magasin de stockage : quatre rangées de sacs, la rangée 3 chauffe à 31 °C avec 74 % d’humidité.">
         <path d="M20 112 L260 22 L500 112" fill="none" stroke="var(--line-strong)" strokeWidth="2" strokeLinejoin="round" />
         <line x1="40" y1="112" x2="40" y2="292" stroke="var(--line-strong)" strokeWidth="2" />
@@ -433,8 +507,8 @@ function Status() {
         </h2>
         <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-ink-2">SaytuMbay démarre, et nous préférons le dire clairement : voici ce qui existe aujourd’hui, et ce qui reste à faire avec vous.</p>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {STATUS.map((c) => (
-            <div key={c.title} className="rounded-[20px] border border-line bg-surface p-6">
+          {STATUS.map((c, i) => (
+            <div key={c.title} className="rounded-[20px] border border-line bg-surface p-6" data-reveal={i}>
               <h3 className="flex items-center gap-2.5 font-display text-[18px] font-semibold">
                 <Dot tone={c.tone} />
                 {c.title}
@@ -458,6 +532,34 @@ function Status() {
               </li>
             ))}
           </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ——— Du champ au marché : ce que l'on protège ——— */
+
+function FieldToMarket() {
+  return (
+    <section className="border-t border-line bg-surface" aria-labelledby="champ-titre">
+      <div className={cn(wrap, "py-20 lg:py-28")}>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-16" data-reveal>
+          <div>
+            <p className={cn(eyebrow, "text-brand")}>Ce que nous protégeons</p>
+            <h2 id="champ-titre" className={cn(h2, "mt-3")}>
+              Le travail de toute une saison, du champ jusqu’au marché.
+            </h2>
+          </div>
+          <p className="max-w-[52ch] text-[17px] leading-relaxed text-ink-2">Chaque parcelle bien arrosée, chaque sac qui ne pourrit pas, c’est un revenu qui reste chez le producteur et une récolte qui arrive sur les étals.</p>
+        </div>
+        <div className="mt-12 grid gap-5 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:items-start">
+          <div data-reveal>
+            <Photo name="diamniadio" alt="Jeunes plants d’oignon alignés dans une parcelle de Diamniadio." sizes="(min-width: 768px) 460px, 100vw" frameClassName="aspect-[4/5] rounded-[24px]" />
+          </div>
+          <div data-reveal="1">
+            <Photo name="marche" alt="Étals de légumes frais et vendeuses au marché de Case Ba, aux Parcelles Assainies, à Dakar." sizes="(min-width: 768px) 700px, 100vw" frameClassName="aspect-[3/2] rounded-[24px]" />
+          </div>
         </div>
       </div>
     </section>
@@ -490,8 +592,8 @@ function Together() {
         </h2>
         <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-[#dfe6dc]">Nous cherchons trois types de partenaires. Si vous vous reconnaissez, écrivez-nous : nous répondons à chaque message.</p>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {AUDIENCES.map((a) => (
-            <div key={a.title} className="flex flex-col rounded-[20px] bg-[#f4efe6] p-6 text-[#0b2e24]">
+          {AUDIENCES.map((a, i) => (
+            <div key={a.title} className="flex flex-col rounded-[20px] bg-[#f4efe6] p-6 text-[#0b2e24]" data-reveal={i}>
               <h3 className="font-display text-[19px] font-semibold leading-snug">{a.title}</h3>
               <p className="mt-3 flex-1 text-[15.5px] leading-relaxed text-[#3c4a44]">{a.text}</p>
               <Link to={a.to} className="mt-6 inline-flex items-center gap-1.5 font-display text-[15px] font-semibold text-[#0f5a44] underline-offset-4 hover:underline">
@@ -540,7 +642,7 @@ function Team() {
         </div>
         <ul className="flex flex-col gap-4 self-end">
           {TEAM.map((m, i) => (
-            <li key={m.name} className="flex items-center gap-4 rounded-[20px] border border-line bg-surface p-5">
+            <li key={m.name} className="flex items-center gap-4 rounded-[20px] border border-line bg-surface p-5" data-reveal={i}>
               <span className={cn("flex size-14 shrink-0 items-center justify-center rounded-full font-display text-[18px] font-semibold", i ? "bg-sun-soft text-sun-ink" : "bg-brand-soft text-brand-strong dark:text-brand")} aria-hidden>
                 {m.name
                   .split(" ")
