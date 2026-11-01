@@ -581,7 +581,11 @@ const STATUS: Array<{ title: string; tone: "brand" | "sun" | "ink"; items: strin
   {
     title: "En cours",
     tone: "sun",
-    items: ["SMS d’alerte en wolof, en relecture.", "Préparation des premiers sites pilotes avec des coopératives."],
+    items: [
+      "SMS d’alerte en wolof, en relecture.",
+      "Intégration du moteur du prototype présenté au COC’2026 : repérage automatique des mesures anormales par apprentissage automatique, et risque de maladies fongiques.",
+      "Préparation des premiers sites pilotes avec des coopératives.",
+    ],
   },
   {
     title: "Ce que nous cherchons",
