@@ -2,6 +2,14 @@
 
 Guide pour créer et animer les comptes LinkedIn, X, Instagram et TikTok. Tous les visuels de ce dossier suivent la charte graphique v1.0 (vert forêt, orange signal, sable, nuit ; Sora et IBM Plex Mono).
 
+## Le texte unique (bio et slogan, sur tous les réseaux)
+
+```
+Startup agritech 🇸🇳 · Voir la perte avant qu'elle arrive, du champ au magasin.
+```
+
+78 caractères : il tient partout (TikTok 80, Instagram 150, X 160, slogan LinkedIn 120). Le même texte partout rend la marque reconnaissable.
+
 ## Les règles communes
 
 - **Le même nom partout** : `@saytumbay`. Nom affiché : **SaytuMbay** (le logo s'écrit « saytumbay », les textes « SaytuMbay »).
@@ -37,7 +45,7 @@ Formulaire de création :
 | Taille | `2-10 employés` |
 | Type | `Société civile/Société commerciale/Autres types de sociétés` (SARL, SAS…), à ajuster quand la forme juridique sera fixée |
 | Logo | `avatar-saytumbay.png` |
-| Slogan (120 car.) | `Startup agritech qui aide les agriculteurs à voir la perte avant qu'elle arrive, du champ au magasin. Dakar, Sénégal.` |
+| Slogan (120 car.) | le texte unique ci-dessus |
 
 Après la création (bouton « Modifier la page ») :
 
@@ -64,7 +72,7 @@ Après la création (bouton « Modifier la page ») :
 
 - Nom : `SaytuMbay` · Identifiant : `@saytumbay`
 - Photo : `avatar-saytumbay.png` · Bannière : `x-banniere.png`
-- Bio (160 car.) : `Startup agritech 🇸🇳 · Nos capteurs préviennent par SMS avant que la récolte ne se perde, du champ au magasin. Née à l'ESP Dakar.`
+- Bio : le texte unique
 - Lieu : `Dakar, Sénégal`
 
 ## Instagram
@@ -72,14 +80,7 @@ Après la création (bouton « Modifier la page ») :
 - Passer en **compte professionnel** (gratuit : Paramètres > Type de compte). Catégorie : « Science et technologie » ou « Agriculture ».
 - Nom : `SaytuMbay` · Identifiant : `saytumbay`
 - Photo : `avatar-saytumbay.png`
-- Bio (150 car.) :
-
-```
-Startup agritech · Dakar 🇸🇳
-🌱 Des capteurs dans le sol et les magasins
-📲 Une alerte SMS au bon moment, avec quoi faire
-👇 Écrivez-nous
-```
+- Bio : le texte unique
 
 - Lien : le WhatsApp en attendant le site.
 - Ajouter les boutons « E-mail » et « Appeler » du compte professionnel.
@@ -89,7 +90,7 @@ Startup agritech · Dakar 🇸🇳
 - Passer en **compte professionnel** (gratuit). Catégorie : « Science et éducation » ou « Agriculture ».
 - Nom : `SaytuMbay` · Identifiant : `@saytumbay`
 - Photo : `avatar-saytumbay.png`
-- Bio (80 car.) : `Startup agritech 🇸🇳 · Des capteurs et des SMS pour sauver les récoltes 🌱`
+- Bio : le texte unique
 
 ## Les trois premières publications
 
