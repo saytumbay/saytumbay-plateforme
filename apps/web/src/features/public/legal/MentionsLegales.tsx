@@ -26,6 +26,7 @@ export default function MentionsLegales() {
                   NINEA : <Todo>numéro d’identification nationale</Todo>
                 </li>
                 <li>Téléphone et WhatsApp : +221 77 833 57 81</li>
+                <li>Téléphone de Tidiane Sow, directeur général : +221 77 088 94 08</li>
                 <li>
                   E-mail : <Todo>adresse de contact</Todo>
                 </li>
