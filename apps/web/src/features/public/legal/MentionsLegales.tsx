@@ -40,7 +40,7 @@ export default function MentionsLegales() {
           title: "Direction de la publication",
           body: (
             <p>
-              Directeur de la publication : <Todo>nom du représentant légal, par exemple Tidiane Sow, directeur général</Todo>.
+              Directeur de la publication : Tidiane Sow, directeur général.
             </p>
           ),
         },

@@ -20,8 +20,11 @@ export function LegalPage({ title, intro, updated, sections, draft = true }: { t
         {intro && <div className="mt-5 text-[17px] leading-relaxed text-ink-2">{intro}</div>}
         <p className="mt-4 text-[14px] text-ink-3">Dernière mise à jour : {updated}</p>
         {draft && (
-          <p className="mt-6 rounded-xl border border-sun/35 bg-sun-soft px-4 py-3 text-[14.5px] leading-relaxed text-sun-ink">
-            Document de travail : les éléments entre crochets sont à compléter ou à valider avant la mise en ligne du site.
+          <p className="mt-6 flex items-start gap-2.5 rounded-xl border border-brand/25 bg-brand-soft px-4 py-3 text-[14.5px] leading-relaxed text-brand-strong dark:text-brand">
+            <span className="mt-[7px] size-2 shrink-0 rounded-full bg-sun" aria-hidden />
+            <span>
+              <strong className="font-semibold">Démarches administratives en cours.</strong> SaytuMbay est une jeune entreprise : les informations marquées « en cours » seront publiées ici dès qu’elles seront disponibles.
+            </span>
           </p>
         )}
       </header>
@@ -50,7 +53,10 @@ export function LegalPage({ title, intro, updated, sections, draft = true }: { t
   );
 }
 
-/** Champ à compléter, visible et repérable. */
-export function Todo({ children }: { children: ReactNode }) {
-  return <mark className="rounded bg-sun-soft px-1 text-sun-ink">[{children}]</mark>;
+/**
+ * Information pas encore disponible. Le visiteur voit « en cours » ; la consigne (`children`) reste dans le code
+ * pour l'équipe et n'est pas affichée. Chercher « <Todo> » pour retrouver tout ce qui reste à remplir.
+ */
+export function Todo(_: { children: ReactNode }) {
+  return <span className="inline-block rounded-full bg-sun-soft px-2 py-px align-baseline text-[0.85em] font-semibold text-sun-ink">en cours</span>;
 }

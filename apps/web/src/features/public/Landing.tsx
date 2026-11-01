@@ -859,11 +859,11 @@ function Contact() {
           </h2>
           <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Agriculteur, coopérative, investisseur ou institution : laissez-nous un numéro, nous vous rappelons. Chaque échange nous aide à construire la bonne solution.</p>
           <div className="mt-8 flex flex-col items-start gap-3">
+            <WhatsAppLink href={TIDIANE.href}>
+              {TIDIANE.name} · <span className="font-mono text-[15px] font-medium">{TIDIANE.display}</span>
+            </WhatsAppLink>
             <WhatsAppLink href={WHATSAPP.href}>
               WhatsApp <span className="font-mono text-[15px] font-medium">{WHATSAPP.display}</span>
-            </WhatsAppLink>
-            <WhatsAppLink href={TIDIANE.href}>
-              {TIDIANE.name}, directeur général · <span className="font-mono text-[15px] font-medium">{TIDIANE.display}</span>
             </WhatsAppLink>
             <a href={`mailto:${EMAIL.contact}`} className="mt-2 inline-flex items-center gap-2 font-mono text-[15px] text-[#f4efe6] underline underline-offset-4 hover:text-white">
               {EMAIL.contact}
