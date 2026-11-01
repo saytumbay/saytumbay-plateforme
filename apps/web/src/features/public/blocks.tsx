@@ -1,12 +1,9 @@
 import { useEffect, type ReactNode } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
-import { useMutation } from "@tanstack/react-query";
+import { Link, useLocation } from "react-router";
 import { Accordion } from "radix-ui";
 import { ArrowRight, ArrowUpRight, BellRing, BookOpen, ChevronDown, ClipboardCheck, Droplets, Ear, FileBarChart2, FileCheck2, Gauge, MessageCircle, Radio, Satellite, Scale, Signal, SlidersHorizontal, Smartphone, Sprout, Sun, ThermometerSun, Wallet, Warehouse, Waves, Wind, Zap } from "lucide-react";
-import { api, IS_DEMO } from "@/lib/api";
-import { homeFor, useSetSession } from "@/lib/auth";
 import { usePageTitle } from "@/components/ui/page";
-import { Button, ButtonLink } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 import { SignTrace } from "@/components/brand/SignTrace";
 import { Photo } from "@/components/ui/photo";
 import { useReveal } from "@/lib/reveal";
@@ -38,86 +35,6 @@ export function useHashScroll() {
 /** La pastille de la charte : reprise du capteur, sert de puce et d'indicateur d'état. */
 export function Dot({ tone = "sun", className }: { tone?: "sun" | "brand" | "ink"; className?: string }) {
   return <span className={cn("inline-block size-2.5 shrink-0 rounded-full", { sun: "bg-sun", brand: "bg-brand", ink: "bg-ink-3" }[tone], className)} aria-hidden />;
-}
-
-/* ——— Héros ——— */
-
-export function Hero() {
-  const navigate = useNavigate();
-  const setSession = useSetSession();
-  const demo = useMutation({
-    mutationFn: () => api.auth.demo("responsable"),
-    onSuccess: (s) => {
-      setSession(s);
-      navigate(homeFor(s));
-    },
-  });
-  return (
-    <section className={cn(wrap, "grid items-center gap-10 pb-16 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-14 lg:pb-24 lg:pt-16")} aria-labelledby="hero-titre">
-      <div className="max-w-[580px]">
-        <p className={cn(eyebrow, "inline-flex items-center gap-2.5 text-brand")}>
-          <Dot />
-          Voir la perte avant qu’elle arrive
-        </p>
-        <h1 id="hero-titre" className="mt-5 font-display text-[clamp(40px,5.6vw,68px)] font-bold leading-[1.02] tracking-[-0.035em] text-balance">
-          <span className="block">Votre champ a soif ?</span>
-          <span className="block text-brand">Vous recevez un SMS.</span>
-        </h1>
-        <p className="mt-6 text-[clamp(18px,1.6vw,20px)] leading-relaxed text-ink-2 text-pretty">
-          Nous posons de petits capteurs dans vos champs et vos magasins. Ils vous préviennent sur votre téléphone, avant que la récolte ne se perde.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <ButtonLink to="/?profil=cooperative#contact" size="lg">
-            Je veux essayer
-          </ButtonLink>
-          {IS_DEMO ? (
-            <Button variant="secondary" size="lg" loading={demo.isPending} onClick={() => demo.mutate()}>
-              Essayer la démo
-            </Button>
-          ) : (
-            <ButtonLink to="/connexion" variant="secondary" size="lg">
-              Se connecter
-            </ButtonLink>
-          )}
-        </div>
-        <p className="mt-8 text-[14.5px] leading-relaxed text-ink-3">
-          <span lang="wo" className="font-semibold text-ink-2">
-            Saytu mbay
-          </span>
-          , en wolof : veiller sur l’agriculture.
-        </p>
-      </div>
-      <HeroPhoto />
-    </section>
-  );
-}
-
-/** Une vraie parcelle, et ce que SaytuMbay y ajoute : une mesure et une alerte au bon moment. */
-export function HeroPhoto() {
-  return (
-    <Photo
-      name="champGoutte"
-      priority
-      alt="Main d’un maraîcher qui sort un oignon rouge de la terre, à côté d’un tuyau de goutte-à-goutte."
-      sizes="(min-width: 1024px) 620px, 100vw"
-      position="40% 55%"
-      frameClassName="hero-photo aspect-[4/5] max-h-[78vh] rounded-[28px] sm:aspect-[5/4] lg:aspect-square"
-    >
-      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0b2e24]/70 to-transparent" aria-hidden />
-      <p className="anim-chip absolute right-4 top-4 inline-flex items-center gap-2 rounded-full bg-[#f4efe6] px-4 py-2 text-[15px] font-semibold text-[#0b2e24] shadow-2 sm:right-5 sm:top-5">
-        <span className="size-2.5 rounded-full bg-[#ef6a22]" aria-hidden />
-        Le sol est trop sec
-      </p>
-      {/* Exemple simplifié pour l'accueil ; les SMS réels de la plateforme sont plus détaillés. */}
-      <div className="anim-sms absolute inset-x-4 bottom-4 rounded-2xl bg-[#f4efe6] p-4 text-[#0b2e24] shadow-3 sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-[320px]">
-        <p className="flex items-center justify-between text-[12.5px] font-semibold text-[#5b6660]">
-          <span>SMS · SaytuMbay</span>
-          <span>Exemple</span>
-        </p>
-        <p className="mt-1.5 text-[17px] font-semibold leading-snug">Votre parcelle B a soif. Arrosez aujourd’hui.</p>
-      </div>
-    </Photo>
-  );
 }
 
 /* ——— Une journée en quatre images : sans interaction, compréhensible par tous ——— */

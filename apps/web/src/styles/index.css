@@ -280,13 +280,13 @@
   .app-enter > :nth-child(n + 5) { animation-delay: 280ms; }
 }
 
-/* Héros : la photo se pose doucement, la carte SMS arrive comme un vrai message. */
+/* Héros : la photo se pose doucement, le titre monte, puis la carte SMS arrive comme un vrai message. */
 @keyframes settle { from { transform: scale(1.06); } to { transform: none; } }
 @keyframes sms-arrive { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
   .hero-photo > img { animation: settle 1600ms var(--ease-out) both; }
   .anim-sms { animation: sms-arrive 600ms var(--ease-out) 1100ms both; }
-  .anim-chip { animation: sms-arrive 500ms var(--ease-out) 600ms both; }
+  .anim-rise { animation: rise 900ms var(--ease-out) 150ms both; }
 }
 @media (prefers-reduced-motion: reduce) { .plan-pulse { animation: none; opacity: 0.6; } }
 
