@@ -15,7 +15,7 @@ import { QueryView, EmptyState } from "@/components/ui/feedback";
 import { FilterChips, Kpi, Meter } from "@/components/ui/data";
 import { DataTable } from "@/components/ui/table";
 import { InvoiceBadge, Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, IconButton } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/overlay";
 import { Field, FormError, Input, Select } from "@/components/ui/form";
 import { MonthLines, monthLong } from "@/components/charts/charts";
@@ -41,15 +41,17 @@ export default function Billing() {
   });
   const columns = useMemo<Array<ColumnDef<Row, unknown>>>(
     () => [
-      { id: "no", header: "N°", accessorKey: "id", cell: ({ row: { original: i } }) => <span className="whitespace-nowrap font-display font-semibold tabular">{i.id}</span> },
       {
-        id: "client",
-        header: "Client",
-        accessorKey: "orgName",
+        id: "facture",
+        header: "Facture",
+        accessorKey: "id",
         cell: ({ row: { original: i } }) => (
-          <div className="min-w-0">
+          <div className="min-w-0 max-w-[12.5rem] max-[720px]:max-w-none">
+            <p className="whitespace-nowrap font-display font-semibold tabular">{i.id}</p>
             <p className="font-medium">{i.orgName}</p>
-            <p className="truncate text-[12.5px] text-ink-3">{i.label}</p>
+            <p className="truncate text-[12.5px] text-ink-3" title={i.label}>
+              {i.label}
+            </p>
           </div>
         ),
       },
@@ -75,22 +77,37 @@ export default function Billing() {
           </div>
         ),
       },
-      { id: "statut", header: "Statut", accessorKey: "status", cell: ({ row: { original: i } }) => <InvoiceBadge status={i.status} /> },
-      { id: "mode", header: "Paiement", accessorFn: (i) => i.method ?? "", cell: ({ row: { original: i } }) => (i.method ? <span className="whitespace-nowrap text-[13px]">{METHOD[i.method]}{i.paidAt ? <span className="block text-ink-3">le {fmt.date(i.paidAt)}</span> : null}</span> : <span className="text-ink-3">—</span>) },
+      {
+        id: "statut",
+        header: "Statut",
+        accessorKey: "status",
+        cell: ({ row: { original: i } }) => (
+          <div>
+            <InvoiceBadge status={i.status} />
+            {i.method && (
+              <p className="mt-1 text-[12.5px] text-ink-3">
+                {METHOD[i.method]}
+                {i.paidAt ? <span className="block whitespace-nowrap">le {fmt.date(i.paidAt)}</span> : null}
+              </p>
+            )}
+          </div>
+        ),
+      },
       {
         id: "actions",
         header: () => <span className="sr-only">Actions</span>,
         enableSorting: false,
         cell: ({ row: { original: i } }) =>
           i.status === "payee" || i.status === "annulee" ? null : (
-            <div className="flex justify-end gap-1.5">
+            <div className="flex items-center justify-end gap-1.5">
               {(i.status === "en_retard" || lateDays(i) > -5) && (
-                <Button size="sm" variant="ghost" icon={<MessageSquareText className="size-4" aria-hidden />} loading={remind.isPending && remind.variables === i.id} onClick={() => remind.mutate(i.id)}>
-                  Relancer
-                </Button>
+                <IconButton label={`Relancer ${i.orgName} par SMS`} loading={remind.isPending && remind.variables === i.id} onClick={() => remind.mutate(i.id)}>
+                  <MessageSquareText className="size-[18px]" aria-hidden />
+                </IconButton>
               )}
-              <Button size="sm" variant="secondary" icon={<Wallet className="size-4" aria-hidden />} onClick={() => setPaying(i)}>
-                Encaisser
+              {/* Libellé masqué entre 721 et 1279 px pour que le tableau tienne dans la carte (infobulle à la place). */}
+              <Button size="sm" variant="secondary" icon={<Wallet className="size-4" aria-hidden />} title={`Encaisser ${i.id}`} onClick={() => setPaying(i)}>
+                <span className="min-[721px]:max-xl:sr-only">Encaisser</span>
               </Button>
             </div>
           ),

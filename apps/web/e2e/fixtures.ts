@@ -27,6 +27,8 @@ export async function axe(page: Page) {
 }
 
 export async function noHorizontalScroll(page: Page) {
+  // Le titre s'affiche avant les données : on attend la fin du chargement, sinon un tableau trop large passe inaperçu.
+  await expect(page.locator('main [role="status"][aria-label="Chargement"]')).toHaveCount(0);
   // En émulation mobile, le navigateur dézoome une page trop large (innerWidth grandit) : on compare à la largeur d'écran.
   return page.evaluate(() => document.documentElement.scrollWidth <= Math.min(document.documentElement.clientWidth, window.screen.width) + 1);
 }

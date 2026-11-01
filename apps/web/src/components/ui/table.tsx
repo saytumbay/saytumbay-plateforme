@@ -9,7 +9,9 @@ export function DataTable<T>({ data, columns, onRowClick, getRowId, empty, capti
   const table = useReactTable({ data, columns, state: { sorting }, onSortingChange: setSorting, getCoreRowModel: getCoreRowModel(), getSortedRowModel: getSortedRowModel(), getRowId });
   if (!data.length && empty) return <>{empty}</>;
   return (
-    <div className="w-full">
+    // Filet de sécurité : un tableau trop large défile dans sa carte au lieu d'élargir toute la page.
+    // `relative` retient aussi les textes `sr-only` (positionnés en absolu), qui sinon élargissent la page.
+    <div className="relative w-full min-[721px]:overflow-x-auto">
       <table className="w-full border-collapse text-sm max-[720px]:block">
         <caption className="sr-only">{caption}</caption>
         <thead className="max-[720px]:sr-only">

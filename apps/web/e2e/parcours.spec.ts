@@ -99,6 +99,15 @@ test.describe("console", () => {
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
       expect(await noHorizontalScroll(page), path).toBe(true);
     }
+    // Écran d'ordinateur portable zoomé : la facturation (tableau le plus large) ne doit pas élargir la page.
+    if (!test.info().project.name.includes("telephone")) {
+      await page.goto("/admin/facturation");
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      for (const width of [1280, 1024, 800]) {
+        await page.setViewportSize({ width, height: 860 });
+        expect(await noHorizontalScroll(page), `facturation à ${width} px`).toBe(true);
+      }
+    }
     expect(await axe(page)).toEqual([]);
     expect(errors).toEqual([]);
   });
