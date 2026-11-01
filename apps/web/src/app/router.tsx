@@ -59,6 +59,9 @@ export const router = createBrowserRouter([
         element: <PublicLayout />,
         children: [
           { index: true, ...page(() => import("@/features/public/Landing")) },
+          { path: "agritech", ...page(() => import("@/features/public/AgriTechPage")) },
+          { path: "onion", ...page(() => import("@/features/public/OnionPage")) },
+          { path: "a-propos", ...page(() => import("@/features/public/AboutPage")) },
           { path: "mentions-legales", ...page(() => import("@/features/public/legal/MentionsLegales")) },
           { path: "confidentialite", ...page(() => import("@/features/public/legal/Confidentialite")) },
           { path: "conditions", ...page(() => import("@/features/public/legal/Conditions")) },

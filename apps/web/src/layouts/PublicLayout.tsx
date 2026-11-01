@@ -15,11 +15,10 @@ export const EMAIL = { contact: "contact@saytumbay.com", tidiane: "tidianesow@sa
 export const TIDIANE = { name: "Tidiane Sow", display: "77 088 94 08", href: "https://wa.me/221770889408?text=" + encodeURIComponent("Bonjour Tidiane, je souhaite en savoir plus sur les capteurs SaytuMbay.") };
 
 const NAV = [
-  { to: "/#methode", label: "Méthode" },
-  { to: "/#agritech", label: "Solutions" },
-  { to: "/#etat", label: "Où nous en sommes" },
+  { to: "/agritech", label: "AgriTech" },
+  { to: "/onion", label: "Onion" },
+  { to: "/a-propos", label: "Notre histoire" },
   { to: "/#ensemble", label: "Partenaires" },
-  { to: "/#equipe", label: "Équipe" },
 ];
 
 export function PublicLayout() {
@@ -137,9 +136,10 @@ function PublicFooter() {
         <FooterCol
           title="Produit"
           links={[
-            { to: "/#agritech", label: "SaytuMbay AgriTech" },
-            { to: "/#onion", label: "SaytuMbay Onion" },
-            { to: "/#methode", label: "Notre méthode" },
+            { to: "/agritech", label: "SaytuMbay AgriTech" },
+            { to: "/onion", label: "SaytuMbay Onion" },
+            { to: "/a-propos", label: "Notre histoire" },
+            { to: "/a-propos#faq", label: "Questions fréquentes" },
             { to: "/connexion", label: "Se connecter" },
           ]}
         />

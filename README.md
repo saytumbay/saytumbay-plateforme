@@ -51,7 +51,7 @@ Les SMS sont écrits dans les journaux de l'API tant que `SMS_PROVIDER=console`.
 ```bash
 npm run typecheck      # TypeScript strict, trois paquets
 npm test               # 67 tests : règles partagées, sécurité de l'API (PGlite en mémoire), web
-npm run e2e            # 22 parcours Playwright + axe (ordinateur et téléphone, thème clair et sombre), sous la CSP de production
+npm run e2e            # 24 parcours Playwright + axe (ordinateur et téléphone, thème clair et sombre), sous la CSP de production
 ```
 
 ## Construire

@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
 /** Titre de l'onglet. `null` : page d'accueil (titre complet du site). */
 export function usePageTitle(title: string | null) {
   useEffect(() => {
-    document.title = title ? `${title} · SaytuMbay` : "SaytuMbay · Capteurs et alertes SMS pour parcelles et magasins de stockage";
+    document.title = title ? `${title} · SaytuMbay` : "SaytuMbay · Voir la perte avant qu’elle arrive";
   }, [title]);
 }
 

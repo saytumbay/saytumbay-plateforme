@@ -48,6 +48,20 @@ test.describe("site public", () => {
       expect(await axe(page), path).toEqual([]);
     }
   });
+
+  test("pages détaillées : AgriTech, Onion, Notre histoire", async ({ page, errors }) => {
+    for (const [path, title] of [
+      ["/agritech", /Arroser juste/],
+      ["/onion", /Sauver le stock/],
+      ["/a-propos", /Voir la perte/],
+    ] as const) {
+      await page.goto(path);
+      await expect(page.getByRole("heading", { level: 1 })).toContainText(title);
+      expect(await noHorizontalScroll(page), path).toBe(true);
+      expect(await axe(page), path).toEqual([]);
+    }
+    expect(errors).toEqual([]);
+  });
 });
 
 test.describe("connexion", () => {

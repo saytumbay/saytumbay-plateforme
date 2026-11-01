@@ -21,6 +21,9 @@ export async function demoLogin(page: Page, persona: "Responsable de coopérativ
 
 /** Violations axe graves ou critiques (WCAG 2.1 A/AA). */
 export async function axe(page: Page) {
+  // Les apparitions au défilement (fondu) faussent le contraste tant qu'elles sont en cours : on les termine d'abord.
+  await page.evaluate(() => document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => (el.dataset.shown = "")));
+  await page.waitForTimeout(800);
   // Les notifications éphémères (en cours d'animation d'opacité) faussent le calcul de contraste : exclues.
   const r = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).exclude("[data-sonner-toaster]").analyze();
   return r.violations.filter((v) => v.impact === "serious" || v.impact === "critical").map((v) => `${v.id} (${v.nodes.length}) : ${v.nodes[0]?.target.join(" ")}`);
