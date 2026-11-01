@@ -137,12 +137,6 @@ export const ADVICE: Record<AlertKind, string> = {
   irrigation_annulee: "Remettre le capteur en ligne ou arroser manuellement en attendant.",
 };
 
-/** SMS court, lisible sur un téléphone à touches (≤ 160 caractères si possible). */
-export function smsText(a: Pick<Alert, "title" | "kind">, orgShort: string): string {
-  const base = `${orgShort} : ${a.title}. ${ADVICE[a.kind]}`;
-  return base.length <= 160 ? base : base.slice(0, 157) + "…";
-}
-
 export interface AlertCandidate {
   kind: AlertKind;
   severity: Severity;
@@ -150,6 +144,15 @@ export interface AlertCandidate {
   detail: string;
   source: Alert["source"];
   module: Alert["module"];
+  /** Données brutes reprises dans les SMS traduits (domain/sms.ts) : on ne traduit pas la phrase française. */
+  facts: SmsFacts;
+}
+
+/** Lieu (code de parcelle, capteur ou zone), valeur mesurée déjà formatée, et magasin pour le stockage. */
+export interface SmsFacts {
+  place: string;
+  value?: string;
+  site?: string;
 }
 
 /** Alertes d'une parcelle à partir de sa dernière mesure. */
@@ -165,6 +168,7 @@ export function parcelAlerts(p: Parcel, moisture: number | null): AlertCandidate
         detail: `Humidité du sol à ${Math.round(moisture)} %, sous le seuil de ${p.moisture.dry} % (${p.crop}).`,
         source: src,
         module: "agritech",
+        facts: { place: p.code, value: `${Math.round(moisture)} %` },
       },
     ];
   }
@@ -177,6 +181,7 @@ export function parcelAlerts(p: Parcel, moisture: number | null): AlertCandidate
         detail: `Humidité du sol à ${Math.round(moisture)} %, au-dessus de ${p.moisture.wet} %.`,
         source: src,
         module: "agritech",
+        facts: { place: p.code, value: `${Math.round(moisture)} %` },
       },
     ];
   }
@@ -195,6 +200,7 @@ export function deviceAlerts(d: Device, now: Date, label: string): AlertCandidat
         detail: `Aucune mesure reçue depuis ${d.lastSeenAt ? new Date(d.lastSeenAt).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short", timeZone: "Africa/Dakar" }) : "l’installation"} (${label}).`,
         source: { type: "capteur", id: d.id, label },
         module,
+        facts: { place: d.id },
       },
     ];
   }
@@ -207,6 +213,7 @@ export function deviceAlerts(d: Device, now: Date, label: string): AlertCandidat
         detail: `Environ deux semaines d’autonomie restante (${label}).`,
         source: { type: "capteur", id: d.id, label },
         module,
+        facts: { place: d.id, value: `${d.battery} %` },
       },
     ];
   }
@@ -222,14 +229,15 @@ export function warehouseAlerts(
   const label = `${w.name} · zone ${zone.zoneId}`;
   const src = { type: "zone" as const, id: `${w.id}:${zone.zoneId}`, label };
   const f = (n: number) => String(Math.round(n * 10) / 10).replace(".", ",");
+  const facts = (value: string): SmsFacts => ({ place: `zone ${zone.zoneId}`, value, site: w.name });
   if (zone.gas != null && zone.gas > t.gas)
-    out.push({ kind: "stock_gaz", severity: "critique", title: `Gaz de pourriture en zone ${zone.zoneId} (${w.name})`, detail: `Indice ${Math.round(zone.gas)} / 100, seuil ${t.gas}.`, source: src, module: "onion" });
+    out.push({ kind: "stock_gaz", severity: "critique", title: `Gaz de pourriture en zone ${zone.zoneId} (${w.name})`, detail: `Indice ${Math.round(zone.gas)} / 100, seuil ${t.gas}.`, source: src, module: "onion", facts: facts(`${Math.round(zone.gas)}/100`) });
   if (zone.temp != null && zone.temp > t.temp[1])
-    out.push({ kind: "stock_temperature", severity: zone.temp > t.temp[1] + 3 ? "critique" : "attention", title: `La zone ${zone.zoneId} chauffe (${f(zone.temp)} °C, ${w.name})`, detail: `Au-dessus de la plage visée (${t.temp[0]} à ${t.temp[1]} °C).`, source: src, module: "onion" });
+    out.push({ kind: "stock_temperature", severity: zone.temp > t.temp[1] + 3 ? "critique" : "attention", title: `La zone ${zone.zoneId} chauffe (${f(zone.temp)} °C, ${w.name})`, detail: `Au-dessus de la plage visée (${t.temp[0]} à ${t.temp[1]} °C).`, source: src, module: "onion", facts: facts(`${f(zone.temp)} °C`) });
   if (zone.humidity != null && zone.humidity > t.humidity[1])
-    out.push({ kind: "stock_humidite", severity: zone.humidity > t.humidity[1] + 10 ? "critique" : "attention", title: `Humidité ${f(zone.humidity)} % en zone ${zone.zoneId} (${w.name})`, detail: `Au-dessus de la plage visée (${t.humidity[0]} à ${t.humidity[1]} %).`, source: src, module: "onion" });
+    out.push({ kind: "stock_humidite", severity: zone.humidity > t.humidity[1] + 10 ? "critique" : "attention", title: `Humidité ${f(zone.humidity)} % en zone ${zone.zoneId} (${w.name})`, detail: `Au-dessus de la plage visée (${t.humidity[0]} à ${t.humidity[1]} %).`, source: src, module: "onion", facts: facts(`${f(zone.humidity)} %`) });
   if (zone.co2 != null && zone.co2 > t.co2)
-    out.push({ kind: "stock_co2", severity: zone.co2 > t.co2 * 1.5 ? "critique" : "attention", title: `CO₂ élevé en zone ${zone.zoneId} (${w.name})`, detail: `${Math.round(zone.co2).toLocaleString("fr-FR")} ppm, seuil ${t.co2.toLocaleString("fr-FR")} ppm.`, source: src, module: "onion" });
+    out.push({ kind: "stock_co2", severity: zone.co2 > t.co2 * 1.5 ? "critique" : "attention", title: `CO₂ élevé en zone ${zone.zoneId} (${w.name})`, detail: `${Math.round(zone.co2).toLocaleString("fr-FR")} ppm, seuil ${t.co2.toLocaleString("fr-FR")} ppm.`, source: src, module: "onion", facts: facts(`${Math.round(zone.co2)} ppm`) });
   return out;
 }
 

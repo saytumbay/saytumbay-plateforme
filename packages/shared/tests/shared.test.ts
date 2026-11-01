@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { can, canAssignRole, fmt, moistureState, storageRisk, storageRiskScore, contactSchema, passwordPolicy } from "../src";
+import { ADVICE, can, canAssignRole, deviceAlerts, fmt, moistureState, parcelAlerts, SMS_WOLOF, smsLocale, smsText, storageRisk, storageRiskScore, contactSchema, passwordPolicy, warehouseAlerts, WOLOF_SMS_RELU } from "../src";
 import { createSeed, initSimulation, liveAlerts, parcelSnapshots, series, valueAt, warehouseSnapshots, liveDevices } from "../src/demo";
 
 const seed = createSeed(new Date("2026-10-28T09:07:00Z"));
@@ -108,5 +108,44 @@ describe("validation et formatage", () => {
     expect(fmt.fcfa(47500)).toBe("47 500 FCFA");
     expect(fmt.temp(29.4)).toBe("29,4 °C");
     expect(fmt.phone("+221774120833")).toBe("+221 77 412 08 33");
+  });
+});
+
+describe("SMS d'alerte", () => {
+  const p = seed.parcels.find((x) => x.code === "B")!;
+  const d = seed.devices[0]!;
+  const w = seed.warehouses[0]!;
+  const zone = { zoneId: w.zones[0]!.id, temp: 40, humidity: 99, co2: 99_999, gas: 99 };
+  const now = new Date(anchor);
+  const candidates = [
+    ...parcelAlerts(p, 2),
+    ...parcelAlerts(p, 99),
+    ...deviceAlerts({ ...d, lastSeenAt: new Date(anchor - 30 * 86400000).toISOString() }, now, "parcelle B"),
+    ...deviceAlerts({ ...d, battery: 9, lastSeenAt: now.toISOString() }, now, "parcelle B"),
+    ...warehouseAlerts(w, zone),
+  ];
+
+  it("couvre en wolof chaque alerte qui peut partir par SMS", () => {
+    expect(new Set(candidates.map((c) => c.kind))).toEqual(new Set(["sol_sec", "sol_humide", "capteur_hors_ligne", "batterie_faible", "stock_gaz", "stock_temperature", "stock_humidite", "stock_co2"]));
+    for (const c of candidates) {
+      expect(SMS_WOLOF[c.kind], c.kind).toBeDefined();
+      const t = smsText(c, "GIE Niayes Mboro de Pot", "wo");
+      expect(t.length, t).toBeLessThanOrEqual(160);
+      expect(t, c.kind).not.toMatch(/undefined|NaN/);
+      expect(t).not.toBe(smsText(c, "GIE Niayes Mboro de Pot", "fr"));
+    }
+  });
+
+  it("reprend les valeurs mesurées dans le SMS wolof", () => {
+    expect(smsText(parcelAlerts(p, 18)[0]!, "Coop. Thiès", "wo")).toBe("Coop. Thiès : Toolu B dafa wow (18 %). Ndoxal ko léegi walla seetal ndoxal bu otomatik bi.");
+  });
+
+  it("garde le texte français inchangé", () => {
+    expect(smsText(parcelAlerts(p, 18)[0]!, "Coop. Thiès")).toBe(`Coop. Thiès : Parcelle B est sèche (18 %). ${ADVICE.sol_sec}`);
+  });
+
+  it("n'envoie pas de wolof tant que les textes ne sont pas relus", () => {
+    expect(smsLocale("fr")).toBe("fr");
+    expect(smsLocale("wo")).toBe(WOLOF_SMS_RELU ? "wo" : "fr");
   });
 });

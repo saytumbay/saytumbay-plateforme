@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import QRCode from "qrcode";
 import { ShieldCheck, Smartphone, Monitor, Moon, Sun, Download, LogOut, KeyRound } from "lucide-react";
 import type { z } from "zod";
-import { changePasswordSchema, fmt, profileSchema, ORG_ROLE_LABEL } from "@saytumbay/shared";
+import { changePasswordSchema, fmt, profileSchema, ORG_ROLE_LABEL, WOLOF_SMS_RELU } from "@saytumbay/shared";
 import { api, ApiError, IS_DEMO } from "@/lib/api";
 import { useActiveMembership, useSession, useSetSession } from "@/lib/auth";
 import { useTheme } from "@/lib/theme";
@@ -98,10 +98,10 @@ function Profile() {
             <Field label="E-mail de connexion" hint="Pour changer d’adresse, contactez le responsable de votre organisation." className="sm:col-span-2">
               <Input value={u.email} disabled readOnly />
             </Field>
-            <Field label="Langue des SMS" hint="Les messages vocaux en wolof sont en préparation." className="sm:col-span-2">
+            <Field label="Langue des SMS d’alerte" hint={WOLOF_SMS_RELU ? "Les alertes vous arrivent par SMS dans cette langue." : "Les SMS en wolof sont en cours de relecture. En attendant, vous les recevez en français."} className="sm:col-span-2">
               <Select {...form.register("locale")}>
                 <option value="fr">Français</option>
-                <option value="wo">Wolof (SMS simplifiés)</option>
+                <option value="wo">Wolof</option>
               </Select>
             </Field>
             <div className="sm:col-span-2">

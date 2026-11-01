@@ -20,7 +20,7 @@ Ce que le code ne peut pas décider seul. Classés par urgence.
 8. **Opérateur SMS** : contrat Orange (ou autre), numéro et nom d'expéditeur.
 9. **Création des parcelles et capteurs d'un nouveau client** : se fait depuis l'espace client (parcelles, capteurs avec DevEUI). Un import CSV accélérerait la pose des pilotes.
 10. **Fin de contrat** : outil d'export complet et de suppression d'une organisation (procédure promise dans la politique de confidentialité).
-11. **Langue** : le profil prévoit le wolof (`locale: "wo"`), l'interface est en français. Prévoir la traduction des SMS en priorité.
+11. **SMS en wolof** : les textes des SMS d'alerte sont rédigés mais pas encore relus. Les faire relire par une personne qui parle wolof, puis les activer : voir [SMS-WOLOF.md](SMS-WOLOF.md). L'interface reste en français.
 
 ## Ce qui n'a pas été repris des maquettes, volontairement
 

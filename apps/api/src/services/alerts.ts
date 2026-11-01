@@ -5,7 +5,7 @@
  */
 import { and, desc, eq, gt, ne, sql } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
-import { ADVICE, alertKey, computeAlertCandidates, smsText, type Alert } from "@saytumbay/shared";
+import { ADVICE, alertKey, computeAlertCandidates, smsLocale, smsText, type Alert } from "@saytumbay/shared";
 import type { AppContext } from "../context";
 import { alerts, memberships, organizations, users } from "../db/schema";
 import { orgState, type OrgState } from "./state";
@@ -109,7 +109,7 @@ export async function syncAlerts(ctx: AppContext, orgId: string, preloaded?: Org
     const notifications: Alert["notifications"] = [];
     if (c.severity !== "info") {
       for (const u of await recipients(ctx, orgId, c, st)) {
-        const delivered = await ctx.sms.send(u.phone, smsText({ title: c.title, kind: c.kind }, short), orgId);
+        const delivered = await ctx.sms.send(u.phone, smsText(c, short, smsLocale(u.locale)), orgId);
         notifications.push({ channel: "sms", to: u.phone, at: now.toISOString(), delivered });
       }
     }

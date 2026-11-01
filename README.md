@@ -70,3 +70,4 @@ Déploiement : voir [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md).
 - [Données](docs/DONNEES.md) : modèle, durées de conservation, loi 2008-12
 - [Déploiement](docs/DEPLOIEMENT.md) : Hostinger mutualisé (démo) ou VPS (plateforme complète)
 - [Points à valider](docs/A-VALIDER.md) : décisions et informations que l'équipe doit fournir
+- [SMS en wolof](docs/SMS-WOLOF.md) : textes des alertes à relire avant mise en service

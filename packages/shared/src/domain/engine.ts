@@ -112,6 +112,7 @@ export function computeAlertCandidates(input: { parcels: ParcelSnapshot[]; devic
       title: main.title.replace(`zone ${top.zoneId}`, lbl),
       detail: [main.detail, ...zc.slice(1).map((x) => x.title.replace(/\s\(.*\)$/, "").replace(`zone ${top.zoneId}`, lbl) + "."), others.length ? `Autres zones : ${others.join(", ")}.` : ""].filter(Boolean).join(" "),
       source: { type: "entrepot", id: w.warehouse.id, label: `${w.warehouse.name} · ${lbl}` },
+      facts: { ...main.facts, place: lbl },
     });
   }
   return out;
