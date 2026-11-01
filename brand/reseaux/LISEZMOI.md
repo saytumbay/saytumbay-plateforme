@@ -10,6 +10,12 @@ Startup agritech 🇸🇳 · Voir la perte avant qu'elle arrive, du champ au mag
 
 78 caractères : il tient partout (TikTok 80, Instagram 150, X 160, slogan LinkedIn 120). Le même texte partout rend la marque reconnaissable.
 
+Exception pour **LinkedIn** (et X si l'on veut) : Windows n'affiche pas les drapeaux en emoji, les visiteurs sur ordinateur y lisent « SN ». Version sans drapeau :
+
+```
+Startup agritech de Dakar · Voir la perte avant qu'elle arrive, du champ au magasin.
+```
+
 ## Les règles communes
 
 - **Le même nom partout** : `@saytumbay`. Nom affiché : **SaytuMbay** (le logo s'écrit « saytumbay », les textes « SaytuMbay »).
