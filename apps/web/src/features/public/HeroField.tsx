@@ -2,6 +2,8 @@
  * Héros interactif : une journée à Mboro en dix secondes. L'humidité de la parcelle B baisse, passe sous son
  * seuil, l'alerte part par SMS, l'irrigation la remonte. Le curseur permet de rejouer la journée à la main.
  * Animation lancée une seule fois, à l'apparition ; figée sur 17 h si l'utilisateur réduit les animations.
+ * Pour garder le défilement fluide, l'état n'avance que par quarts d'heure (≈ 6 rendus par seconde, pas 60)
+ * et l'animation se met en pause quand le héros sort de l'écran.
  */
 import { useEffect, useRef, useState } from "react";
 import { Pause, Play, RotateCcw } from "lucide-react";
@@ -55,17 +57,19 @@ export function HeroField() {
   const played = useRef(false);
   const box = useRef<HTMLDivElement>(null);
   const raf = useRef(0);
+  const visible = useRef(true);
 
   useEffect(() => {
     if (reduce || !box.current) return;
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e?.isIntersecting && !played.current) {
+        visible.current = !!e?.isIntersecting;
+        if (e && e.intersectionRatio >= 0.45 && !played.current) {
           played.current = true;
           setPlaying(true);
         }
       },
-      { threshold: 0.45 },
+      { threshold: [0, 0.45] },
     );
     io.observe(box.current);
     return () => io.disconnect();
@@ -74,14 +78,21 @@ export function HeroField() {
   useEffect(() => {
     if (!playing) return;
     let last = performance.now();
+    let acc = 0;
     const step = (now: number) => {
       const dt = (now - last) / 1000;
       last = now;
-      setT((cur) => {
-        const next = Math.min(T1, cur + dt * 1.45);
-        if (next >= T1) setPlaying(false);
-        return next;
-      });
+      if (visible.current) acc += dt * 1.45;
+      // Un rendu par quart d'heure simulé : l'horloge et les valeurs affichées ne changent pas plus souvent.
+      if (acc >= 0.25) {
+        const inc = Math.floor(acc * 4) / 4;
+        acc -= inc;
+        setT((cur) => {
+          const next = Math.min(T1, cur + inc);
+          if (next >= T1) setPlaying(false);
+          return next;
+        });
+      }
       raf.current = requestAnimationFrame(step);
     };
     raf.current = requestAnimationFrame(step);

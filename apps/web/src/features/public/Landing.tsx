@@ -176,7 +176,7 @@ function MiniSpark({ pts, color }: { pts: readonly number[]; color: string }) {
 
 function ProductPeek() {
   return (
-    <figure className="self-start lg:sticky lg:top-28">
+    <figure className="self-start">
       <div className="rounded-[24px] border border-line bg-surface p-4 shadow-2 sm:p-5">
         <div className="flex items-center justify-between gap-3 px-1 pb-4">
           <div>

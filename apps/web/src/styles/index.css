@@ -252,8 +252,11 @@
 @keyframes plan-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes plan-pulse { 0% { transform: scale(1); opacity: 0.9; } 70% { transform: scale(2.6); opacity: 0; } 100% { transform: scale(2.6); opacity: 0; } }
 
-/* Point d'attention sur une parcelle sèche (plan dessiné). Désactivé si l'utilisateur réduit les animations. */
-.plan-pulse { animation: plan-pulse 2.2s var(--ease-out) infinite; }
+/*
+  Point d'attention sur une parcelle sèche (plan dessiné). Désactivé si l'utilisateur réduit les animations.
+  Trois battements seulement : une animation dans un SVG force à le repeindre à chaque image, ce qui saccade le défilement.
+*/
+.plan-pulse { animation: plan-pulse 2.2s var(--ease-out) 3; }
 @media (prefers-reduced-motion: reduce) { .plan-pulse { animation: none; opacity: 0.6; } }
 
 /* Texte courant des pages d'information (sans greffon typographique). */
