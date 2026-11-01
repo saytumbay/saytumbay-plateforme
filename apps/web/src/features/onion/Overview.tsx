@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { Warehouse, Package, AlertTriangle, RadioTower } from "lucide-react";
-import { fmt } from "@saytumbay/shared";
+import { fmt, RISK_LABEL, type WarehouseSnapshot } from "@saytumbay/shared";
 import { api } from "@/lib/api";
 import { LIVE_MS, useSeries } from "@/lib/hooks";
-import { PageHeader } from "@/components/ui/page";
+import { FieldBanner } from "@/components/ui/banner";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { QueryView, Skeleton } from "@/components/ui/feedback";
 import { Kpi, Segmented } from "@/components/ui/data";
@@ -14,19 +14,37 @@ import { ActionList } from "@/features/shared/ActionList";
 import { SyncStatus } from "@/layouts/AppShell";
 import { WarehouseCard } from "./shared";
 
+/** L'état des magasins en une phrase : le plus urgent nommé, le reste compté. */
+function storageSummary(list: WarehouseSnapshot[]): string {
+  const urgent = list.filter((w) => w.risk === "pourriture" || w.risk === "risque");
+  const watch = list.filter((w) => w.risk === "surveiller");
+  const parts = [
+    ...urgent.map((w) => `${w.warehouse.name} : ${RISK_LABEL[w.risk].toLowerCase()}`),
+    watch.length ? fmt.plural(watch.length, "magasin à surveiller", "magasins à surveiller") : "",
+  ].filter(Boolean);
+  return parts.length ? `${parts.join(" · ")}.` : "Tous vos magasins conservent bien aujourd’hui.";
+}
+
 export default function Overview() {
   const ws = useQuery({ queryKey: ["warehouses"], queryFn: api.warehouses.list, refetchInterval: LIVE_MS });
   const alerts = useQuery({ queryKey: ["alerts", "onion"], queryFn: () => api.alerts.list({ module: "onion" }), refetchInterval: LIVE_MS });
   const devices = useQuery({ queryKey: ["devices"], queryFn: api.devices.list, refetchInterval: LIVE_MS });
   return (
     <>
-      <PageHeader title="Stockage des oignons" subtitle="Conditions de conservation dans vos magasins, rangée par rangée." meta={<SyncStatus at={new Date().toISOString()} />} />
+      <FieldBanner
+        photo="recolte"
+        position="50% 70%"
+        title="Stockage des oignons"
+        subtitle="Conditions de conservation dans vos magasins, rangée par rangée."
+        summary={ws.data ? storageSummary(ws.data) : "Chargement de vos magasins…"}
+        meta={<SyncStatus at={new Date().toISOString()} />}
+      />
       <QueryView q={ws}>
         {(list) => {
           const probes = (devices.data ?? []).filter((d) => d.kind === "stockage" || d.kind === "air");
           const open = (alerts.data ?? []).filter((a) => a.status !== "resolue");
           return (
-            <div className="flex flex-col gap-6">
+            <div className="app-enter flex flex-col gap-6">
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 <Kpi label="Stock suivi" value={fmt.num(list.reduce((a, w) => a + w.stockT, 0), 0)} unit="t" sub={`dans ${fmt.plural(list.length, "magasin", "magasins")}`} icon={<Package className="size-[18px]" aria-hidden />} tone="onion" to="/app/onion/lots" />
                 <Kpi label="Magasins à risque" value={list.filter((w) => w.risk === "risque" || w.risk === "pourriture").length} sub="pourriture probable ou risque élevé" icon={<AlertTriangle className="size-[18px]" aria-hidden />} tone={list.some((w) => w.risk === "pourriture" || w.risk === "risque") ? "danger" : "brand"} to="/app/onion/entrepots" />

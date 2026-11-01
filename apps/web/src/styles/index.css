@@ -261,6 +261,31 @@
   Trois battements seulement : une animation dans un SVG force à le repeindre à chaque image, ce qui saccade le défilement.
 */
 .plan-pulse { animation: plan-pulse 2.2s var(--ease-out) 3; }
+
+/* Apparition au défilement (lib/reveal.ts) : fondu et légère montée, une fois. Rien si animations réduites. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal]:not([data-shown]) { opacity: 0; transform: translateY(14px); }
+  [data-reveal] { transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+}
+
+/* Tableaux de bord : les blocs arrivent l'un après l'autre (une fois, au chargement), sans gêner la lecture. */
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .app-enter > * { animation: rise 520ms var(--ease-out) both; }
+  .app-enter > :nth-child(2) { animation-delay: 70ms; }
+  .app-enter > :nth-child(3) { animation-delay: 140ms; }
+  .app-enter > :nth-child(4) { animation-delay: 210ms; }
+  .app-enter > :nth-child(n + 5) { animation-delay: 280ms; }
+}
+
+/* Héros : la photo se pose doucement, la carte SMS arrive comme un vrai message. */
+@keyframes settle { from { transform: scale(1.06); } to { transform: none; } }
+@keyframes sms-arrive { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-photo > img { animation: settle 1600ms var(--ease-out) both; }
+  .anim-sms { animation: sms-arrive 600ms var(--ease-out) 1100ms both; }
+  .anim-chip { animation: sms-arrive 500ms var(--ease-out) 600ms both; }
+}
 @media (prefers-reduced-motion: reduce) { .plan-pulse { animation: none; opacity: 0.6; } }
 
 /* Texte courant des pages d'information (sans greffon typographique). */

@@ -8,7 +8,7 @@ import { api } from "@/lib/api";
 import { useSession, useCan } from "@/lib/auth";
 import { LIVE_MS, MOISTURE_COLOR, RISK_COLOR, useSeries } from "@/lib/hooks";
 import { cn } from "@/lib/cn";
-import { PageHeader } from "@/components/ui/page";
+import { FieldBanner } from "@/components/ui/banner";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { QueryView, Skeleton } from "@/components/ui/feedback";
 import { Kpi, Segmented } from "@/components/ui/data";
@@ -25,15 +25,35 @@ function greeting() {
   return h < 5 || h >= 18 ? "Bonsoir" : "Bonjour";
 }
 
+/** La journée en une phrase, sans jargon : ce qui demande une action, sinon « tout va bien ». */
+function daySummary(d: Overview): string {
+  const open = d.alerts.filter((a) => a.status !== "resolue");
+  const count = (kinds: string[]) => new Set(open.filter((a) => kinds.includes(a.kind)).map((a) => a.source.id)).size;
+  const dry = count(["sol_sec"]);
+  const wet = count(["sol_humide"]);
+  const mute = count(["capteur_hors_ligne"]);
+  const stock = count(["stock_humidite", "stock_temperature", "stock_co2", "stock_gaz", "stock_controle"]);
+  const parts = [
+    dry && fmt.plural(dry, "parcelle à irriguer", "parcelles à irriguer"),
+    wet && fmt.plural(wet, "parcelle trop humide", "parcelles trop humides"),
+    mute && fmt.plural(mute, "capteur muet", "capteurs muets"),
+    stock && fmt.plural(stock, "magasin à surveiller", "magasins à surveiller"),
+  ].filter(Boolean);
+  return parts.length ? `Aujourd’hui : ${parts.join(" · ")}.` : "Tout est dans la plage aujourd’hui.";
+}
+
 export default function Dashboard() {
   const { data: session } = useSession();
   const q = useQuery({ queryKey: ["overview"], queryFn: api.overview, refetchInterval: LIVE_MS });
   const [irrigate, setIrrigate] = useState<string | null>(null);
   return (
     <>
-      <PageHeader
+      <FieldBanner
+        photo="rangs"
+        position="50% 60%"
         title={`${greeting()} ${session?.user.firstName ?? ""}`}
         subtitle={q.data ? `${q.data.siteLabel} · ${fmt.dateLong(new Date())}` : fmt.dateLong(new Date())}
+        summary={q.data ? daySummary(q.data) : "Chargement de vos parcelles…"}
         meta={q.data && <SyncStatus at={q.data.generatedAt} />}
         actions={
           <ButtonLink to="/app/rapports" variant="secondary">
@@ -43,7 +63,7 @@ export default function Dashboard() {
       />
       <QueryView q={q}>
         {(d) => (
-          <div className="flex flex-col gap-6">
+          <div className="app-enter flex flex-col gap-6">
             <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
               <Card>
                 <CardHeader
