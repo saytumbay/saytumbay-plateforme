@@ -32,18 +32,18 @@ Formulaire de création :
 | Nom | `SaytuMbay` |
 | linkedin.com/company/ | `saytumbay` |
 | Site web | vide pour l'instant ; `https://saytumbay.com` à la mise en ligne |
-| Secteur | taper « Agri » et choisir le plus proche (par exemple « Agriculture ») |
+| Secteur | un secteur **tech** : taper « Technolog » et choisir « Technologie, information et Internet » (ou « Technologies et services de l'information »). L'agriculture apparaît dans le slogan, l'À propos et les spécialités. |
 | Taille | `2-10 employés` |
-| Type | `Entreprise privée` |
+| Type | `Société civile/Société commerciale/Autres types de sociétés` (SARL, SAS…), à ajuster quand la forme juridique sera fixée |
 | Logo | `avatar-saytumbay.png` |
-| Slogan (120 car.) | `Capteurs connectés et alertes SMS pour voir la perte avant qu'elle arrive, du champ au magasin. Dakar, Sénégal.` |
+| Slogan (120 car.) | `Startup agritech : capteurs IoT, réseau LoRaWAN et alertes SMS pour voir la perte avant qu'elle arrive. Dakar, Sénégal.` |
 
 Après la création (bouton « Modifier la page ») :
 
 - **Bannière** : `linkedin-banniere.png`.
 - **À propos** :
 
-> SaytuMbay (« veiller sur l'agriculture » en wolof) conçoit des solutions connectées pour les producteurs, les coopératives et les stockeurs.
+> SaytuMbay (« veiller sur l'agriculture » en wolof) est une startup agritech qui conçoit des solutions IoT pour les producteurs, les coopératives et les stockeurs : capteurs, réseau radio LoRaWAN, plateforme de données et alertes SMS.
 >
 > Nos capteurs mesurent ce que personne ne voit : l'eau du sol à la profondeur des racines, la chaleur et les gaz au cœur des sacs dans les magasins de stockage. Quand une mesure sort de sa plage, la bonne personne reçoit un SMS avec une consigne simple, même sur un téléphone à touches. Un tableau de bord garde l'historique, pour suivre une saison et prouver les résultats.
 >
@@ -53,7 +53,7 @@ Après la création (bouton « Modifier la page ») :
 >
 > Nous préparons nos premiers sites pilotes et cherchons des coopératives, des partenaires techniques et des financeurs. Écrivez-nous : contact@saytumbay.com
 
-- **Spécialités** : Agriculture de précision · Internet des objets · LoRaWAN · Irrigation · Stockage post-récolte · Alertes SMS · Maraîchage · Oignon
+- **Spécialités** : Agritech · Internet des objets (IoT) · LoRaWAN · Capteurs · Plateforme de données · Agriculture de précision · Irrigation · Stockage post-récolte · Alertes SMS
 - **Lieu** : Dakar, Sénégal.
 - **Bouton** : « Nous contacter », vers `contact@saytumbay.com` ou le WhatsApp.
 - **Administrateurs** : ajouter Tidiane comme « Super admin », pour que la page ne dépende pas d'un seul compte.
@@ -63,7 +63,7 @@ Après la création (bouton « Modifier la page ») :
 
 - Nom : `SaytuMbay` · Identifiant : `@saytumbay`
 - Photo : `avatar-saytumbay.png` · Bannière : `x-banniere.png`
-- Bio (160 car.) : `Voir la perte avant qu'elle arrive. Capteurs dans le sol et les magasins, alerte SMS au bon moment. Startup agritech de Dakar 🇸🇳, née à l'ESP.`
+- Bio (160 car.) : `Startup agritech 🇸🇳 · Capteurs IoT, LoRaWAN, données et alertes SMS pour voir la perte avant qu'elle arrive, du champ au magasin. Née à l'ESP Dakar.`
 - Lieu : `Dakar, Sénégal`
 
 ## Instagram
@@ -74,9 +74,9 @@ Après la création (bouton « Modifier la page ») :
 - Bio (150 car.) :
 
 ```
-🌱 Capteurs dans le sol et les magasins
+Startup agritech · Dakar 🇸🇳
+📡 Capteurs IoT dans le sol et les magasins
 📲 Une alerte SMS au bon moment, avec quoi faire
-📍 Startup agritech · Dakar 🇸🇳
 👇 Écrivez-nous
 ```
 
@@ -88,7 +88,7 @@ Après la création (bouton « Modifier la page ») :
 - Passer en **compte professionnel** (gratuit). Catégorie : « Science et éducation » ou « Agriculture ».
 - Nom : `SaytuMbay` · Identifiant : `@saytumbay`
 - Photo : `avatar-saytumbay.png`
-- Bio (80 car.) : `Capteurs + alertes SMS pour sauver les récoltes 🌱 Agritech de Dakar 🇸🇳`
+- Bio (80 car.) : `Startup agritech 🇸🇳 · IoT + alertes SMS pour sauver les récoltes 🌱`
 
 ## Les trois premières publications
 
