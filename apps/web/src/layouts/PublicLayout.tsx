@@ -12,11 +12,11 @@ export const WHATSAPP = { display: "77 833 57 81", href: "https://wa.me/22177833
 export const TIDIANE = { name: "Tidiane Sow", display: "77 088 94 08", href: "https://wa.me/221770889408?text=" + encodeURIComponent("Bonjour Tidiane, je souhaite en savoir plus sur les capteurs SaytuMbay.") };
 
 const NAV = [
-  { to: "/#agritech", label: "AgriTech" },
-  { to: "/#onion", label: "Onion" },
-  { to: "/#fonctionnement", label: "Fonctionnement" },
+  { to: "/#methode", label: "Méthode" },
+  { to: "/#agritech", label: "Solutions" },
+  { to: "/#etat", label: "Où nous en sommes" },
+  { to: "/#ensemble", label: "Partenaires" },
   { to: "/#equipe", label: "Équipe" },
-  { to: "/#faq", label: "Questions" },
 ];
 
 export function PublicLayout() {
@@ -85,7 +85,7 @@ function PublicHeader() {
             </NavLink>
           )}
           <ButtonLink to="/#contact" className="hidden sm:inline-flex">
-            Demander une démonstration
+            Nous écrire
           </ButtonLink>
           <button type="button" onClick={() => setOpen(true)} className="flex size-10 items-center justify-center rounded-lg text-ink hover:bg-surface-2 lg:hidden" aria-label="Ouvrir le menu" aria-expanded={open}>
             <Menu className="size-5" aria-hidden />
@@ -106,7 +106,7 @@ function PublicHeader() {
         </nav>
         <div className="mt-6 flex flex-col gap-2 border-t border-line pt-6">
           <ButtonLink to="/#contact" size="lg">
-            Demander une démonstration
+            Nous écrire
           </ButtonLink>
           <ButtonLink to={session ? homeFor(session) : "/connexion"} variant="secondary" size="lg">
             {session ? "Ouvrir mon espace" : "Se connecter"}
@@ -129,7 +129,7 @@ function PublicFooter() {
       <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <Logo height={34} tagline />
-          <p className="mt-4 max-w-[34ch] text-[14.5px] leading-relaxed text-ink-2">Capteurs, alertes SMS et tableau de bord pour les parcelles maraîchères et les magasins de stockage du Sénégal.</p>
+          <p className="mt-4 max-w-[34ch] text-[14.5px] leading-relaxed text-ink-2">Capteurs connectés, alertes SMS et tableau de bord pour l’agriculture et le stockage. Startup de Dakar, premiers sites pilotes en préparation.</p>
           <p className="mt-4 text-[14px] text-ink-3">Dakar, Sénégal</p>
         </div>
         <FooterCol
@@ -137,7 +137,7 @@ function PublicFooter() {
           links={[
             { to: "/#agritech", label: "SaytuMbay AgriTech" },
             { to: "/#onion", label: "SaytuMbay Onion" },
-            { to: "/#fonctionnement", label: "Fonctionnement" },
+            { to: "/#methode", label: "Notre méthode" },
             { to: "/connexion", label: "Se connecter" },
           ]}
         />
@@ -156,12 +156,14 @@ function PublicFooter() {
           <ul className="mt-3 flex flex-col gap-2.5 text-[14.5px] text-ink-2">
             <li>
               <a href={WHATSAPP.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-ink">
-                <MessageCircle className="size-4" aria-hidden /> WhatsApp {WHATSAPP.display}
+                <MessageCircle className="size-4 shrink-0" aria-hidden /> WhatsApp <span className="whitespace-nowrap font-mono text-[13.5px]">{WHATSAPP.display}</span>
               </a>
             </li>
             <li>
               <a href={TIDIANE.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-ink">
-                <MessageCircle className="size-4" aria-hidden /> WhatsApp {TIDIANE.name} : {TIDIANE.display}
+                <MessageCircle className="size-4 shrink-0" aria-hidden /> <span>
+                  {TIDIANE.name} <span className="whitespace-nowrap font-mono text-[13.5px]">{TIDIANE.display}</span>
+                </span>
               </a>
             </li>
             <li>

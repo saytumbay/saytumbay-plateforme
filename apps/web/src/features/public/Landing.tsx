@@ -1,18 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { Accordion } from "radix-ui";
-import { ArrowUpRight, BellRing, ChevronDown, Droplets, FileBarChart2, Gauge, MessageCircle, SlidersHorizontal, ThermometerSun, Wind, ClipboardCheck, Scale } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BellRing, ChevronDown, ClipboardCheck, Droplets, Ear, FileBarChart2, FileCheck2, Gauge, MessageCircle, Radio, Scale, SlidersHorizontal, ThermometerSun, Wind } from "lucide-react";
 import { api, IS_DEMO } from "@/lib/api";
 import { homeFor, useSetSession } from "@/lib/auth";
 import { usePageTitle } from "@/components/ui/page";
 import { Button, ButtonLink } from "@/components/ui/button";
+import { SignTrace } from "@/components/brand/SignTrace";
 import { TIDIANE, WHATSAPP } from "@/layouts/PublicLayout";
 import { cn } from "@/lib/cn";
 import { HeroField } from "./HeroField";
 import { ContactForm } from "./ContactForm";
 
 const wrap = "mx-auto w-full max-w-[1200px] px-4 sm:px-6";
+/** Surtitre de la charte : Sora SemiBold, capitales, approche +12 %. */
+const eyebrow = "font-display text-[13px] font-semibold uppercase tracking-[0.12em]";
+const h2 = "font-display text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.08] tracking-[-0.03em] text-balance";
 
 export default function Landing() {
   usePageTitle(null);
@@ -26,15 +30,22 @@ export default function Landing() {
     <>
       <Hero />
       <Context />
+      <Method />
       <AgriTech />
       <Onion />
-      <HowItWorks />
-      <ForWhom />
+      <Beyond />
+      <Status />
+      <Together />
       <Team />
       <Faq />
       <Contact />
     </>
   );
+}
+
+/** La pastille de la charte : reprise du capteur, sert de puce et d'indicateur d'état. */
+function Dot({ tone = "sun", className }: { tone?: "sun" | "brand" | "ink"; className?: string }) {
+  return <span className={cn("inline-block size-2.5 shrink-0 rounded-full", { sun: "bg-sun", brand: "bg-brand", ink: "bg-ink-3" }[tone], className)} aria-hidden />;
 }
 
 /* ——— Héros ——— */
@@ -51,14 +62,20 @@ function Hero() {
   });
   return (
     <section className={cn(wrap, "grid items-center gap-10 pb-16 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-14 lg:pb-24 lg:pt-16")} aria-labelledby="hero-titre">
-      <div className="max-w-[560px]">
-        <h1 id="hero-titre" className="font-display text-[clamp(38px,5.4vw,64px)] font-semibold leading-[1.02] tracking-[-0.035em] text-balance">
-          Sachez quelle parcelle a soif, avant qu’elle ne souffre.
+      <div className="max-w-[580px]">
+        <p className="inline-flex items-center gap-2.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[13.5px] font-semibold text-ink-2">
+          <Dot />
+          Plateforme prête · premiers sites pilotes en préparation
+        </p>
+        <h1 id="hero-titre" className="mt-6 font-display text-[clamp(40px,5.6vw,66px)] font-bold leading-[1.02] tracking-[-0.035em] text-balance">
+          Voir la perte avant qu’elle arrive.
         </h1>
-        <p className="mt-6 text-[clamp(17px,1.5vw,19px)] leading-relaxed text-ink-2 text-pretty">SaytuMbay pose des capteurs dans le sol de vos parcelles et dans vos magasins de stockage. Quand une mesure sort de sa plage, la personne responsable reçoit un SMS qui dit quoi faire.</p>
+        <p className="mt-6 text-[clamp(17px,1.5vw,19px)] leading-relaxed text-ink-2 text-pretty">
+          Un sol qui s’assèche, un tas d’oignons qui chauffe, une chambre froide qui décroche : SaytuMbay place des capteurs là où personne ne regarde, et prévient la bonne personne par SMS, avec une consigne simple, au bon moment.
+        </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <ButtonLink to="/#contact" size="lg">
-            Demander une démonstration
+          <ButtonLink to="/?profil=cooperative#contact" size="lg">
+            Devenir site pilote
           </ButtonLink>
           {IS_DEMO ? (
             <Button variant="secondary" size="lg" loading={demo.isPending} onClick={() => demo.mutate()}>
@@ -70,11 +87,14 @@ function Hero() {
             </ButtonLink>
           )}
         </div>
+        <Link to="/#ensemble" className="mt-6 inline-flex items-center gap-1.5 text-[15px] font-semibold text-brand underline-offset-4 hover:underline">
+          Investisseur, partenaire ou institution ? Parlons-en <ArrowRight className="size-4" aria-hidden />
+        </Link>
         <p className="mt-8 text-[14.5px] leading-relaxed text-ink-3">
           <span lang="wo" className="font-semibold text-ink-2">
             Saytu mbay
           </span>
-          , en wolof : veiller sur les cultures.
+          , en wolof : veiller sur l’agriculture.
         </p>
       </div>
       <HeroField />
@@ -82,14 +102,15 @@ function Hero() {
   );
 }
 
-/* ——— Contexte chiffré, sourcé ——— */
+/* ——— Le problème, chiffre sourcé ——— */
 
 function Context() {
   return (
     <section className="border-y border-line bg-surface" aria-label="Le problème">
       <div className={cn(wrap, "py-16 lg:py-24")}>
-        <p className="max-w-[30ch] font-display text-[clamp(26px,3.3vw,42px)] font-semibold leading-[1.15] tracking-[-0.025em] text-balance">
-          Au Sénégal, les pertes après récolte sont estimées entre 30 et 40 % de la production horticole.
+        <p className={cn(eyebrow, "text-brand")}>Le problème</p>
+        <p className="mt-4 max-w-[30ch] font-display text-[clamp(26px,3.3vw,42px)] font-semibold leading-[1.15] tracking-[-0.025em] text-balance">
+          Au Sénégal, 30 à 40 % de la production horticole se perd après la récolte.
           <sup className="ml-0.5 align-super text-[0.45em] font-medium text-ink-3">
             <a href="#source-1" aria-describedby="source-1">
               1
@@ -100,6 +121,7 @@ function Context() {
           <p>Une bonne partie se joue sans témoin : une parcelle qui sèche pendant un après-midi d’harmattan, une vanne restée ouverte toute la nuit, un sol qui se charge en sel au fil des saisons.</p>
           <p>Dans les magasins, l’oignon commence à pourrir au cœur des sacs, là où personne ne regarde. Quand l’odeur arrive à la porte, une partie du stock est déjà perdue.</p>
         </div>
+        <p className="mt-10 max-w-[62ch] border-l-4 border-sun pl-5 font-display text-[clamp(19px,2vw,23px)] font-semibold leading-snug text-ink">Ces pertes préviennent presque toujours. Notre travail : rendre ces signaux visibles assez tôt pour agir.</p>
         <p id="source-1" className="mt-10 max-w-[80ch] text-[13px] text-ink-3">
           1. Estimation publique relayée par Le Soleil lors du lancement du projet national de stockage et de conservation des produits horticoles, Ngomène, 17 février 2026 (
           <a href="https://fr.allafrica.com/stories/202602170606.html" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink">
@@ -112,11 +134,57 @@ function Context() {
   );
 }
 
+/* ——— Méthode : les verbes de la charte, dans l'ordre ——— */
+
+const METHOD = [
+  { icon: Ear, title: "Écouter", text: "Une visite sur place pour comprendre ce qui vous coûte le plus cher : l’eau, la chaleur, les pertes en stock, une panne de froid." },
+  { icon: Gauge, title: "Mesurer", text: "Des capteurs dans le sol, au cœur des sacs, dans la chambre froide ou sur le forage. Sur pile, sans câble." },
+  { icon: Radio, title: "Transmettre", text: "Radio longue portée (LoRaWAN) ou réseau mobile selon la zone. Pas besoin d’internet sur la parcelle." },
+  { icon: BellRing, title: "Alerter", text: "Un SMS lisible sur n’importe quel téléphone, même à touches, avec une consigne claire. En français, et bientôt en wolof." },
+  { icon: FileCheck2, title: "Prouver", text: "Un historique daté de chaque mesure et de chaque action : pour suivre une saison, rassurer un acheteur ou convaincre un financeur." },
+];
+
+function Method() {
+  return (
+    <section id="methode" className="scroll-mt-20" aria-labelledby="methode-titre">
+      <div className={cn(wrap, "py-20 lg:py-28")}>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+          <div>
+            <p className={cn(eyebrow, "text-brand")}>Notre méthode</p>
+            <h2 id="methode-titre" className={cn(h2, "mt-3")}>
+              On part de votre problème, pas d’un gadget.
+            </h2>
+          </div>
+          <p className="max-w-[56ch] text-[17px] leading-relaxed text-ink-2">Chaque exploitation, chaque magasin a ses pertes, ses contraintes et son budget. Nous commençons par comprendre ce qui vous coûte le plus cher, puis nous assemblons la solution qui y répond, du capteur jusqu’au rapport.</p>
+        </div>
+        <ol className="relative mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
+          <span className="absolute left-0 right-0 top-[21px] hidden h-0.5 bg-brand/25 lg:block" aria-hidden />
+          {METHOD.map((s, i) => (
+            <li key={s.title} className="relative">
+              <span className="relative flex size-11 items-center justify-center rounded-full bg-brand text-brand-ink">
+                <s.icon className="size-5" aria-hidden />
+              </span>
+              <h3 className="mt-5 flex items-baseline gap-2 font-display text-[19px] font-semibold">
+                <span className="font-mono text-[13px] font-medium text-ink-3">0{i + 1}</span>
+                {s.title}
+              </h3>
+              <p className="mt-2 text-[15.5px] leading-relaxed text-ink-2">{s.text}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-14 max-w-[80ch] border-t border-line pt-6 text-[14px] leading-relaxed text-ink-3">
+          Matériel de référence pour l’irrigation : sondes de sol Dragino LSE01, passerelle Dragino LPS8, serveur réseau ChirpStack. Le matériel est choisi selon le site ; notre travail est de le faire fonctionner ensemble, de l’installer et de le maintenir.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 /* ——— AgriTech ——— */
 
 const AGRI_FEATURES = [
-  { icon: Droplets, title: "Humidité, température et salinité du sol", text: "Mesurées à 20 cm toutes les 15 minutes. La salinité aide à suivre les sols des Niayes qui se chargent en sel." },
-  { icon: SlidersHorizontal, title: "Une plage visée par parcelle", text: "Oignon, tomate, chou ou piment n’ont pas les mêmes besoins. Vous réglez les seuils parcelle par parcelle." },
+  { icon: Droplets, title: "Humidité, température et salinité du sol", text: "Mesurées à 20 cm toutes les 15 minutes. La salinité aide à suivre les sols des Niayes qui se chargent en sel." },
+  { icon: SlidersHorizontal, title: "Une plage visée par parcelle", text: "Oignon, tomate, chou ou piment n’ont pas les mêmes besoins. Les seuils se règlent parcelle par parcelle." },
   { icon: BellRing, title: "Alertes par SMS, tâches pour le technicien", text: "Le responsable de la parcelle est prévenu, même sur un téléphone à touches. Un capteur muet devient une tâche de maintenance." },
   { icon: Gauge, title: "Irrigation suivie", text: "Durée conseillée, journal des arrosages et effet mesuré sur le sol. Les vannes connectées se commandent depuis l’application, en option." },
   { icon: FileBarChart2, title: "Rapports de saison", text: "Eau utilisée, jours passés sous le seuil, alertes traitées. Export CSV ou PDF pour la coopérative et ses partenaires." },
@@ -124,14 +192,14 @@ const AGRI_FEATURES = [
 
 function AgriTech() {
   return (
-    <section id="agritech" className="scroll-mt-20" aria-labelledby="agri-titre">
+    <section id="agritech" className="scroll-mt-20 border-t border-line bg-surface" aria-labelledby="agri-titre">
       <div className={cn(wrap, "grid gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 lg:py-28")}>
         <div>
-          <p className="font-display text-[15px] font-semibold text-brand">SaytuMbay AgriTech</p>
-          <h2 id="agri-titre" className="mt-2 font-display text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.08] tracking-[-0.03em] text-balance">
-            Le sol de chaque parcelle, mesuré en continu.
+          <p className={cn(eyebrow, "text-brand")}>Solution 1 · SaytuMbay AgriTech</p>
+          <h2 id="agri-titre" className={cn(h2, "mt-3")}>
+            Arroser juste, parcelle par parcelle.
           </h2>
-          <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-ink-2">Le premier produit de SaytuMbay. Pensé pour les coopératives et les exploitations maraîchères qui irriguent : savoir où arroser, combien, et le vérifier.</p>
+          <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-ink-2">Pour les coopératives et les exploitations maraîchères qui irriguent : savoir où arroser, combien, et le vérifier. Moins d’eau perdue, moins de cultures stressées.</p>
           <dl className="mt-10 flex flex-col gap-6">
             {AGRI_FEATURES.map((f) => (
               <div key={f.title} className="grid grid-cols-[40px_minmax(0,1fr)] gap-x-4">
@@ -198,7 +266,7 @@ function ProductPeek() {
                 <span className="font-display text-[15px] font-semibold">Parcelle {p.code}</span>
                 <span className="text-[12px] text-ink-3">{p.crop}</span>
               </p>
-              <p className="mt-2 font-display text-[28px] font-semibold leading-none tabular">
+              <p className="mt-2 font-mono text-[26px] font-medium leading-none tabular">
                 {p.value}
                 <span className="ml-0.5 text-[15px] font-medium text-ink-3">%</span>
               </p>
@@ -227,22 +295,22 @@ function ProductPeek() {
 /* ——— Onion ——— */
 
 const ONION_FEATURES = [
-  { icon: ThermometerSun, title: "Température et humidité à plusieurs hauteurs", text: "Une sonde par rangée de sacs, au cœur du tas. Plages préréglées : oignon 24 à 30 °C et 65 à 72 %, pomme de terre 8 à 14 °C et 85 à 95 %." },
+  { icon: ThermometerSun, title: "Température et humidité au cœur du tas", text: "Une sonde par rangée de sacs. Plages préréglées : oignon 24 à 30 °C et 65 à 72 %, pomme de terre 8 à 14 °C et 85 à 95 %." },
   { icon: Wind, title: "CO₂ et gaz de dégradation", text: "Ils montent quand les bulbes respirent trop ou commencent à pourrir, souvent avant que rien ne se voie." },
   { icon: ClipboardCheck, title: "Lots et contrôles visuels", text: "Chaque lot garde sa date d’entrée, sa durée visée et ses contrôles. Le magasinier sait quoi vendre en premier." },
-  { icon: Scale, title: "Des pertes mesurées honnêtement", text: "Pendant le pilote, un magasin équipé est comparé à un magasin témoin, pesée à l’entrée et à la sortie. Pas de chiffre sans cette comparaison." },
+  { icon: Scale, title: "Des gains mesurés honnêtement", text: "Pendant chaque pilote, un magasin équipé est comparé à un magasin témoin, pesée à l’entrée et à la sortie. Pas de chiffre sans cette comparaison." },
 ];
 
 function Onion() {
   return (
-    <section id="onion" className="scroll-mt-20 border-y border-line bg-surface" aria-labelledby="onion-titre">
+    <section id="onion" className="scroll-mt-20 border-t border-line" aria-labelledby="onion-titre">
       <div className={cn(wrap, "grid gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 lg:py-28")}>
         <div className="lg:order-2">
-          <p className="font-display text-[15px] font-semibold text-onion dark:text-onion-ink">SaytuMbay Onion</p>
-          <h2 id="onion-titre" className="mt-2 font-display text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.08] tracking-[-0.03em] text-balance">
-            Le cœur du tas, surveillé avant qu’il ne pourrisse.
+          <p className={cn(eyebrow, "text-onion dark:text-onion-ink")}>Solution 2 · SaytuMbay Onion</p>
+          <h2 id="onion-titre" className={cn(h2, "mt-3")}>
+            Sauver le stock avant qu’il ne pourrisse.
           </h2>
-          <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-ink-2">Le second module, pour les magasins d’oignon et de pomme de terre des coopératives, des GIE et des stockeurs.</p>
+          <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-ink-2">Pour les magasins d’oignon et de pomme de terre des coopératives, des GIE et des stockeurs : voir ce qui se passe au cœur des sacs, et vendre en premier ce qui risque de s’abîmer.</p>
           <ul className="mt-10 grid gap-x-8 gap-y-7 sm:grid-cols-2">
             {ONION_FEATURES.map((f) => (
               <li key={f.title}>
@@ -306,137 +374,86 @@ function StoreIllustration() {
   );
 }
 
-/* ——— Fonctionnement (séquence réelle : numérotée) ——— */
+/* ——— Au-delà des deux solutions : le périmètre de la charte ——— */
 
-const STEPS = [
-  { title: "Pose sur le terrain", text: "Une demi-journée pour une exploitation : sondes enterrées à 20 cm ou glissées dans les sacs, une passerelle LoRaWAN dans un local proche, reliée à internet par la 4G." },
-  { title: "Mesure toutes les 15 minutes", text: "Les sondes fonctionnent sur pile, sans câble ni carte SIM. La radio LoRaWAN porte à plusieurs kilomètres en terrain dégagé." },
-  { title: "Alerte au bon moment", text: "Une mesure hors plage envoie un SMS au responsable, lisible sur un téléphone à touches, et une notification dans l’application." },
-  { title: "Action et suivi", text: "Vous irriguez, aérez ou triez. Tout est consigné : qui a fait quoi, quand, et l’effet sur les mesures dans les heures qui suivent." },
-];
-
-function HowItWorks() {
+function Beyond() {
   return (
-    <section id="fonctionnement" className="scroll-mt-20" aria-labelledby="fonc-titre">
-      <div className={cn(wrap, "py-20 lg:py-28")}>
-        <h2 id="fonc-titre" className="max-w-[24ch] font-display text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.08] tracking-[-0.03em] text-balance">
-          Du capteur au SMS, en quatre étapes.
-        </h2>
-        <ol className="relative mt-14 grid gap-10 md:grid-cols-4 md:gap-8">
-          <span className="absolute left-0 right-0 top-[19px] hidden h-px bg-line-strong md:block" aria-hidden />
-          {STEPS.map((s, i) => (
-            <li key={s.title} className="relative">
-              <span className="relative flex size-10 items-center justify-center rounded-full border-2 border-brand bg-bg font-display text-[15px] font-semibold text-brand">{i + 1}</span>
-              <h3 className="mt-5 font-display text-[18px] font-semibold">{s.title}</h3>
-              <p className="mt-2 text-[15.5px] leading-relaxed text-ink-2">{s.text}</p>
-            </li>
-          ))}
-        </ol>
-        <p className="mt-14 max-w-[80ch] border-t border-line pt-6 text-[14px] leading-relaxed text-ink-3">
-          Matériel de référence pour l’irrigation : sondes de sol Dragino LSE01, passerelle Dragino LPS8, serveur réseau ChirpStack. Le matériel est choisi selon le site ; notre travail est de le faire fonctionner ensemble, de l’installer et de le maintenir.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* ——— Pour qui, et comment démarrer ——— */
-
-const SEGMENTS = [
-  { title: "Coopératives et GIE maraîchers", text: "Plusieurs exploitants, des parcelles dispersées : chacun voit les siennes, le responsable voit tout et reçoit les alertes importantes." },
-  { title: "Exploitations horticoles", text: "Forages, vannes, plusieurs cultures en parallèle : arroser juste, au bon endroit, et garder la trace pour la saison suivante." },
-  { title: "Magasins de stockage", text: "Oignon de Galmi, pomme de terre : suivre chaque rangée et chaque lot, vendre en premier ce qui risque de s’abîmer." },
-];
-
-const PILOT = [
-  { title: "Visite et cadrage", text: "Sur place, nous choisissons les indicateurs et estimons le gain attendu avec vous." },
-  { title: "Pilote payant, à prix réduit", text: "Les critères de réussite sont écrits avant la pose. Un pilote payé est un pilote suivi des deux côtés." },
-  { title: "Trente jours de test", text: "Capteurs, alertes et accès à la plateforme, avec une formation de l’équipe sur place." },
-  { title: "Bilan, puis abonnement", text: "Si les critères sont atteints, le service continue : supervision, maintenance et rapports." },
-];
-
-function ForWhom() {
-  return (
-    <section id="clients" className="scroll-mt-20 border-y border-line bg-surface" aria-labelledby="clients-titre">
-      <div className={cn(wrap, "grid gap-14 py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20 lg:py-28")}>
+    <section className="border-t border-line bg-surface" aria-labelledby="au-dela-titre">
+      <div className={cn(wrap, "grid gap-8 py-16 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16 lg:py-20")}>
         <div>
-          <h2 id="clients-titre" className="font-display text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.08] tracking-[-0.03em] text-balance">
-            Pour les organisations qui produisent et qui stockent.
+          <p className={cn(eyebrow, "text-brand")}>Et votre problème ?</p>
+          <h2 id="au-dela-titre" className="mt-3 font-display text-[clamp(24px,2.6vw,32px)] font-semibold leading-[1.15] tracking-[-0.02em] text-balance">
+            Chambre froide, forage, bidon de lait, pompe isolée : le même socle s’adapte.
           </h2>
-          <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-ink-2">Nous travaillons avec des organisations. Les petits producteurs en profitent par leur coopérative ou leur GIE, sans avoir à acheter de matériel.</p>
-          <ul className="mt-10 divide-y divide-line border-y border-line">
-            {SEGMENTS.map((s) => (
-              <li key={s.title} className="grid gap-2 py-6 sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-8">
-                <h3 className="font-display text-[17px] font-semibold">{s.title}</h3>
-                <p className="text-[15.5px] leading-relaxed text-ink-2">{s.text}</p>
-              </li>
-            ))}
-          </ul>
+          <p className="mt-4 max-w-[64ch] text-[16.5px] leading-relaxed text-ink-2">Mêmes capteurs, même réseau, même plateforme. Décrivez-nous la situation : nous vous dirons franchement si nous pouvons aider, et comment.</p>
         </div>
-        <div className="rounded-[24px] bg-bg p-6 sm:p-8">
-          <h3 className="font-display text-[22px] font-semibold tracking-tight">Comment démarrer</h3>
-          <ol className="mt-6 flex flex-col">
-            {PILOT.map((p, i) => (
-              <li key={p.title} className="relative flex gap-4 pb-7 last:pb-0">
-                {i < PILOT.length - 1 && <span className="absolute left-[13px] top-8 bottom-1 w-px bg-line-strong" aria-hidden />}
-                <span className="relative flex size-7 shrink-0 items-center justify-center rounded-full bg-brand font-display text-[13px] font-semibold text-brand-ink">{i + 1}</span>
-                <div>
-                  <p className="font-display text-[16px] font-semibold">{p.title}</p>
-                  <p className="mt-1 text-[15px] leading-relaxed text-ink-2">{p.text}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <ButtonLink to="/#contact" className="mt-8 w-full" size="lg">
-            Parler d’un pilote
-          </ButtonLink>
-        </div>
+        <ButtonLink to="/?profil=autre#contact" size="lg" variant="secondary" icon={<ArrowRight className="size-4" aria-hidden />}>
+          Nous soumettre un problème
+        </ButtonLink>
       </div>
     </section>
   );
 }
 
-/* ——— Équipe ——— */
+/* ——— Où nous en sommes : transparence sur le stade du projet ——— */
 
-const TEAM = [
-  { name: "Tidiane Sow", role: "Directeur général (CEO)" },
-  { name: "Ibrahima Fall", role: "Directeur technique (CTO)" },
+const STATUS: Array<{ title: string; tone: "brand" | "sun" | "ink"; items: string[] }> = [
+  {
+    title: "Prêt aujourd’hui",
+    tone: "brand",
+    items: [
+      "Tableau de bord sur ordinateur et sur téléphone, installable comme une application.",
+      "Alertes SMS envoyées au bon responsable, selon son rôle.",
+      "Suivi de l’irrigation, des magasins, des lots et des tâches ; rapports exportables.",
+      "Compatible avec des capteurs LoRaWAN du marché (Dragino, ChirpStack).",
+      "Démonstration en ligne, ouverte à tous.",
+    ],
+  },
+  {
+    title: "En cours",
+    tone: "sun",
+    items: ["SMS d’alerte en wolof, en relecture.", "Préparation des premiers sites pilotes avec des coopératives."],
+  },
+  {
+    title: "Ce que nous cherchons",
+    tone: "ink",
+    items: ["Des coopératives, GIE et stockeurs pour nos premiers pilotes.", "Des financements pour équiper ces premiers sites.", "Des partenaires techniques et de terrain."],
+  },
 ];
 
 const SUPPORT = ["Incubateur TÀGGU NDAW ÑI, Université Cheikh Anta Diop", "AfriConnect+, programme de soutien à l’Internet des objets en Afrique", "Dakar Night Market 2026, programme accompagné par l’ADEPME", "2e place, hackathon ISOC ESMT 2026"];
 
-function Team() {
+function Status() {
   return (
-    <section id="equipe" className="scroll-mt-20" aria-labelledby="equipe-titre">
-      <div className={cn(wrap, "grid gap-14 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20 lg:py-28")}>
-        <div>
-          <h2 id="equipe-titre" className="font-display text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.08] tracking-[-0.03em]">
-            Une équipe de Dakar.
-          </h2>
-          <p className="mt-5 max-w-[52ch] text-[17px] leading-relaxed text-ink-2">Réseaux, objets connectés, logiciel et produit : nous concevons la solution, l’installons avec des techniciens partenaires et la maintenons dans la durée.</p>
-          <ul className="mt-10 grid gap-x-6 gap-y-6 sm:grid-cols-2">
-            {TEAM.map((m, i) => (
-              <li key={m.name} className="flex items-center gap-4">
-                <span className={cn("flex size-12 shrink-0 items-center justify-center rounded-full font-display text-[17px] font-semibold", ["bg-brand-soft text-brand-strong dark:text-brand", "bg-water-soft text-water-ink", "bg-sun-soft text-sun-ink", "bg-onion-soft text-onion-ink"][i])} aria-hidden>
-                  {m.name
-                    .split(" ")
-                    .map((w) => w[0])
-                    .join("")
-                    .slice(0, 2)}
-                </span>
-                <span>
-                  <span className="block font-display text-[16.5px] font-semibold">{m.name}</span>
-                  <span className="block text-[14.5px] text-ink-3">{m.role}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
+    <section id="etat" className="scroll-mt-20 border-t border-line" aria-labelledby="etat-titre">
+      <div className={cn(wrap, "py-20 lg:py-28")}>
+        <p className={cn(eyebrow, "text-brand")}>Où nous en sommes</p>
+        <h2 id="etat-titre" className={cn(h2, "mt-3 max-w-[22ch]")}>
+          Une jeune startup, une plateforme déjà construite.
+        </h2>
+        <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-ink-2">SaytuMbay démarre, et nous préférons le dire clairement : voici ce qui existe aujourd’hui, et ce qui reste à faire avec vous.</p>
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {STATUS.map((c) => (
+            <div key={c.title} className="rounded-[20px] border border-line bg-surface p-6">
+              <h3 className="flex items-center gap-2.5 font-display text-[18px] font-semibold">
+                <Dot tone={c.tone} />
+                {c.title}
+              </h3>
+              <ul className="mt-4 flex flex-col gap-3 text-[15.5px] leading-relaxed text-ink-2">
+                {c.items.map((it) => (
+                  <li key={it} className="border-t border-line pt-3 first:border-0 first:pt-0">
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-        <div className="lg:pt-3">
-          <h3 className="font-display text-[18px] font-semibold">Accompagnement</h3>
-          <ul className="mt-4 divide-y divide-line border-y border-line">
+        <div className="mt-12">
+          <h3 className="font-display text-[16px] font-semibold">Accompagnement et distinctions</h3>
+          <ul className="mt-4 flex flex-wrap gap-2.5">
             {SUPPORT.map((s) => (
-              <li key={s} className="py-4 text-[15.5px] text-ink-2">
+              <li key={s} className="rounded-full border border-line bg-surface px-3.5 py-1.5 text-[14px] text-ink-2">
                 {s}
               </li>
             ))}
@@ -447,15 +464,112 @@ function Team() {
   );
 }
 
+/* ——— Travaillons ensemble : trois publics, trois portes d'entrée ——— */
+
+const AUDIENCES: Array<{ title: string; text: string; cta: string; to: string }> = [
+  { title: "Producteurs, coopératives, stockeurs", text: "Devenez l’un de nos premiers sites pilotes : installation, formation et suivi, à prix réduit. Les critères de réussite sont écrits ensemble avant la pose.", cta: "Proposer mon site", to: "/?profil=cooperative#contact" },
+  { title: "Investisseurs, bailleurs, incubateurs", text: "Financez l’équipement des premiers sites et la croissance d’une équipe qui conçoit, installe et maintient ses solutions au Sénégal.", cta: "Recevoir notre présentation", to: "/?profil=financeur#contact" },
+  { title: "États, collectivités, ONG, programmes", text: "Équipez un programme de stockage, d’irrigation ou de chaîne du froid, avec des données mesurées sur le terrain plutôt qu’estimées.", cta: "Parler de votre programme", to: "/?profil=institution#contact" },
+];
+
+const PILOT = [
+  { title: "Visite et cadrage", text: "Sur place, nous choisissons les indicateurs et estimons le gain attendu avec vous." },
+  { title: "Pilote à prix réduit", text: "Les critères de réussite sont écrits avant la pose. Un pilote payé est un pilote suivi des deux côtés." },
+  { title: "Trente jours de test", text: "Capteurs, alertes et accès à la plateforme, avec une formation de l’équipe sur place." },
+  { title: "Bilan, puis abonnement", text: "Si les critères sont atteints, le service continue : supervision, maintenance et rapports." },
+];
+
+function Together() {
+  return (
+    <section id="ensemble" className="relative scroll-mt-20 overflow-hidden bg-[#0f5a44] text-[#f4efe6]" aria-labelledby="ensemble-titre">
+      <SignTrace className="-right-40 -top-24 hidden w-[620px] opacity-70 lg:block" color="#ef6a22" />
+      <div className={cn(wrap, "relative py-20 lg:py-28")}>
+        <p className={cn(eyebrow, "text-[#f4efe6]")}>Travaillons ensemble</p>
+        <h2 id="ensemble-titre" className={cn(h2, "mt-3 max-w-[20ch] text-[#f4efe6]")}>
+          Chacun peut nous aider à aller plus loin.
+        </h2>
+        <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-[#dfe6dc]">Nous cherchons trois types de partenaires. Si vous vous reconnaissez, écrivez-nous : nous répondons à chaque message.</p>
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {AUDIENCES.map((a) => (
+            <div key={a.title} className="flex flex-col rounded-[20px] bg-[#f4efe6] p-6 text-[#0b2e24]">
+              <h3 className="font-display text-[19px] font-semibold leading-snug">{a.title}</h3>
+              <p className="mt-3 flex-1 text-[15.5px] leading-relaxed text-[#3c4a44]">{a.text}</p>
+              <Link to={a.to} className="mt-6 inline-flex items-center gap-1.5 font-display text-[15px] font-semibold text-[#0f5a44] underline-offset-4 hover:underline">
+                {a.cta} <ArrowRight className="size-4" aria-hidden />
+              </Link>
+            </div>
+          ))}
+        </div>
+        <div className="mt-16">
+          <h3 className="font-display text-[20px] font-semibold text-[#f4efe6]">Comment se passe un pilote</h3>
+          <ol className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {PILOT.map((p, i) => (
+              <li key={p.title} className="border-t-2 border-[#ef6a22] pt-4">
+                <p className="font-mono text-[13px] text-[#dfe6dc]">Étape {i + 1}</p>
+                <p className="mt-1 font-display text-[16.5px] font-semibold">{p.title}</p>
+                <p className="mt-1.5 text-[15px] leading-relaxed text-[#dfe6dc]">{p.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ——— Équipe et vision ——— */
+
+const TEAM = [
+  { name: "Tidiane Sow", role: "Directeur général (CEO)" },
+  { name: "Ibrahima Fall", role: "Directeur technique (CTO)" },
+];
+
+function Team() {
+  return (
+    <section id="equipe" className="scroll-mt-20" aria-labelledby="equipe-titre">
+      <div className={cn(wrap, "grid gap-14 py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20 lg:py-28")}>
+        <div>
+          <p className={cn(eyebrow, "text-brand")}>L’équipe</p>
+          <h2 id="equipe-titre" className={cn(h2, "mt-3")}>
+            Nés à Dakar. Construits pour grandir.
+          </h2>
+          <div className="mt-5 flex max-w-[58ch] flex-col gap-4 text-[17px] leading-relaxed text-ink-2">
+            <p>Réseaux, objets connectés, logiciel : nous concevons la solution, l’installons avec des techniciens partenaires et la maintenons dans la durée.</p>
+            <p>Nous commençons au Sénégal, avec des organisations d’ici. Mais l’eau qui manque, la chaleur qui abîme et les récoltes qui se perdent sont les mêmes partout où l’on cultive. C’est pour cela que nous construisons une solution capable d’aller bien au-delà.</p>
+          </div>
+        </div>
+        <ul className="flex flex-col gap-4 self-end">
+          {TEAM.map((m, i) => (
+            <li key={m.name} className="flex items-center gap-4 rounded-[20px] border border-line bg-surface p-5">
+              <span className={cn("flex size-14 shrink-0 items-center justify-center rounded-full font-display text-[18px] font-semibold", i ? "bg-sun-soft text-sun-ink" : "bg-brand-soft text-brand-strong dark:text-brand")} aria-hidden>
+                {m.name
+                  .split(" ")
+                  .map((w) => w[0])
+                  .join("")
+                  .slice(0, 2)}
+              </span>
+              <span>
+                <span className="block font-display text-[17.5px] font-semibold">{m.name}</span>
+                <span className="block text-[15px] text-ink-3">{m.role}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 /* ——— Questions fréquentes ——— */
 
 const FAQ = [
+  { q: "Où en est SaytuMbay ?", a: "La plateforme est construite et se découvre en démonstration. Nous préparons nos premiers sites pilotes avec des coopératives : c’est le bon moment pour nous rejoindre, comme utilisateur, partenaire ou financeur." },
   { q: "Faut-il internet sur la parcelle ?", a: "Non. Les capteurs parlent par radio LoRaWAN à une passerelle installée dans un local proche, qui envoie les mesures par la 4G. Les alertes arrivent par SMS, sans application ni données mobiles." },
   { q: "Qui reçoit les alertes ?", a: "La personne responsable de la parcelle ou du magasin, désignée par votre organisation. Chaque membre voit uniquement ce qui le concerne : un exploitant ses parcelles, un technicien les capteurs, le responsable l’ensemble." },
-  { q: "Pour quelles cultures ?", a: "Le maraîchage irrigué (oignon, tomate, chou, piment, gombo…) et le stockage d’oignon et de pomme de terre. Les seuils se règlent par parcelle ou par magasin." },
+  { q: "Pour quelles cultures et quels usages ?", a: "Le maraîchage irrigué (oignon, tomate, chou, piment, gombo…) et le stockage d’oignon et de pomme de terre. Pour une chambre froide, un forage ou un autre équipement, parlons-en : le même socle s’adapte." },
   { q: "Et si un capteur tombe en panne ?", a: "La plateforme le signale dès qu’il ne répond plus ou que sa pile faiblit, et crée une tâche pour le technicien. Un capteur remplacé garde l’historique de l’ancien." },
-  { q: "À qui appartiennent les données ?", a: "À votre organisation. Vous pouvez les exporter à tout moment. Leur traitement suit la loi sénégalaise n° 2008-12 sur les données personnelles ; le détail est dans notre politique de confidentialité." },
-  { q: "Combien ça coûte ?", a: "Cela dépend du nombre de capteurs et du site. Nous commençons toujours par une visite, puis un pilote payant à prix réduit avec des critères de réussite écrits. Écrivez-nous pour en parler." },
+  { q: "À qui appartiennent les données ?", a: "À votre organisation. Vous pouvez les exporter à tout moment. Leur traitement suit la loi sénégalaise n° 2008-12 sur les données personnelles ; le détail est dans notre politique de confidentialité." },
+  { q: "Combien ça coûte ?", a: "Cela dépend du nombre de capteurs et du site. Chaque projet commence par une visite, puis un pilote à prix réduit avec des critères de réussite écrits. Écrivez-nous pour en parler." },
   { q: "Qui installe et qui forme ?", a: "Notre équipe, avec des techniciens partenaires sur le terrain. La formation se fait sur place, en wolof ou en français." },
 ];
 
@@ -464,7 +578,7 @@ function Faq() {
     <section id="faq" className="scroll-mt-20 border-t border-line bg-surface" aria-labelledby="faq-titre">
       <div className={cn(wrap, "grid gap-10 py-20 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20 lg:py-28")}>
         <div>
-          <h2 id="faq-titre" className="font-display text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.08] tracking-[-0.03em]">
+          <h2 id="faq-titre" className={h2}>
             Questions fréquentes
           </h2>
           <p className="mt-5 text-[16.5px] leading-relaxed text-ink-2">
@@ -497,25 +611,32 @@ function Faq() {
 
 /* ——— Contact ——— */
 
+function WhatsAppLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex h-12 items-center gap-2.5 rounded-xl bg-[#f4efe6] px-5 font-display text-[15.5px] font-semibold text-[#0b2e24] hover:bg-white">
+      <MessageCircle className="size-5 text-[#0f5a44]" aria-hidden /> {children}
+    </a>
+  );
+}
+
 function Contact() {
   return (
-    <section id="contact" className="scroll-mt-20 bg-[#0b2e24] text-[#f4efe6]" aria-labelledby="contact-titre">
-      <div className={cn(wrap, "grid gap-12 py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20 lg:py-28")}>
+    <section id="contact" className="relative scroll-mt-20 overflow-hidden bg-[#0b2e24] text-[#f4efe6]" aria-labelledby="contact-titre">
+      <SignTrace className="-bottom-48 -left-40 w-[560px] opacity-60" color="#ef6a22" />
+      <div className={cn(wrap, "relative grid gap-12 py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20 lg:py-28")}>
         <div>
-          <h2 id="contact-titre" className="font-display text-[clamp(30px,3.6vw,44px)] font-semibold leading-[1.08] tracking-[-0.03em] text-white text-balance">
-            Venez voir les capteurs sur une de vos parcelles.
+          <h2 id="contact-titre" className={cn(h2, "text-[#f4efe6]")}>
+            Un terrain, un stock, un projet ? Parlons-en.
           </h2>
-          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Laissez-nous un numéro : nous vous rappelons pour organiser une visite et une démonstration sur place.</p>
-          <a href={WHATSAPP.href} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex h-12 items-center gap-2.5 rounded-xl bg-[#4cc98a] px-5 font-display text-[15.5px] font-semibold text-[#06231a] hover:bg-[#6fd8a3]">
-            <MessageCircle className="size-5" aria-hidden /> WhatsApp {WHATSAPP.display}
-          </a>
-          <p className="mt-4 text-[15.5px] text-[#d6dbd2]">
-            Ou écrivez directement à {TIDIANE.name}, directeur général, sur WhatsApp au{" "}
-            <a href={TIDIANE.href} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap font-semibold text-white underline underline-offset-2 hover:text-[#4cc98a]">
-              {TIDIANE.display}
-            </a>
-            .
-          </p>
+          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Agriculteur, coopérative, investisseur ou institution : laissez-nous un numéro, nous vous rappelons. Chaque échange nous aide à construire la bonne solution.</p>
+          <div className="mt-8 flex flex-col items-start gap-3">
+            <WhatsAppLink href={WHATSAPP.href}>
+              WhatsApp <span className="font-mono text-[15px] font-medium">{WHATSAPP.display}</span>
+            </WhatsAppLink>
+            <WhatsAppLink href={TIDIANE.href}>
+              {TIDIANE.name}, directeur général · <span className="font-mono text-[15px] font-medium">{TIDIANE.display}</span>
+            </WhatsAppLink>
+          </div>
         </div>
         <div className="rounded-[24px] bg-surface p-5 text-ink shadow-3 sm:p-8">
           <ContactForm />

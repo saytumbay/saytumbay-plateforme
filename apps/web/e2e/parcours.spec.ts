@@ -3,7 +3,7 @@ import { axe, demoLogin, expect, noHorizontalScroll, test } from "./fixtures";
 test.describe("site public", () => {
   test("accueil : contenu, accessibilité, pas d'erreur ni de débordement", async ({ page, errors }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("parcelle a soif");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Voir la perte");
     await expect(page.getByRole("img", { name: /Plan des six parcelles/ })).toBeVisible();
     expect(await noHorizontalScroll(page)).toBe(true);
     expect(await axe(page)).toEqual([]);
@@ -16,7 +16,7 @@ test.describe("site public", () => {
     await expect(page.getByText("Indiquez votre nom")).toBeVisible();
     await page.getByLabel("Nom et prénom").fill("Awa Test");
     await page.getByLabel("Téléphone ou WhatsApp").fill("77 123 45 67");
-    await page.getByLabel("Votre besoin").fill("Trois parcelles d’oignon à Mboro, surveillance de l’humidité.");
+    await page.getByLabel("Votre message").fill("Trois parcelles d’oignon à Mboro, surveillance de l’humidité.");
     await page.getByRole("checkbox", { name: /J’accepte que SaytuMbay/ }).click();
     await page.getByRole("button", { name: "Envoyer la demande" }).click();
     await expect(page.getByRole("status")).toContainText("votre message est bien arrivé");

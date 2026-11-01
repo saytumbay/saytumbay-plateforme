@@ -165,7 +165,7 @@ export const contactSchema = z.object({
   name: z.string().trim().min(2, "Indiquez votre nom").max(80),
   organization: z.string().trim().max(120).optional().default(""),
   phone: phoneSn,
-  profile: z.enum(["cooperative", "exploitation", "stockage", "partenaire", "autre"]),
+  profile: z.enum(["cooperative", "exploitation", "stockage", "financeur", "institution", "partenaire", "autre"]),
   region: z.string().trim().max(60).optional().default(""),
   message: z.string().trim().min(10, "Quelques mots de plus, s’il vous plaît").max(1500),
   consent: z.literal(true, { error: "Votre accord est nécessaire pour être recontacté" }),

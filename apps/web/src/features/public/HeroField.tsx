@@ -113,8 +113,8 @@ export function HeroField() {
       <div className="relative grid gap-0 md:grid-cols-[minmax(0,1fr)_250px]">
         <div className="p-5 pb-3 sm:p-7 sm:pb-4">
           <div className="flex items-baseline justify-between gap-4 text-[13px] text-[#aab8b0]">
-            <span>Exploitation de Mboro, Niayes</span>
-            <span className="font-display text-[22px] font-semibold tabular text-white" aria-live="off">
+            <span>Simulation · une journée à Mboro</span>
+            <span className="whitespace-nowrap font-mono text-[20px] font-medium tabular text-white" aria-live="off">
               {clock(t)}
             </span>
           </div>

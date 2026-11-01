@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,9 +16,14 @@ const PROFILES: Array<[Form["profile"], string]> = [
   ["cooperative", "Coopérative ou GIE"],
   ["exploitation", "Exploitation horticole"],
   ["stockage", "Magasin de stockage"],
-  ["partenaire", "ONG, projet ou institution"],
+  ["financeur", "Investisseur, bailleur ou incubateur"],
+  ["institution", "État, collectivité, ONG ou programme"],
+  ["partenaire", "Partenaire technique ou de terrain"],
   ["autre", "Autre"],
 ];
+
+/** Profil présélectionné par un lien de l'accueil, par exemple « /?profil=financeur#contact ». */
+const isProfile = (v: string | null): v is Form["profile"] => PROFILES.some(([k]) => k === v);
 
 export function ContactForm() {
   const [sent, setSent] = useState<string | null>(null);
@@ -28,6 +33,11 @@ export function ContactForm() {
     mode: "onBlur",
     reValidateMode: "onChange",
   });
+  const { search } = useLocation();
+  useEffect(() => {
+    const p = new URLSearchParams(search).get("profil");
+    if (isProfile(p)) form.setValue("profile", p);
+  }, [search, form]);
   const send = useMutation({ mutationFn: (v: Form) => api.contact(contactSchema.parse(v)), meta: { silent: true }, onSuccess: (_d, v) => setSent(v.name.split(" ")[0] ?? "") });
   const e = form.formState.errors;
   if (sent !== null)
@@ -35,7 +45,7 @@ export function ContactForm() {
       <div role="status" className="flex flex-col items-start gap-4 py-6">
         <CheckCircle2 className="size-10 text-brand" aria-hidden />
         <h3 className="font-display text-[22px] font-semibold tracking-tight">Merci{sent ? ` ${sent}` : ""}, votre message est bien arrivé.</h3>
-        <p className="text-[15.5px] leading-relaxed text-ink-2">Nous vous rappelons au numéro indiqué pour convenir d’une visite. Pour aller plus vite, vous pouvez aussi nous écrire sur WhatsApp.</p>
+        <p className="text-[15.5px] leading-relaxed text-ink-2">Nous vous rappelons au numéro indiqué dans les prochains jours. Pour aller plus vite, écrivez-nous aussi sur WhatsApp.</p>
         <Button
           variant="secondary"
           onClick={() => {
@@ -49,7 +59,7 @@ export function ContactForm() {
     );
   return (
     <form noValidate className="flex flex-col gap-4" onSubmit={form.handleSubmit((v) => send.mutate(v))} aria-label="Demande de démonstration">
-      <h3 className="font-display text-[20px] font-semibold tracking-tight">Demander une démonstration</h3>
+      <h3 className="font-display text-[20px] font-semibold tracking-tight">Écrivez-nous</h3>
       <FormError>{send.error && !(send.error instanceof ApiError && send.error.status === 422) ? (send.error instanceof ApiError && send.error.status === 429 ? "Trop de messages envoyés depuis cette connexion. Réessayez dans quelques minutes ou écrivez-nous sur WhatsApp." : "L’envoi n’a pas abouti. Vérifiez votre connexion et réessayez, ou écrivez-nous sur WhatsApp.") : null}</FormError>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Nom et prénom" error={e.name?.message}>
@@ -74,8 +84,8 @@ export function ContactForm() {
       <Field label="Localité" optional hint="Exemple : Mboro, Potou, Rufisque">
         <Input autoComplete="address-level2" {...form.register("region")} />
       </Field>
-      <Field label="Votre besoin" error={e.message?.message}>
-        <Textarea rows={4} placeholder="Cultures, nombre de parcelles ou de magasins, ce que vous voulez surveiller" {...form.register("message")} />
+      <Field label="Votre message" error={e.message?.message}>
+        <Textarea rows={4} placeholder="Votre terrain, votre stock, votre programme… ou ce que vous aimeriez construire avec nous" {...form.register("message")} />
       </Field>
       <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden>
         <label htmlFor="contact-site">Ne pas remplir ce champ</label>
