@@ -656,7 +656,7 @@ const STATUS: Array<{ title: string; tone: "brand" | "sun" | "ink"; items: strin
   },
 ];
 
-const SUPPORT = ["Incubateur TÀGGU NDAW ÑI, Université Cheikh Anta Diop", "AfriConnect+, programme de soutien à l’Internet des objets en Afrique", "Projet présenté et publié au colloque COC’2026, IUT de l’Université Iba Der Thiam, Thiès", "Projet présenté au Dakar Night Market 2026", "2e place, hackathon ISOC ESMT 2026"];
+const SUPPORT = ["Incubé à TÀGGU NDAW ÑI, l’incubateur de l’Université Cheikh Anta Diop", "Né à l’ESP de Dakar dans le programme AfriConnect+, soutien à l’Internet des objets en Afrique", "Projet présenté et publié au colloque COC’2026, IUT de l’Université Iba Der Thiam, Thiès", "Projet présenté au Dakar Night Market 2026", "2e place, hackathon ISOC ESMT 2026"];
 
 /** Article présenté au COC'2026 et archivé sur HAL (métadonnées vérifiées sur l'archive ouverte). */
 const PAPER = {
@@ -853,7 +853,7 @@ function Team() {
 /* ——— Questions fréquentes ——— */
 
 const FAQ = [
-  { q: "Où en est SaytuMbay ?", a: "La plateforme est construite et se découvre en démonstration. Le projet a été présenté au colloque COC’2026 à Thiès, et l’article est en accès libre sur HAL. Nous préparons nos premiers sites pilotes avec des coopératives : c’est le bon moment pour nous rejoindre, comme utilisateur, partenaire ou financeur." },
+  { q: "Où en est SaytuMbay ?", a: "Le projet est né à l’ESP de Dakar, dans le cadre d’AfriConnect+, un programme de soutien à l’Internet des objets en Afrique. Il est aujourd’hui incubé à TÀGGU NDAW ÑI, l’incubateur de l’Université Cheikh Anta Diop. La plateforme est construite et se découvre en démonstration ; le projet a été présenté au colloque COC’2026 à Thiès, et l’article est en accès libre sur HAL. Nous préparons nos premiers sites pilotes avec des coopératives : c’est le bon moment pour nous rejoindre, comme utilisateur, partenaire ou financeur." },
   { q: "Utilisez-vous les images satellites ?", a: "Pas encore dans la plateforme. Les images satellites gratuites montrent la santé des cultures vue d’en haut, sur de grandes surfaces ; nos capteurs mesurent ce qu’elles ne voient pas, l’eau du sol et l’intérieur des magasins. Combiner les deux est la direction que nous prenons, seuls ou avec des partenaires." },
   { q: "J’ai déjà une pompe ou un arrosage automatique. Est-ce utile ?", a: "Oui. Les capteurs s’ajoutent à votre installation sans rien remplacer : ils disent quand arroser et vérifient que l’eau arrive bien dans le sol. Quand le matériel le permet, l’arrosage peut aussi se commander depuis l’application." },
   { q: "Faut-il internet sur la parcelle ?", a: "Non. Les capteurs parlent par radio LoRaWAN à une passerelle installée dans un local proche, qui envoie les mesures par la 4G. Les alertes arrivent par SMS, sans application ni données mobiles." },
