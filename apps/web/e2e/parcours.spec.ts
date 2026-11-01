@@ -18,16 +18,27 @@ test.describe("site public", () => {
     expect(await axe(page)).toEqual([]);
   });
 
-  test("formulaire de contact : validation puis envoi", async ({ page }) => {
+  test("formulaire de contact : validation puis message rédigé dans WhatsApp (site sans serveur)", async ({ page }) => {
+    // L'ouverture de WhatsApp est interceptée : on vérifie l'adresse rédigée sans quitter la page.
+    await page.addInitScript(() => {
+      (window as unknown as { opened: string[] }).opened = [];
+      window.open = (u?: string | URL) => ((window as unknown as { opened: string[] }).opened.push(String(u)), null);
+    });
     await page.goto("/#contact");
-    await page.getByRole("button", { name: "Envoyer la demande" }).click();
+    await page.getByRole("button", { name: "Envoyer par WhatsApp" }).click();
     await expect(page.getByText("Indiquez votre nom")).toBeVisible();
     await page.getByLabel("Nom et prénom").fill("Awa Test");
     await page.getByLabel("Téléphone ou WhatsApp").fill("77 123 45 67");
-    await page.getByLabel("Votre message").fill("Trois parcelles d’oignon à Mboro, surveillance de l’humidité.");
+    await page.getByLabel("Votre message", { exact: true }).fill("Trois parcelles d’oignon à Mboro, surveillance de l’humidité.");
     await page.getByRole("checkbox", { name: /J’accepte que SaytuMbay/ }).click();
-    await page.getByRole("button", { name: "Envoyer la demande" }).click();
-    await expect(page.getByRole("status")).toContainText("votre message est bien arrivé");
+    await page.getByRole("button", { name: "Envoyer par WhatsApp" }).click();
+    await expect(page.getByRole("status")).toBeVisible();
+    const url = decodeURIComponent(await page.evaluate(() => (window as unknown as { opened: string[] }).opened[0] ?? ""));
+    expect(url).toContain("wa.me/221778335781");
+    expect(url).toContain("Trois parcelles d’oignon à Mboro");
+    expect(url).toContain("Téléphone : 77 123 45 67");
+    await expect(page.getByRole("status")).toContainText("votre message est prêt dans WhatsApp");
+    await expect(page.getByRole("link", { name: "Ouvrir WhatsApp" })).toHaveAttribute("href", /wa\.me\/221778335781\?text=/);
   });
 
   test("pages légales accessibles", async ({ page }) => {

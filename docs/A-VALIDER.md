@@ -5,7 +5,7 @@ Ce que le code ne peut pas décider seul. Classés par urgence. Mis à jour le 1
 ## Avant toute mise en ligne
 
 1. **Mentions légales** (en cours) : forme juridique, capital, RCCM, NINEA, adresse du siège, directeur de la publication, hébergeur. Ces champs apparaissent entre crochets surlignés sur `/mentions-legales`, `/confidentialite`, `/conditions` et `/securite`. Le site affiche un bandeau « Document de travail » tant qu'ils ne sont pas remplis (`draft` dans `LegalPage`). Les adresses e-mail sont déjà en place (`contact@`, `tidianesow@`, `ibrahimafall@saytumbay.com`).
-2. **Déclaration à la CDP** : à confirmer avec le numéro de récépissé. Aucune trace publique n'a été trouvée, ce qui est normal : la CDP ne publie pas de registre consultable par entreprise. Point d'attention : un hébergement hors du Sénégal (Hostinger) est un transfert de données à l'étranger, qui relève en principe d'une **demande d'autorisation**, pas d'une simple déclaration. Contact : `contactcdp@cdp.sn`, formulaires sur cdp.sn.
+2. **Déclaration à la CDP** (avant la vraie plateforme, pas pour le site vitrine) : à confirmer avec le numéro de récépissé. Aucune trace publique n'a été trouvée, ce qui est normal : la CDP ne publie pas de registre consultable par entreprise. Point d'attention : un hébergement hors du Sénégal (Hostinger) est un transfert de données à l'étranger, qui relève en principe d'une **demande d'autorisation**, pas d'une simple déclaration. Contact : `contactcdp@cdp.sn`, formulaires sur cdp.sn.
 3. **Relecture juridique** des conditions d'utilisation et de la politique de confidentialité.
 
 ## Produit
@@ -32,6 +32,8 @@ Ce que le code ne peut pas décider seul. Classés par urgence. Mis à jour le 1
 - **Capteur de sol** : Dragino LSE01 (et non le ZTS-3002 du prototype).
 - **Équipe affichée** : Tidiane Sow et Ibrahima Fall. L'article est cité « Tidiane Sow, Ibrahima Fall et al. » ; la liste complète des auteurs reste sur HAL.
 - **Photo d'enfants** : retirée ; photo dont le lieu est incertain écartée.
+- **Hébergement** : pour l'instant, site vitrine et démo seulement (aucune donnée personnelle, rien à déclarer). La vraie plateforme viendra ensuite sur des machines hébergées au Sénégal, avec les fonds levés (option C de [DEPLOIEMENT.md](DEPLOIEMENT.md)).
+- **Formulaire de contact du site vitrine** : rédige le message dans WhatsApp ou dans la messagerie du visiteur ; rien n'est enregistré.
 - **Mise en ligne** : rien n'est poussé ni déployé sans demande explicite.
 
 ## Ce qui n'a pas été repris des maquettes, volontairement

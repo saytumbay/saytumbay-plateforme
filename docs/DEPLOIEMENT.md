@@ -2,6 +2,8 @@
 
 Le domaine saytumbay.com est chez Hostinger. Deux options, à choisir selon l'étape du projet.
 
+**Décision actuelle (novembre 2026) : option A seulement.** Le site vitrine et la démo ne stockent aucune donnée personnelle, donc aucune démarche CDP n'est nécessaire à ce stade. La plateforme avec de vraies données viendra ensuite, de préférence sur des machines hébergées au Sénégal (voir « Option C »). Hostinger ou Vercel conviennent tous deux pour l'option A ; le `.htaccess` fourni est prévu pour Hostinger.
+
 ## Option A — Site et démo sur l'hébergement mutualisé (Dakar Night Market, présentation)
 
 Pas de serveur à administrer : le site public et la démo complète (données simulées, dans le navigateur).
@@ -18,7 +20,7 @@ npm run build:demo -w @saytumbay/web
 
 Le `.htaccess` fourni gère la redirection HTTPS, les routes de l'application, le cache et les en-têtes de sécurité (CSP comprise).
 
-Limite : le formulaire de contact de la démo ne transmet rien. Pendant cette phase, le bouton WhatsApp reste le canal de contact.
+Formulaire de contact : sans serveur, rien n'est enregistré. Le visiteur remplit le formulaire, puis choisit « Envoyer par WhatsApp » (77 833 57 81) ou « Envoyer par e-mail » (contact@saytumbay.com) : le message s'ouvre déjà rédigé dans son application et il l'envoie lui-même. Avec l'API (options B et C), le formulaire enregistre les messages dans la base.
 
 ## Option B — Plateforme complète sur un VPS (pilotes, vrais capteurs)
 
@@ -94,3 +96,25 @@ docker compose -f infra/docker-compose.yml --env-file infra/.env up -d --build
 ```
 
 Les migrations de base s'appliquent au démarrage de l'API.
+
+## Option C — Plateforme complète hébergée au Sénégal (cible, avec financement)
+
+Même logiciel que l'option B : tout tient dans `infra/docker-compose.yml` (Caddy, API, PostgreSQL, Mosquitto) et tourne sur n'importe quelle machine Linux. Les données restent au Sénégal : une **déclaration** à la CDP suffit en principe, au lieu d'une demande d'autorisation pour un hébergement à l'étranger (à confirmer avec la CDP).
+
+Deux façons de faire :
+
+1. **Vos propres serveurs dans un data center sénégalais** (hébergement « en colocation ») : vous achetez les machines, le data center fournit l'électricité secourue, la climatisation, la sécurité physique et une connexion fiable. C'est la solution la plus sûre.
+2. **Une machine dans vos locaux** : moins chère au départ, mais à éviter pour des clients en production sans les conditions ci-dessous.
+
+Conditions minimales, quelle que soit la solution :
+
+| Besoin | Pourquoi | Repère |
+|---|---|---|
+| Électricité secourue | Une coupure arrête les alertes | Onduleur, groupe ou solaire avec batteries ; au moins 4 h d'autonomie |
+| Connexion internet fixe et adresse IP fixe | Les passerelles LoRaWAN et les navigateurs doivent joindre le serveur | Fibre professionnelle ; une 4G de secours |
+| Deux machines | Une panne ne doit pas tout arrêter | Une en service, une prête à prendre le relais avec la dernière sauvegarde |
+| Sauvegardes ailleurs, mais au Sénégal | Un incendie ou un vol ne doit pas tout effacer | `infra/scripts/backup.sh` chiffré, copié chaque nuit vers un second site |
+| Surveillance | Être prévenu avant les clients | Alerte si `/api/health` ne répond plus ou si aucune mesure n'arrive pendant 1 h |
+| Machine | Suffisant pour les premiers pilotes | 4 cœurs, 16 Go de mémoire, SSD 500 Go ; disques en miroir (RAID 1) |
+
+Le passage de l'option B à l'option C se fait sans changer le code : installer la même pile, restaurer la dernière sauvegarde PostgreSQL, puis pointer le DNS de saytumbay.com vers la nouvelle adresse.
