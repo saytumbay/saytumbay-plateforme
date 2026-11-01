@@ -14,14 +14,13 @@ Ce que le code ne peut pas décider seul. Classés par urgence.
 5. **Économies d'eau** : aucun pourcentage n'est affiché sans saison de comparaison (« calculée après une saison de comparaison »). La démo navigateur affiche 38 %, valeur d'exemple. Définir la méthode de référence (arrosage à heure fixe sur une parcelle témoin) avant de communiquer un chiffre.
 6. **Tarifs** : la page Coûts montre qu'à 2 500 FCFA par capteur, chaque capteur coûte plus qu'il ne rapporte (coût direct ≈ 3 900 FCFA/mois). Aucun prix n'est publié sur le site ; à trancher avant les pilotes payants.
 7. **Codec ChirpStack** : la correspondance des champs Dragino LSE01 (`water_SOIL`, `temp_SOIL`, `conduct_SOIL`, `Bat`) suit le décodeur habituel du fabricant ; la confirmer avec le profil réellement configuré. Même chose pour la future sonde de stockage.
-8. **Rôle de Yacine** : affiché « Responsable du développement », d'après la présentation.
 
 ## Exploitation
 
-9. **Opérateur SMS** : contrat Orange (ou autre), numéro et nom d'expéditeur.
-10. **Création des parcelles et capteurs d'un nouveau client** : se fait depuis l'espace client (parcelles, capteurs avec DevEUI). Un import CSV accélérerait la pose des pilotes.
-11. **Fin de contrat** : outil d'export complet et de suppression d'une organisation (procédure promise dans la politique de confidentialité).
-12. **Langue** : le profil prévoit le wolof (`locale: "wo"`), l'interface est en français. Prévoir la traduction des SMS en priorité.
+8. **Opérateur SMS** : contrat Orange (ou autre), numéro et nom d'expéditeur.
+9. **Création des parcelles et capteurs d'un nouveau client** : se fait depuis l'espace client (parcelles, capteurs avec DevEUI). Un import CSV accélérerait la pose des pilotes.
+10. **Fin de contrat** : outil d'export complet et de suppression d'une organisation (procédure promise dans la politique de confidentialité).
+11. **Langue** : le profil prévoit le wolof (`locale: "wo"`), l'interface est en français. Prévoir la traduction des SMS en priorité.
 
 ## Ce qui n'a pas été repris des maquettes, volontairement
 

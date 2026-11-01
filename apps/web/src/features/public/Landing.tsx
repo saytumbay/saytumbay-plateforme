@@ -7,7 +7,7 @@ import { api, IS_DEMO } from "@/lib/api";
 import { homeFor, useSetSession } from "@/lib/auth";
 import { usePageTitle } from "@/components/ui/page";
 import { Button, ButtonLink } from "@/components/ui/button";
-import { WHATSAPP } from "@/layouts/PublicLayout";
+import { TIDIANE, WHATSAPP } from "@/layouts/PublicLayout";
 import { cn } from "@/lib/cn";
 import { HeroField } from "./HeroField";
 import { ContactForm } from "./ContactForm";
@@ -401,8 +401,6 @@ function ForWhom() {
 const TEAM = [
   { name: "Tidiane Sow", role: "Directeur général (CEO)" },
   { name: "Ibrahima Fall", role: "Directeur technique (CTO)" },
-  { name: "Cheikhona Kandji", role: "Directeur produit (CPO)" },
-  { name: "Yacine", role: "Responsable du développement" },
 ];
 
 const SUPPORT = ["Incubateur TÀGGU NDAW ÑI, Université Cheikh Anta Diop", "AfriConnect+, programme de soutien à l’Internet des objets en Afrique", "Dakar Night Market 2026, programme accompagné par l’ADEPME", "2e place, hackathon ISOC ESMT 2026"];
@@ -511,6 +509,13 @@ function Contact() {
           <a href={WHATSAPP.href} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex h-12 items-center gap-2.5 rounded-xl bg-[#2bd47d] px-5 font-display text-[15.5px] font-semibold text-[#06231a] hover:bg-[#46e290]">
             <MessageCircle className="size-5" aria-hidden /> WhatsApp {WHATSAPP.display}
           </a>
+          <p className="mt-4 text-[15.5px] text-[#c9d8cf]">
+            Ou appelez {TIDIANE.name}, directeur général, au{" "}
+            <a href={TIDIANE.href} className="whitespace-nowrap font-semibold text-white underline underline-offset-2 hover:text-[#2bd47d]">
+              {TIDIANE.display}
+            </a>
+            .
+          </p>
         </div>
         <div className="rounded-[24px] bg-surface p-5 text-ink shadow-3 sm:p-8">
           <ContactForm />
