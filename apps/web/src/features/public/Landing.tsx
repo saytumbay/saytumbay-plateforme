@@ -656,7 +656,7 @@ const STATUS: Array<{ title: string; tone: "brand" | "sun" | "ink"; items: strin
   },
 ];
 
-const SUPPORT = ["Incubateur TÀGGU NDAW ÑI, Université Cheikh Anta Diop", "AfriConnect+, programme de soutien à l’Internet des objets en Afrique", "Communication au colloque COC’2026, IUT de l’Université Iba Der Thiam, Thiès", "Projet présenté au Dakar Night Market 2026", "2e place, hackathon ISOC ESMT 2026"];
+const SUPPORT = ["Incubateur TÀGGU NDAW ÑI, Université Cheikh Anta Diop", "AfriConnect+, programme de soutien à l’Internet des objets en Afrique", "Projet présenté et publié au colloque COC’2026, IUT de l’Université Iba Der Thiam, Thiès", "Projet présenté au Dakar Night Market 2026", "2e place, hackathon ISOC ESMT 2026"];
 
 /** Article présenté au COC'2026 et archivé sur HAL (métadonnées vérifiées sur l'archive ouverte). */
 const PAPER = {
