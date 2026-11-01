@@ -55,15 +55,16 @@ export function Hero() {
   return (
     <section className={cn(wrap, "grid items-center gap-10 pb-16 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-14 lg:pb-24 lg:pt-16")} aria-labelledby="hero-titre">
       <div className="max-w-[580px]">
-        <p className="inline-flex items-center gap-2.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[13.5px] font-semibold text-ink-2">
+        <p className={cn(eyebrow, "inline-flex items-center gap-2.5 text-brand")}>
           <Dot />
-          Startup de Dakar · premiers essais en préparation
+          Voir la perte avant qu’elle arrive
         </p>
-        <h1 id="hero-titre" className="mt-6 font-display text-[clamp(40px,5.6vw,66px)] font-bold leading-[1.02] tracking-[-0.035em] text-balance">
-          Voir la perte avant qu’elle arrive.
+        <h1 id="hero-titre" className="mt-5 font-display text-[clamp(40px,5.6vw,68px)] font-bold leading-[1.02] tracking-[-0.035em] text-balance">
+          <span className="block">Votre champ a soif ?</span>
+          <span className="block text-brand">Vous recevez un SMS.</span>
         </h1>
-        <p className="mt-6 text-[clamp(17px,1.5vw,19px)] leading-relaxed text-ink-2 text-pretty">
-          Un capteur dans votre champ ou votre magasin. Un SMS sur votre téléphone quand il faut agir.
+        <p className="mt-6 text-[clamp(18px,1.6vw,20px)] leading-relaxed text-ink-2 text-pretty">
+          Nous posons de petits capteurs dans vos champs et vos magasins. Ils vous préviennent sur votre téléphone, avant que la récolte ne se perde.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <ButtonLink to="/?profil=cooperative#contact" size="lg">
@@ -100,22 +101,20 @@ export function HeroPhoto() {
       alt="Main d’un maraîcher qui sort un oignon rouge de la terre, à côté d’un tuyau de goutte-à-goutte."
       sizes="(min-width: 1024px) 620px, 100vw"
       position="40% 55%"
-      frameClassName="hero-photo aspect-[4/5] rounded-[28px] sm:aspect-[5/4] lg:aspect-[4/5]"
+      frameClassName="hero-photo aspect-[4/5] max-h-[78vh] rounded-[28px] sm:aspect-[5/4] lg:aspect-square"
     >
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0b2e24]/70 to-transparent" aria-hidden />
-      <p className="anim-chip absolute right-4 top-4 inline-flex items-center gap-2 rounded-full bg-[#f4efe6] px-3.5 py-2 font-mono text-[13px] font-medium text-[#0b2e24] shadow-2 sm:right-5 sm:top-5">
-        <span className="size-2 rounded-full bg-[#ef6a22]" aria-hidden />
-        Sol · 18 % · sous le seuil
+      <p className="anim-chip absolute right-4 top-4 inline-flex items-center gap-2 rounded-full bg-[#f4efe6] px-4 py-2 text-[15px] font-semibold text-[#0b2e24] shadow-2 sm:right-5 sm:top-5">
+        <span className="size-2.5 rounded-full bg-[#ef6a22]" aria-hidden />
+        Le sol est trop sec
       </p>
-      <div className="anim-sms absolute inset-x-4 bottom-4 rounded-2xl bg-[#f4efe6] p-4 text-[#0b2e24] shadow-3 sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-[340px]">
-        <p className="flex items-center justify-between font-mono text-[11.5px] text-[#5b6660]">
+      {/* Exemple simplifié pour l'accueil ; les SMS réels de la plateforme sont plus détaillés. */}
+      <div className="anim-sms absolute inset-x-4 bottom-4 rounded-2xl bg-[#f4efe6] p-4 text-[#0b2e24] shadow-3 sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-[320px]">
+        <p className="flex items-center justify-between text-[12.5px] font-semibold text-[#5b6660]">
           <span>SMS · SaytuMbay</span>
-          <span>09:45</span>
+          <span>Exemple</span>
         </p>
-        <p className="mt-1.5 text-[14.5px] leading-snug">
-          <span className="font-semibold">Coop. Thiès : Parcelle B est sèche (18 %).</span> Lancer une irrigation ou vérifier que la règle automatique est active.
-        </p>
-        <p className="mt-2 text-[11.5px] text-[#5b6660]">Exemple d’alerte, texte réel de la plateforme.</p>
+        <p className="mt-1.5 text-[17px] font-semibold leading-snug">Votre parcelle B a soif. Arrosez aujourd’hui.</p>
       </div>
     </Photo>
   );

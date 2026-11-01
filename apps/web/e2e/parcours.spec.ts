@@ -3,7 +3,7 @@ import { axe, demoLogin, expect, noHorizontalScroll, test } from "./fixtures";
 test.describe("site public", () => {
   test("accueil : contenu, accessibilité, pas d'erreur ni de débordement", async ({ page, errors }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("Voir la perte");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Votre champ a soif ?");
     await expect(page.getByRole("img", { name: /sort un oignon rouge/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Simple comme un SMS." })).toBeAttached();
     expect(await noHorizontalScroll(page)).toBe(true);
