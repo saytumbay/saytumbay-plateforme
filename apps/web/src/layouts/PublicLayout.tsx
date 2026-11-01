@@ -182,7 +182,7 @@ function PublicFooter() {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-4 py-5 text-[13px] text-ink-3 sm:px-6">
           <p>© {new Date().getFullYear()} SaytuMbay. Tous droits réservés.</p>
-          <p>Dakar Night Market 2026 · programme accompagné par l’ADEPME</p>
+          <p>Conçu et fabriqué à Dakar, Sénégal</p>
         </div>
       </div>
     </footer>

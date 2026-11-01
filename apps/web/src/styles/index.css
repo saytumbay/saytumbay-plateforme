@@ -211,6 +211,8 @@
   button, [role="button"] { cursor: pointer; }
   button:disabled { cursor: not-allowed; }
   input, select, textarea, button { font: inherit; color: inherit; }
+  /* Liste déroulante native : sans cela, le navigateur l'affiche sur fond blanc avec le texte clair du thème sombre. */
+  select option { background-color: var(--surface); color: var(--ink); }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
