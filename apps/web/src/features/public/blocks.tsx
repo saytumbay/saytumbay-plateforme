@@ -57,17 +57,17 @@ export function Hero() {
       <div className="max-w-[580px]">
         <p className="inline-flex items-center gap-2.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[13.5px] font-semibold text-ink-2">
           <Dot />
-          Plateforme prête · premiers sites pilotes en préparation
+          Startup de Dakar · premiers essais en préparation
         </p>
         <h1 id="hero-titre" className="mt-6 font-display text-[clamp(40px,5.6vw,66px)] font-bold leading-[1.02] tracking-[-0.035em] text-balance">
           Voir la perte avant qu’elle arrive.
         </h1>
         <p className="mt-6 text-[clamp(17px,1.5vw,19px)] leading-relaxed text-ink-2 text-pretty">
-          Des capteurs dans le sol et dans les magasins. Un SMS à la bonne personne, quand il faut agir.
+          Un capteur dans votre champ ou votre magasin. Un SMS sur votre téléphone quand il faut agir.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <ButtonLink to="/?profil=cooperative#contact" size="lg">
-            Devenir site pilote
+            Je veux essayer
           </ButtonLink>
           {IS_DEMO ? (
             <Button variant="secondary" size="lg" loading={demo.isPending} onClick={() => demo.mutate()}>
@@ -910,9 +910,9 @@ export function Contact() {
       <div className={cn(wrap, "relative grid gap-12 py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20 lg:py-28")}>
         <div>
           <h2 id="contact-titre" className={cn(h2, "text-[#f4efe6]")}>
-            Un terrain, un stock, un projet ? Parlons-en.
+            Vous voulez essayer ? Appelez-nous.
           </h2>
-          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Laissez-nous un numéro : nous vous rappelons.</p>
+          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Par WhatsApp ou par téléphone. Ou laissez votre numéro : nous vous rappelons.</p>
           <div className="mt-8 flex flex-col items-start gap-3">
             <WhatsAppLink href={TIDIANE.href}>
               {TIDIANE.name} · <span className="font-mono text-[15px] font-medium">{TIDIANE.display}</span>

@@ -18,7 +18,7 @@ const NAV = [
   { to: "/agritech", label: "AgriTech" },
   { to: "/onion", label: "Onion" },
   { to: "/a-propos", label: "Notre histoire" },
-  { to: "/#ensemble", label: "Partenaires" },
+  { to: "/a-propos#ensemble", label: "Partenaires" },
 ];
 
 export function PublicLayout() {
