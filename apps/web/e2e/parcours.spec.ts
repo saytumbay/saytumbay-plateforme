@@ -4,10 +4,18 @@ test.describe("site public", () => {
   test("accueil : contenu, accessibilité, pas d'erreur ni de débordement", async ({ page, errors }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Voir la perte");
-    await expect(page.getByRole("img", { name: /Plan des six parcelles/ })).toBeVisible();
+    await expect(page.getByRole("img", { name: /sort un oignon rouge/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Une journée sur une parcelle de tomates." })).toBeAttached();
     expect(await noHorizontalScroll(page)).toBe(true);
     expect(await axe(page)).toEqual([]);
     expect(errors).toEqual([]);
+  });
+
+  test("accueil en thème sombre : tout reste lisible", async ({ page }) => {
+    await page.emulateMedia({ colorScheme: "dark", reducedMotion: "reduce" });
+    await page.goto("/");
+    await expect(page.getByRole("heading", { level: 3, name: "Investisseurs, bailleurs, incubateurs" })).toBeVisible();
+    expect(await axe(page)).toEqual([]);
   });
 
   test("formulaire de contact : validation puis envoi", async ({ page }) => {

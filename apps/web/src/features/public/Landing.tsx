@@ -2,17 +2,16 @@ import { useEffect, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { Accordion } from "radix-ui";
-import { ArrowRight, ArrowUpRight, BellRing, ChevronDown, ClipboardCheck, Droplets, Ear, FileBarChart2, FileCheck2, Gauge, MessageCircle, Radio, Scale, SlidersHorizontal, ThermometerSun, Wind } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BellRing, BookOpen, ChevronDown, ClipboardCheck, Droplets, Ear, FileBarChart2, FileCheck2, Gauge, MessageCircle, Radio, Scale, Signal, SlidersHorizontal, Smartphone, Sprout, Sun, ThermometerSun, Wallet, Warehouse, Waves, Wind, Zap } from "lucide-react";
 import { api, IS_DEMO } from "@/lib/api";
 import { homeFor, useSetSession } from "@/lib/auth";
 import { usePageTitle } from "@/components/ui/page";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { SignTrace } from "@/components/brand/SignTrace";
-import { Photo, PhotoCredit } from "@/components/ui/photo";
+import { Photo } from "@/components/ui/photo";
 import { useReveal } from "@/lib/reveal";
 import { TIDIANE, WHATSAPP } from "@/layouts/PublicLayout";
 import { cn } from "@/lib/cn";
-import { HeroField } from "./HeroField";
 import { ContactForm } from "./ContactForm";
 
 const wrap = "mx-auto w-full max-w-[1200px] px-4 sm:px-6";
@@ -35,6 +34,7 @@ export default function Landing() {
       <Context />
       <InAction />
       <Method />
+      <Equipment />
       <AgriTech />
       <Onion />
       <Beyond />
@@ -137,23 +137,74 @@ function HeroPhoto() {
   );
 }
 
-/* ——— La démonstration interactive (ancien héros) ——— */
+/* ——— Une journée en quatre images : sans interaction, compréhensible par tous ——— */
+
+const DAY: Array<{ time: string; title: string; text: string; level: number; tone: "brand" | "sun"; icon: typeof Sprout; sms?: boolean }> = [
+  { time: "06:00", title: "Le capteur veille", text: "Planté dans la parcelle B, il mesure l’eau du sol toutes les 15 minutes. Tout va bien.", level: 36, tone: "brand", icon: Sprout },
+  { time: "13:00", title: "Le sol sèche", text: "Chaleur, vent : l’eau baisse et passe sous le seuil choisi pour la tomate.", level: 29, tone: "sun", icon: Sun },
+  { time: "13:01", title: "Awa reçoit un SMS", text: "Sur un simple téléphone, avec la consigne : arroser aujourd’hui.", level: 29, tone: "sun", icon: Smartphone, sms: true },
+  { time: "17:00", title: "On arrose, c’est vérifié", text: "Le sol remonte à 38 %. L’alerte se ferme toute seule et tout est noté.", level: 38, tone: "brand", icon: Droplets },
+];
+
+/** Jauge « eau dans le sol » : une barre qui se remplit, le seuil marqué d'un trait. Lisible sans légende. */
+function SoilLevel({ level, tone }: { level: number; tone: "brand" | "sun" }) {
+  const pct = (v: number) => `${Math.min(100, (v / 50) * 100)}%`;
+  return (
+    <div>
+      <div className="flex items-baseline justify-between">
+        <span className="text-[13px] text-ink-3">Eau dans le sol</span>
+        <span className={cn("font-mono text-[18px] font-medium", tone === "sun" ? "text-sun-ink" : "text-brand-strong dark:text-brand")}>{level} %</span>
+      </div>
+      <div className="relative mt-2 h-3 rounded-full bg-surface-3">
+        <div className={cn("h-full rounded-full", tone === "sun" ? "bg-sun" : "bg-brand")} style={{ width: pct(level) }} />
+        <span className="absolute -top-1 bottom-[-4px] w-0.5 rounded bg-ink" style={{ left: pct(30) }} aria-hidden />
+      </div>
+      <p className="mt-1.5 text-[12px] text-ink-3" style={{ paddingLeft: `calc(${pct(30)} - 14px)` }}>
+        seuil 30 %
+      </p>
+    </div>
+  );
+}
 
 function InAction() {
   return (
     <section id="en-action" className="scroll-mt-20" aria-labelledby="action-titre">
-      <div className={cn(wrap, "grid items-center gap-10 py-20 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-14 lg:py-28")}>
-        <div data-reveal>
-          <p className={cn(eyebrow, "text-brand")}>En action</p>
+      <div className={cn(wrap, "py-20 lg:py-28")}>
+        <div className="max-w-[60ch]" data-reveal>
+          <p className={cn(eyebrow, "text-brand")}>Comment ça marche</p>
           <h2 id="action-titre" className={cn(h2, "mt-3")}>
-            Une journée sur une exploitation, en dix secondes.
+            Une journée sur une parcelle de tomates.
           </h2>
-          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-ink-2">L’humidité de la parcelle B baisse, l’alerte part par SMS, l’irrigation la remonte. Faites glisser le curseur pour rejouer la journée.</p>
-          <p className="mt-4 font-mono text-[12.5px] text-ink-3">Données simulées, mêmes règles que la plateforme.</p>
+          <p className="mt-5 text-[17px] leading-relaxed text-ink-2">Pas besoin d’être connecté ni de regarder un écran : le capteur surveille, et vous prévient quand il faut agir.</p>
         </div>
-        <div data-reveal="1">
-          <HeroField />
-        </div>
+        <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {DAY.map((s, i) => (
+            <li key={s.time} className="flex flex-col rounded-[20px] border border-line bg-surface p-5" data-reveal={i}>
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[15px] font-medium text-ink-2">{s.time}</span>
+                <span className={cn("flex size-10 items-center justify-center rounded-full", s.tone === "sun" ? "bg-sun-soft text-sun-ink" : "bg-brand-soft text-brand-strong dark:text-brand")}>
+                  <s.icon className="size-5" aria-hidden />
+                </span>
+              </div>
+              <h3 className="mt-4 font-display text-[18px] font-semibold">
+                <span className="sr-only">Étape {i + 1} : </span>
+                {s.title}
+              </h3>
+              <p className="mt-1.5 flex-1 text-[15px] leading-relaxed text-ink-2">{s.text}</p>
+              <div className="mt-5">
+                {s.sms ? (
+                  <div className="rounded-xl bg-[#0b2e24] p-3 text-[#f4efe6] dark:bg-[#1d4a3b]">
+                    <p className="font-mono text-[11px] text-[#aab8b0]">SMS · SaytuMbay</p>
+                    <p className="mt-1 text-[13.5px] leading-snug">Parcelle B sèche (29 %). Arroser aujourd’hui.</p>
+                  </div>
+                ) : (
+                  <SoilLevel level={s.level} tone={s.tone} />
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-6 font-mono text-[12.5px] text-ink-3">Exemple. Le seuil se règle selon la culture et la parcelle.</p>
       </div>
     </section>
   );
@@ -242,6 +293,54 @@ function Method() {
   );
 }
 
+/* ——— Le matériel déjà en place, et ce que l'on regarde à la visite ——— */
+
+const VISIT: Array<{ icon: typeof Sprout; title: string; text: string }> = [
+  { icon: Waves, title: "La source d’eau", text: "Forage, puits, canal, réseau : débit et heures disponibles." },
+  { icon: Droplets, title: "La façon d’arroser", text: "Arrosoir, gravitaire, aspersion, goutte-à-goutte, programmateur." },
+  { icon: Zap, title: "L’énergie", text: "Réseau électrique, panneaux solaires ou groupe électrogène." },
+  { icon: Signal, title: "Le réseau mobile", text: "4G, 2G ou rien : pour placer la passerelle au bon endroit." },
+  { icon: Sprout, title: "Les cultures et le sol", text: "Espèces, saisons, type de sol et salinité, pour régler les seuils." },
+  { icon: Warehouse, title: "Le stockage", text: "Magasin, chambre froide, durée de conservation visée." },
+  { icon: Smartphone, title: "Qui reçoit les alertes", text: "Type de téléphone, langue, horaires de chacun." },
+  { icon: Wallet, title: "Le budget", text: "Ce qui est rentable pour vous, et les aides possibles." },
+];
+
+function Equipment() {
+  return (
+    <section className="border-t border-line bg-surface" aria-labelledby="materiel-titre">
+      <div className={cn(wrap, "grid gap-12 py-20 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16 lg:py-28")}>
+        <div data-reveal>
+          <p className={cn(eyebrow, "text-brand")}>Votre installation</p>
+          <h2 id="materiel-titre" className={cn(h2, "mt-3")}>
+            Vous avez déjà une pompe ou un arrosage automatique ? On part de là.
+          </h2>
+          <div className="mt-5 flex max-w-[52ch] flex-col gap-4 text-[17px] leading-relaxed text-ink-2">
+            <p>Pas besoin de tout changer. Les capteurs s’ajoutent à votre installation, et la plateforme tient compte de la façon dont vous arrosez déjà.</p>
+            <p>Quand le matériel le permet, l’arrosage peut ensuite se commander depuis l’application. Sinon, l’alerte dit simplement quoi faire, et vous le faites comme d’habitude.</p>
+          </div>
+        </div>
+        <div data-reveal="1">
+          <h3 className="font-display text-[18px] font-semibold">Ce que nous regardons pendant la visite</h3>
+          <ul className="mt-6 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+            {VISIT.map((v) => (
+              <li key={v.title} className="flex gap-3.5">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-strong dark:text-brand" aria-hidden>
+                  <v.icon className="size-5" />
+                </span>
+                <span>
+                  <span className="block font-display text-[16px] font-semibold">{v.title}</span>
+                  <span className="mt-0.5 block text-[15px] leading-relaxed text-ink-2">{v.text}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ——— AgriTech ——— */
 
 const AGRI_FEATURES = [
@@ -276,12 +375,9 @@ function AgriTech() {
             ))}
           </dl>
         </div>
-        <div className="self-start" data-reveal="1">
-          <Photo name="rangs" caption={false} alt="Rangs d’oignons dans une parcelle de Diamniadio, avec leurs lignes d’irrigation au goutte-à-goutte." sizes="(min-width: 1024px) 560px, 100vw" frameClassName="aspect-[16/11] rounded-[24px]" />
-          <div className="relative -mt-20 px-3 sm:-mt-28 sm:px-6">
-            <ProductPeek />
-          </div>
-          <PhotoCredit name="rangs" className="mt-4 px-1" />
+        <div className="flex flex-col gap-6 self-start" data-reveal="1">
+          <Photo name="rangs" alt="Rangs d’oignons dans une parcelle de Diamniadio, avec leurs lignes d’irrigation au goutte-à-goutte." sizes="(min-width: 1024px) 560px, 100vw" frameClassName="aspect-[16/9] rounded-[24px]" />
+          <ProductPeek />
         </div>
       </div>
     </section>
@@ -389,12 +485,11 @@ function Onion() {
             ))}
           </ul>
         </div>
-        <div className="self-start lg:order-1" data-reveal="1">
-          <Photo name="recolte" caption={false} alt="Un producteur sénégalais montre des oignons rouges de sa récolte." sizes="(min-width: 1024px) 560px, 100vw" position="50% 60%" frameClassName="aspect-[5/4] rounded-[24px]" />
-          <div className="relative -mt-16 rounded-[20px] border border-line bg-surface p-4 shadow-2 sm:mx-6 sm:-mt-24 sm:p-5">
+        <div className="flex flex-col gap-6 self-start lg:order-1" data-reveal="1">
+          <Photo name="recolte" alt="Un producteur sénégalais montre des oignons rouges de sa récolte." sizes="(min-width: 1024px) 560px, 100vw" position="50% 45%" frameClassName="aspect-square rounded-[24px]" />
+          <div className="rounded-[20px] border border-line bg-surface p-4 sm:p-5">
             <StoreIllustration />
           </div>
-          <PhotoCredit name="recolte" className="mt-4 px-1" />
         </div>
       </div>
     </section>
@@ -495,7 +590,15 @@ const STATUS: Array<{ title: string; tone: "brand" | "sun" | "ink"; items: strin
   },
 ];
 
-const SUPPORT = ["Incubateur TÀGGU NDAW ÑI, Université Cheikh Anta Diop", "AfriConnect+, programme de soutien à l’Internet des objets en Afrique", "Dakar Night Market 2026, programme accompagné par l’ADEPME", "2e place, hackathon ISOC ESMT 2026"];
+const SUPPORT = ["Incubateur TÀGGU NDAW ÑI, Université Cheikh Anta Diop", "AfriConnect+, programme de soutien à l’Internet des objets en Afrique", "Communication au colloque COC’2026, IUT de l’Université Iba Der Thiam, Thiès", "Dakar Night Market 2026, programme accompagné par l’ADEPME", "2e place, hackathon ISOC ESMT 2026"];
+
+/** Article présenté au COC'2026 et archivé sur HAL (métadonnées vérifiées sur l'archive ouverte). */
+const PAPER = {
+  title: "SaytuMbay : une plateforme IoT-IA pour l’agriculture de précision au Sénégal",
+  authors: "Tidiane Sow, Ibrahima Fall, Souaibou Dieng, Modou Dell",
+  venue: "Colloque sur les Objets et systèmes Connectés COC’2026 · Thiès, 25-26 mars 2026",
+  url: "https://hal.science/hal-05571878v1",
+};
 
 function Status() {
   return (
@@ -523,6 +626,22 @@ function Status() {
             </div>
           ))}
         </div>
+        <a href={PAPER.url} target="_blank" rel="noopener noreferrer" className="group mt-5 flex flex-col gap-4 rounded-[20px] border border-line bg-surface p-6 hover:border-brand sm:flex-row sm:items-center sm:justify-between" data-reveal>
+          <span className="flex items-start gap-4">
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-strong dark:text-brand">
+              <BookOpen className="size-5" aria-hidden />
+            </span>
+            <span>
+              <span className="block font-mono text-[12.5px] text-ink-3">Publication scientifique · archive ouverte HAL</span>
+              <span className="mt-1 block font-display text-[17px] font-semibold leading-snug text-ink">{PAPER.title}</span>
+              <span className="mt-1 block text-[14.5px] text-ink-2">{PAPER.authors}</span>
+              <span className="mt-0.5 block text-[14px] text-ink-3">{PAPER.venue}</span>
+            </span>
+          </span>
+          <span className="inline-flex shrink-0 items-center gap-1.5 font-display text-[15px] font-semibold text-brand group-hover:underline">
+            Lire l’article <ArrowUpRight className="size-4" aria-hidden />
+          </span>
+        </a>
         <div className="mt-12">
           <h3 className="font-display text-[16px] font-semibold">Accompagnement et distinctions</h3>
           <ul className="mt-4 flex flex-wrap gap-2.5">
@@ -594,7 +713,8 @@ function Together() {
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {AUDIENCES.map((a, i) => (
             <div key={a.title} className="flex flex-col rounded-[20px] bg-[#f4efe6] p-6 text-[#0b2e24]" data-reveal={i}>
-              <h3 className="font-display text-[19px] font-semibold leading-snug">{a.title}</h3>
+              {/* Couleur fixée : la carte reste sable en thème sombre, le titre ne doit pas prendre l'encre claire du thème. */}
+              <h3 className="font-display text-[19px] font-semibold leading-snug text-[#0b2e24]">{a.title}</h3>
               <p className="mt-3 flex-1 text-[15.5px] leading-relaxed text-[#3c4a44]">{a.text}</p>
               <Link to={a.to} className="mt-6 inline-flex items-center gap-1.5 font-display text-[15px] font-semibold text-[#0f5a44] underline-offset-4 hover:underline">
                 {a.cta} <ArrowRight className="size-4" aria-hidden />
@@ -665,7 +785,8 @@ function Team() {
 /* ——— Questions fréquentes ——— */
 
 const FAQ = [
-  { q: "Où en est SaytuMbay ?", a: "La plateforme est construite et se découvre en démonstration. Nous préparons nos premiers sites pilotes avec des coopératives : c’est le bon moment pour nous rejoindre, comme utilisateur, partenaire ou financeur." },
+  { q: "Où en est SaytuMbay ?", a: "La plateforme est construite et se découvre en démonstration. Le projet a été présenté au colloque COC’2026 à Thiès, et l’article est en accès libre sur HAL. Nous préparons nos premiers sites pilotes avec des coopératives : c’est le bon moment pour nous rejoindre, comme utilisateur, partenaire ou financeur." },
+  { q: "J’ai déjà une pompe ou un arrosage automatique. Est-ce utile ?", a: "Oui. Les capteurs s’ajoutent à votre installation sans rien remplacer : ils disent quand arroser et vérifient que l’eau arrive bien dans le sol. Quand le matériel le permet, l’arrosage peut aussi se commander depuis l’application." },
   { q: "Faut-il internet sur la parcelle ?", a: "Non. Les capteurs parlent par radio LoRaWAN à une passerelle installée dans un local proche, qui envoie les mesures par la 4G. Les alertes arrivent par SMS, sans application ni données mobiles." },
   { q: "Qui reçoit les alertes ?", a: "La personne responsable de la parcelle ou du magasin, désignée par votre organisation. Chaque membre voit uniquement ce qui le concerne : un exploitant ses parcelles, un technicien les capteurs, le responsable l’ensemble." },
   { q: "Pour quelles cultures et quels usages ?", a: "Le maraîchage irrigué (oignon, tomate, chou, piment, gombo…) et le stockage d’oignon et de pomme de terre. Pour une chambre froide, un forage ou un autre équipement, parlons-en : le même socle s’adapte." },

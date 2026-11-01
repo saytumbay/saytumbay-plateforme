@@ -29,7 +29,7 @@ Les tests de `apps/api/test/security.test.ts` tournent sur l'application complè
 | Jetons de réinitialisation (30 min) et d'invitation (7 jours) aléatoires, à usage unique, stockés en empreinte ; toutes les sessions fermées après réinitialisation | `routes/auth.ts` | « mot de passe oublié… », « invitation… » |
 | Validation stricte de toutes les entrées (zod), corps limité à 256 Ko, requêtes SQL paramétrées | partout | « valide les entrées », « recherche… », « refuse un corps trop volumineux » |
 | Champ piège anti-robot accepté puis ignoré (ne se trahit pas par une erreur) | `/contact` | « le champ piège est ignoré » |
-| En-têtes : CSP stricte sans script en ligne, HSTS, nosniff, X-Frame-Options, Referrer-Policy, Permissions-Policy, Cache-Control no-store sur l'API | `app.ts`, `security-headers.ts`, Caddyfile | « pose les en-têtes… » ; les 20 parcours e2e tournent sous la CSP de production |
+| En-têtes : CSP stricte sans script en ligne, HSTS, nosniff, X-Frame-Options, Referrer-Policy, Permissions-Policy, Cache-Control no-store sur l'API | `app.ts`, `security-headers.ts`, Caddyfile | « pose les en-têtes… » ; les 22 parcours e2e tournent sous la CSP de production |
 | MQTT : pas d'anonyme, un identifiant par client, ACL par organisation, TLS pour l'extérieur ; l'API refuse une mesure dont le sujet ne correspond pas à l'organisation du capteur | `infra/mosquitto`, `services/ingest.ts` | « refuse une mesure publiée sous le sujet d'une autre organisation » |
 | Exports CSV protégés contre l'injection de formules | `lib/export.ts` | `src/test/security.test.ts` (web) |
 | Redirection après connexion limitée aux chemins internes | `safeNext` | idem |
