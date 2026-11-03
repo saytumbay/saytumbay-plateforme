@@ -73,7 +73,7 @@ export default function Confidentialite() {
                   <td>Obligation légale</td>
                 </tr>
                 <tr>
-                  <td>Répondre à une demande de démonstration</td>
+                  <td>Répondre à une demande de contact</td>
                   <td>Consentement, recueilli dans le formulaire</td>
                 </tr>
               </tbody>

@@ -1,4 +1,4 @@
-/** Photo responsive (WebP en plusieurs largeurs) avec légende de la charte : pastille, lieu, crédit et licence. */
+/** Photo responsive (WebP en plusieurs largeurs). Les crédits (auteur, licence) sont regroupés dans les mentions légales. */
 import type { CSSProperties, ReactNode } from "react";
 import { PHOTOS, type PhotoKey } from "@/assets/photos";
 import { cn } from "@/lib/cn";
@@ -34,7 +34,7 @@ export function Photo({
   frameClassName,
   position,
   priority,
-  caption = true,
+  caption = false,
   children,
 }: {
   name: PhotoKey;

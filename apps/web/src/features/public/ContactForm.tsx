@@ -23,11 +23,11 @@ const PROFILES: Array<[Form["profile"], string]> = [
   ["autre", "Autre"],
 ];
 
-/** Profil présélectionné par un lien de l'accueil, par exemple « /?profil=financeur#contact ». */
+/** Profil présélectionné par un lien de l'accueil, par exemple « /contact?profil=financeur ». */
 const isProfile = (v: string | null): v is Form["profile"] => PROFILES.some(([k]) => k === v);
 
 /**
- * Site vitrine sans serveur (mode démo) : rien n'est stocké. Le message est rédigé à partir du formulaire
+ * Site vitrine sans serveur : rien n'est stocké. Le message est rédigé à partir du formulaire
  * et ouvert dans WhatsApp ou dans la messagerie du visiteur, qui n'a plus qu'à l'envoyer.
  */
 type Channel = "whatsapp" | "email";
@@ -106,7 +106,7 @@ export function ContactForm() {
       </div>
     );
   return (
-    <form noValidate className="flex flex-col gap-4" onSubmit={form.handleSubmit(submit)} aria-label="Demande de démonstration">
+    <form noValidate className="flex flex-col gap-4" onSubmit={form.handleSubmit(submit)} aria-label="Formulaire de contact">
       <h3 className="font-display text-[20px] font-semibold tracking-tight">Écrivez-nous</h3>
       <FormError>{send.error && !(send.error instanceof ApiError && send.error.status === 422) ? (send.error instanceof ApiError && send.error.status === 429 ? "Trop de messages envoyés depuis cette connexion. Réessayez dans quelques minutes ou écrivez-nous sur WhatsApp." : "L’envoi n’a pas abouti. Vérifiez votre connexion et réessayez, ou écrivez-nous sur WhatsApp.") : null}</FormError>
       <div className="grid gap-4 sm:grid-cols-2">

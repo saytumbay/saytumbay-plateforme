@@ -26,8 +26,8 @@ export default function NotFound() {
               Retour à l’accueil
             </ButtonLink>
           )}
-          <ButtonLink to={data ? "/" : "/connexion"} variant="secondary" size="lg">
-            {data ? "Voir le site" : "Se connecter"}
+          <ButtonLink to={data ? "/" : "/contact"} variant="secondary" size="lg">
+            {data ? "Voir le site" : "Nous contacter"}
           </ButtonLink>
         </div>
       </main>

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
-import { Mail, Menu, MessageCircle } from "lucide-react";
+import { ArrowUpRight, Mail, Menu, MessageCircle } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
-import { ButtonLink } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/overlay";
-import { useSession, homeFor } from "@/lib/auth";
 import { cn } from "@/lib/cn";
 
 /** Numéro WhatsApp principal du site (celui d'Ibrahima Fall, directeur technique). */
@@ -13,12 +11,19 @@ export const WHATSAPP = { name: "Ibrahima Fall", display: "77 833 57 81", href: 
 export const EMAIL = { contact: "contact@saytumbay.com", tidiane: "tidianesow@saytumbay.com", ibrahima: "ibrahimafall@saytumbay.com" };
 /** Ligne directe de Tidiane Sow, directeur général (WhatsApp). */
 export const TIDIANE = { name: "Tidiane Sow", display: "77 088 94 08", href: "https://wa.me/221770889408?text=" + encodeURIComponent("Bonjour Tidiane, je souhaite en savoir plus sur les capteurs SaytuMbay.") };
+/** Comptes officiels sur les réseaux sociaux (identifiant @saytumbay, voir brand/reseaux/LISEZMOI.md). */
+export const SOCIAL = [
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/saytumbay" },
+  { name: "Instagram", href: "https://www.instagram.com/saytumbay" },
+  { name: "TikTok", href: "https://www.tiktok.com/@saytumbay" },
+  { name: "X", href: "https://x.com/saytumbay" },
+];
 
 const NAV = [
-  { to: "/agritech", label: "AgriTech" },
-  { to: "/onion", label: "Onion" },
-  { to: "/a-propos", label: "Notre histoire" },
-  { to: "/a-propos#ensemble", label: "Partenaires" },
+  { to: "/", label: "Accueil", end: true },
+  { to: "/solutions", label: "Solutions" },
+  { to: "/a-propos", label: "À propos" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export function PublicLayout() {
@@ -50,7 +55,6 @@ export function PublicLayout() {
 function PublicHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { data: session } = useSession();
   const loc = useLocation();
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 8);
@@ -65,56 +69,40 @@ function PublicHeader() {
         <Link to="/" className="rounded-md" aria-label="SaytuMbay, accueil">
           <Logo height={32} />
         </Link>
-        <nav aria-label="Navigation principale" className="ml-4 hidden lg:block">
+        <nav aria-label="Navigation principale" className="ml-auto hidden md:block">
           <ul className="flex items-center gap-1">
             {NAV.map((n) => (
               <li key={n.to}>
-                <Link to={n.to} className="rounded-md px-3 py-2 text-[15px] font-medium text-ink-2 hover:bg-surface-2 hover:text-ink">
+                <NavLink
+                  to={n.to}
+                  end={n.end}
+                  className={({ isActive }) => cn("rounded-md px-3.5 py-2 text-[15px] font-medium hover:bg-surface-2 hover:text-ink", isActive ? "font-semibold text-ink" : "text-ink-2")}
+                >
                   {n.label}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
         </nav>
-        <div className="ml-auto flex items-center gap-2">
-          {session ? (
-            <ButtonLink to={homeFor(session)} variant="secondary" className="hidden sm:inline-flex">
-              Ouvrir mon espace
-            </ButtonLink>
-          ) : (
-            <NavLink to="/connexion" className="hidden rounded-md px-3 py-2 text-[15px] font-semibold text-ink hover:bg-surface-2 sm:block">
-              Se connecter
-            </NavLink>
-          )}
-          <ButtonLink to="/#contact" className="hidden sm:inline-flex">
-            Nous écrire
-          </ButtonLink>
-          <button type="button" onClick={() => setOpen(true)} className="flex size-10 items-center justify-center rounded-lg text-ink hover:bg-surface-2 lg:hidden" aria-label="Ouvrir le menu" aria-expanded={open}>
-            <Menu className="size-5" aria-hidden />
-          </button>
-        </div>
+        <button type="button" onClick={() => setOpen(true)} className="ml-auto flex size-10 items-center justify-center rounded-lg text-ink hover:bg-surface-2 md:hidden" aria-label="Ouvrir le menu" aria-expanded={open}>
+          <Menu className="size-5" aria-hidden />
+        </button>
       </div>
       <Sheet open={open} onOpenChange={setOpen} title="Menu">
         <nav aria-label="Navigation mobile">
           <ul className="flex flex-col">
             {NAV.map((n) => (
               <li key={n.to}>
-                <Link to={n.to} className="block rounded-lg px-3 py-3 font-display text-lg font-semibold hover:bg-surface-2">
+                <NavLink to={n.to} end={n.end} className="block rounded-lg px-3 py-3 font-display text-lg font-semibold hover:bg-surface-2 aria-[current=page]:text-brand">
                   {n.label}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
         </nav>
         <div className="mt-6 flex flex-col gap-2 border-t border-line pt-6">
-          <ButtonLink to="/#contact" size="lg">
-            Nous écrire
-          </ButtonLink>
-          <ButtonLink to={session ? homeFor(session) : "/connexion"} variant="secondary" size="lg">
-            {session ? "Ouvrir mon espace" : "Se connecter"}
-          </ButtonLink>
-          {[TIDIANE, WHATSAPP].map((c, i) => (
-            <a key={c.display} href={c.href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[15px] font-semibold text-brand hover:bg-brand-soft", i === 0 && "mt-2")}>
+          {[TIDIANE, WHATSAPP].map((c) => (
+            <a key={c.display} href={c.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[15px] font-semibold text-brand hover:bg-brand-soft">
               <MessageCircle className="size-[18px]" aria-hidden /> {c.name} · <span className="font-mono text-[14px]">{c.display}</span>
             </a>
           ))}
@@ -127,20 +115,28 @@ function PublicHeader() {
 function PublicFooter() {
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
         <div>
           <Logo height={34} tagline />
-          <p className="mt-4 max-w-[34ch] text-[14.5px] leading-relaxed text-ink-2">Capteurs connectés, alertes SMS et tableau de bord pour l’agriculture et le stockage. Startup de Dakar, premiers sites pilotes en préparation.</p>
           <p className="mt-4 text-[14px] text-ink-3">Dakar, Sénégal</p>
+          <h2 className="mt-8 font-display text-[14px] font-semibold">Suivez-nous</h2>
+          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-[14.5px] text-ink-2">
+            {SOCIAL.map((s) => (
+              <li key={s.name}>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-ink">
+                  {s.name} <ArrowUpRight className="size-3.5" aria-hidden />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
         <FooterCol
-          title="Produit"
+          title="Solutions"
           links={[
-            { to: "/agritech", label: "SaytuMbay AgriTech" },
-            { to: "/onion", label: "SaytuMbay Onion" },
-            { to: "/a-propos", label: "Notre histoire" },
+            { to: "/solutions#champs", label: "Solution 1 · Les champs" },
+            { to: "/solutions#stockage", label: "Solution 2 · Le stockage" },
+            { to: "/a-propos", label: "À propos" },
             { to: "/a-propos#faq", label: "Questions fréquentes" },
-            { to: "/connexion", label: "Se connecter" },
           ]}
         />
         <FooterCol
@@ -154,7 +150,7 @@ function PublicFooter() {
           ]}
         />
         <div>
-          <h2 className="font-display text-[14px] font-semibold">Nous joindre</h2>
+          <h2 className="font-display text-[14px] font-semibold">Nous contacter</h2>
           <ul className="mt-3 flex flex-col gap-2.5 text-[14.5px] text-ink-2">
             {[TIDIANE, WHATSAPP].map((c) => (
               <li key={c.display}>
@@ -172,7 +168,7 @@ function PublicFooter() {
               </a>
             </li>
             <li>
-              <Link to="/#contact" className="hover:text-ink">
+              <Link to="/contact" className="hover:text-ink">
                 Formulaire de contact
               </Link>
             </li>
@@ -182,7 +178,7 @@ function PublicFooter() {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-4 py-5 text-[13px] text-ink-3 sm:px-6">
           <p>© {new Date().getFullYear()} SaytuMbay. Tous droits réservés.</p>
-          <p>Conçu et fabriqué à Dakar, Sénégal</p>
+          <p>Conçu à Dakar, Sénégal</p>
         </div>
       </div>
     </footer>

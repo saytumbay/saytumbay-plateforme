@@ -1,19 +1,16 @@
 /**
  * Accueil, pensé pour quelqu'un qui n'y connaît rien (un agriculteur d'abord) : des images plein écran,
- * une idée par écran, quelques mots. Les détails sont sur /agritech, /onion et /a-propos.
+ * une idée par écran, quelques mots. Les détails sont sur /solutions, /a-propos et /contact.
  */
-import { Link, useNavigate } from "react-router";
-import { useMutation } from "@tanstack/react-query";
+import { Link } from "react-router";
 import { ArrowRight, Eye, MessageSquareText, Sprout } from "lucide-react";
-import { api, IS_DEMO } from "@/lib/api";
-import { homeFor, useSetSession } from "@/lib/auth";
 import { usePageTitle } from "@/components/ui/page";
-import { Button, ButtonLink } from "@/components/ui/button";
-import { Photo, PhotoCredit } from "@/components/ui/photo";
+import { ButtonLink } from "@/components/ui/button";
+import { Photo } from "@/components/ui/photo";
 import type { PhotoKey } from "@/assets/photos";
 import { useReveal } from "@/lib/reveal";
 import { cn } from "@/lib/cn";
-import { Contact, display, Dot, eyebrow, useHashScroll, wrap } from "./blocks";
+import { CtaBand, display, Dot, eyebrow, useHashScroll, wrap } from "./blocks";
 
 export default function Landing() {
   usePageTitle(null);
@@ -26,27 +23,17 @@ export default function Landing() {
       <Steps />
       <ForWhat />
       <Proofs />
-      <Contact />
+      <CtaBand title="Vous voulez essayer ? Parlons-en." profil="cooperative" />
     </>
   );
 }
 
 /** Texte clair posé sur une photo assombrie : mêmes couleurs dans les deux thèmes. */
 const onPhoto = "text-[#f4efe6]";
-const credit = "text-[#d6dbd2] [&_a:hover]:text-white";
 
 /* ——— Ce que c'est : une photo, une phrase, un SMS ——— */
 
 function Hero() {
-  const navigate = useNavigate();
-  const setSession = useSetSession();
-  const demo = useMutation({
-    mutationFn: () => api.auth.demo("responsable"),
-    onSuccess: (s) => {
-      setSession(s);
-      navigate(homeFor(s));
-    },
-  });
   return (
     <section className={cn("relative isolate overflow-hidden bg-[#0b2e24]", onPhoto)} aria-labelledby="hero-titre">
       <Photo
@@ -68,23 +55,16 @@ function Hero() {
           </h1>
           <p className="mt-6 max-w-[30ch] text-[clamp(18px,1.7vw,22px)] leading-snug text-[#e6e2d8]">De petits capteurs veillent sur vos champs et vos magasins.</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink to="/?profil=cooperative#contact" size="lg" className="bg-[#f4efe6] text-[#0b2e24] hover:bg-white">
+            <ButtonLink to="/contact?profil=cooperative" size="lg" className="bg-[#f4efe6] text-[#0b2e24] hover:bg-white">
               Je veux essayer
             </ButtonLink>
-            {IS_DEMO ? (
-              <Button variant="ghost" size="lg" loading={demo.isPending} onClick={() => demo.mutate()} className="border border-[#f4efe6]/60 text-[#f4efe6] hover:bg-white/10 hover:text-white">
-                Voir la démo
-              </Button>
-            ) : (
-              <ButtonLink to="/connexion" variant="ghost" size="lg" className="border border-[#f4efe6]/60 text-[#f4efe6] hover:bg-white/10 hover:text-white">
-                Se connecter
-              </ButtonLink>
-            )}
+            <ButtonLink to="/solutions" variant="ghost" size="lg" className="border border-[#f4efe6]/60 text-[#f4efe6] hover:bg-white/10 hover:text-white">
+              Nos solutions
+            </ButtonLink>
           </div>
         </div>
         <SmsCard />
       </div>
-      <PhotoCredit name="champGoutte" className={cn(wrap, "pb-4", credit)} />
     </section>
   );
 }
@@ -132,7 +112,6 @@ function BigNumber() {
           </a>
           ).
         </p>
-        <PhotoCredit name="marche" className={cn("mt-2 justify-center", credit)} />
       </div>
     </section>
   );
@@ -180,8 +159,8 @@ function Steps() {
 /* ——— Pour quoi : les champs, les stocks ——— */
 
 const TILES: Array<{ to: string; photo: PhotoKey; position: string; alt: string; eyebrow: string; title: string }> = [
-  { to: "/agritech", photo: "rangs", position: "50% 60%", alt: "Rangs d’oignons irrigués au goutte-à-goutte à Diamniadio.", eyebrow: "Pour vos champs", title: "Arroser au bon moment." },
-  { to: "/onion", photo: "sac", position: "55% 30%", alt: "Une femme porte sur la tête un grand sac d’oignons rouges.", eyebrow: "Pour vos stocks", title: "Garder vos oignons sains." },
+  { to: "/solutions#champs", photo: "rangs", position: "50% 60%", alt: "Rangs d’oignons irrigués au goutte-à-goutte à Diamniadio.", eyebrow: "Pour vos champs", title: "Arroser au bon moment." },
+  { to: "/solutions#stockage", photo: "sac", position: "55% 30%", alt: "Une femme porte sur la tête un grand sac d’oignons rouges.", eyebrow: "Pour vos stocks", title: "Garder vos oignons sains." },
 ];
 
 function ForWhat() {
@@ -205,7 +184,6 @@ function ForWhat() {
                   </span>
                 </span>
               </Link>
-              <PhotoCredit name={t.photo} className="mt-2 px-2" />
             </div>
           ))}
         </div>
@@ -234,7 +212,7 @@ function Proofs() {
           ))}
         </ul>
         <Link to="/a-propos" className="inline-flex items-center gap-1.5 font-display text-[16px] font-semibold text-brand underline-offset-4 hover:underline">
-          Notre histoire <ArrowRight className="size-4" aria-hidden />
+          À propos de nous <ArrowRight className="size-4" aria-hidden />
         </Link>
       </div>
     </section>

@@ -6,6 +6,9 @@ test.describe("site public", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Votre champ a soif ?");
     await expect(page.getByRole("img", { name: /sort un oignon rouge/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Simple comme un SMS." })).toBeAttached();
+    // Site vitrine : ni connexion ni démo proposées aux visiteurs.
+    await expect(page.getByRole("link", { name: /se connecter|démo/i })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: /se connecter|démo/i })).toHaveCount(0);
     expect(await noHorizontalScroll(page)).toBe(true);
     expect(await axe(page)).toEqual([]);
     expect(errors).toEqual([]);
@@ -27,7 +30,7 @@ test.describe("site public", () => {
       (window as unknown as { opened: string[] }).opened = [];
       window.open = (u?: string | URL) => ((window as unknown as { opened: string[] }).opened.push(String(u)), null);
     });
-    await page.goto("/#contact");
+    await page.goto("/contact");
     await page.getByRole("button", { name: "Envoyer par WhatsApp" }).click();
     await expect(page.getByText("Indiquez votre nom")).toBeVisible();
     await page.getByLabel("Nom et prénom").fill("Awa Test");
@@ -52,17 +55,21 @@ test.describe("site public", () => {
     }
   });
 
-  test("pages détaillées : AgriTech, Onion, Notre histoire", async ({ page, errors }) => {
+  test("pages Solutions, À propos et Contact", async ({ page, errors }) => {
     for (const [path, title] of [
-      ["/agritech", /Arroser juste/],
-      ["/onion", /Sauver le stock/],
+      ["/solutions", /Agir avant que la récolte/],
       ["/a-propos", /Voir la perte/],
+      ["/contact", /Contactez-nous/],
     ] as const) {
       await page.goto(path);
       await expect(page.getByRole("heading", { level: 1 })).toContainText(title);
       expect(await noHorizontalScroll(page), path).toBe(true);
       expect(await axe(page), path).toEqual([]);
     }
+    // Les anciennes adresses mènent à la bonne solution.
+    await page.goto("/onion");
+    await expect(page).toHaveURL(/\/solutions#stockage$/);
+    await expect(page.getByRole("heading", { name: /Sauver le stock/ })).toBeVisible();
     expect(errors).toEqual([]);
   });
 });

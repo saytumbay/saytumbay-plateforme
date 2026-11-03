@@ -59,9 +59,12 @@ export const router = createBrowserRouter([
         element: <PublicLayout />,
         children: [
           { index: true, ...page(() => import("@/features/public/Landing")) },
-          { path: "agritech", ...page(() => import("@/features/public/AgriTechPage")) },
-          { path: "onion", ...page(() => import("@/features/public/OnionPage")) },
+          { path: "solutions", ...page(() => import("@/features/public/SolutionsPage")) },
+          // Anciennes adresses (déjà partagées) : renvoient vers la bonne partie de « Solutions ».
+          { path: "agritech", element: <Navigate to="/solutions#champs" replace /> },
+          { path: "onion", element: <Navigate to="/solutions#stockage" replace /> },
           { path: "a-propos", ...page(() => import("@/features/public/AboutPage")) },
+          { path: "contact", ...page(() => import("@/features/public/ContactPage")) },
           { path: "mentions-legales", ...page(() => import("@/features/public/legal/MentionsLegales")) },
           { path: "confidentialite", ...page(() => import("@/features/public/legal/Confidentialite")) },
           { path: "conditions", ...page(() => import("@/features/public/legal/Conditions")) },

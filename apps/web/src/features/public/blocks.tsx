@@ -7,7 +7,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { SignTrace } from "@/components/brand/SignTrace";
 import { Photo } from "@/components/ui/photo";
 import { useReveal } from "@/lib/reveal";
-import { EMAIL, TIDIANE, WHATSAPP } from "@/layouts/PublicLayout";
+import { EMAIL, SOCIAL, TIDIANE, WHATSAPP } from "@/layouts/PublicLayout";
 import { cn } from "@/lib/cn";
 import { ContactForm } from "./ContactForm";
 
@@ -302,7 +302,7 @@ export function Equipment() {
   );
 }
 
-/* ——— AgriTech ——— */
+/* ——— Solution 1 : les champs ——— */
 
 export const AGRI_FEATURES = [
   { icon: Droplets, title: "Humidité, température et salinité du sol", text: "Mesurées à 20 cm toutes les 15 minutes. La salinité aide à suivre les sols des Niayes qui se chargent en sel." },
@@ -315,10 +315,10 @@ export const AGRI_FEATURES = [
 export function AgriTech({ level = 2 }: { level?: 1 | 2 }) {
   const H = level === 1 ? "h1" : "h2";
   return (
-    <section id="agritech" className="scroll-mt-20 border-t border-line bg-surface" aria-labelledby="agri-titre">
+    <section id="champs" className="scroll-mt-20 border-t border-line bg-surface" aria-labelledby="agri-titre">
       <div className={cn(wrap, "grid gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 lg:py-28")}>
         <div>
-          <p className={cn(eyebrow, "text-brand")}>Solution 1 · SaytuMbay AgriTech</p>
+          <p className={cn(eyebrow, "text-brand")}>Solution 1 · Les champs</p>
           <H id="agri-titre" className={cn(level === 1 ? h1 : h2, "mt-3")}>
             Arroser juste, parcelle par parcelle.
           </H>
@@ -408,17 +408,12 @@ export function ProductPeek() {
         </ul>
         <p className="mt-3 px-1 text-[12.5px] text-ink-3">Courbes des 7 derniers jours. La bande verte est la plage visée (30 à 45 %).</p>
       </div>
-      <figcaption className="mt-4 flex flex-wrap items-center justify-between gap-3 px-1 text-[14px] text-ink-2">
-        <span>Extrait du tableau de bord, données de démonstration.</span>
-        <Link to="/connexion" className="inline-flex items-center gap-1 font-semibold text-brand underline-offset-2 hover:underline">
-          Ouvrir la démo complète <ArrowUpRight className="size-4" aria-hidden />
-        </Link>
-      </figcaption>
+      <figcaption className="mt-4 px-1 text-[14px] text-ink-2">Exemple d’écran du tableau de bord : les noms et les chiffres sont fictifs.</figcaption>
     </figure>
   );
 }
 
-/* ——— Onion ——— */
+/* ——— Solution 2 : le stockage ——— */
 
 export const ONION_FEATURES = [
   { icon: ThermometerSun, title: "Température et humidité au cœur du tas", text: "Une sonde par rangée de sacs. Plages préréglées : oignon 24 à 30 °C et 65 à 72 %, pomme de terre 8 à 14 °C et 85 à 95 %." },
@@ -430,10 +425,10 @@ export const ONION_FEATURES = [
 export function Onion({ level = 2 }: { level?: 1 | 2 }) {
   const H = level === 1 ? "h1" : "h2";
   return (
-    <section id="onion" className="scroll-mt-20 border-t border-line" aria-labelledby="onion-titre">
+    <section id="stockage" className="scroll-mt-20 border-t border-line" aria-labelledby="onion-titre">
       <div className={cn(wrap, "grid gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 lg:py-28")}>
         <div className="lg:order-2">
-          <p className={cn(eyebrow, "text-onion dark:text-onion-ink")}>Solution 2 · SaytuMbay Onion</p>
+          <p className={cn(eyebrow, "text-onion dark:text-onion-ink")}>Solution 2 · Le stockage</p>
           <H id="onion-titre" className={cn(level === 1 ? h1 : h2, "mt-3")}>
             Sauver le stock avant qu’il ne pourrisse.
           </H>
@@ -500,7 +495,7 @@ export function StoreIllustration() {
         })}
       </svg>
       <figcaption className="mt-3 text-[14px] leading-relaxed text-ink-2">
-        Magasin de Potou, rangée 3 : 31 °C au cœur des sacs pour une plage visée de 24 à 30 °C. L’alerte propose d’aérer la nuit et de contrôler les sacs de cette rangée.
+        Exemple : rangée 3 à 31 °C au cœur des sacs, pour une plage visée de 24 à 30 °C. L’alerte propose d’aérer la nuit et de contrôler les sacs de cette rangée.
       </figcaption>
     </figure>
   );
@@ -519,7 +514,7 @@ export function Beyond() {
           </h2>
           <p className="mt-4 max-w-[64ch] text-[16.5px] leading-relaxed text-ink-2">Mêmes capteurs, même réseau, même plateforme. Décrivez-nous la situation : nous vous dirons franchement si nous pouvons aider, et comment.</p>
         </div>
-        <ButtonLink to="/?profil=autre#contact" size="lg" variant="secondary" icon={<ArrowRight className="size-4" aria-hidden />}>
+        <ButtonLink to="/contact?profil=autre" size="lg" variant="secondary" icon={<ArrowRight className="size-4" aria-hidden />}>
           Nous soumettre un problème
         </ButtonLink>
       </div>
@@ -538,7 +533,6 @@ export const STATUS: Array<{ title: string; tone: "brand" | "sun" | "ink"; items
       "Alertes SMS envoyées au bon responsable, selon son rôle.",
       "Suivi de l’irrigation, des magasins, des lots et des tâches ; rapports exportables.",
       "Compatible avec des capteurs LoRaWAN du marché (Dragino, ChirpStack).",
-      "Démonstration en ligne, ouverte à tous.",
     ],
   },
   {
@@ -656,9 +650,9 @@ export function FieldToMarket() {
 /* ——— Travaillons ensemble : trois publics, trois portes d'entrée ——— */
 
 export const AUDIENCES: Array<{ title: string; text: string; cta: string; to: string }> = [
-  { title: "Producteurs, coopératives, stockeurs", text: "Devenez l’un de nos premiers sites pilotes, à prix réduit.", cta: "Proposer mon site", to: "/?profil=cooperative#contact" },
-  { title: "Investisseurs, bailleurs, incubateurs", text: "Financez les premiers sites et une équipe qui construit au Sénégal.", cta: "Recevoir notre présentation", to: "/?profil=financeur#contact" },
-  { title: "États, collectivités, ONG, programmes", text: "Équipez un programme avec des données mesurées, pas estimées.", cta: "Parler de votre programme", to: "/?profil=institution#contact" },
+  { title: "Producteurs, coopératives, stockeurs", text: "Devenez l’un de nos premiers sites pilotes, à prix réduit.", cta: "Proposer mon site", to: "/contact?profil=cooperative" },
+  { title: "Investisseurs, bailleurs, incubateurs", text: "Financez les premiers sites et une équipe qui construit au Sénégal.", cta: "Recevoir notre présentation", to: "/contact?profil=financeur" },
+  { title: "États, collectivités, ONG, programmes", text: "Équipez un programme avec des données mesurées, pas estimées.", cta: "Parler de votre programme", to: "/contact?profil=institution" },
 ];
 
 export const PILOT = [
@@ -761,7 +755,7 @@ export function Team() {
 /* ——— Questions fréquentes ——— */
 
 export const FAQ = [
-  { q: "Où en est SaytuMbay ?", a: "Le projet est né à l’ESP de Dakar, dans le cadre d’AfriConnect+, un programme de soutien à l’Internet des objets en Afrique. Il est aujourd’hui incubé à TÀGGU NDAW ÑI, l’incubateur de l’Université Cheikh Anta Diop. La plateforme est construite et se découvre en démonstration ; le projet a été présenté au colloque COC’2026 à Thiès, et l’article est en accès libre sur HAL. Nous préparons nos premiers sites pilotes avec des coopératives : c’est le bon moment pour nous rejoindre, comme utilisateur, partenaire ou financeur." },
+  { q: "Où en est SaytuMbay ?", a: "Le projet est né à l’ESP de Dakar, dans le cadre d’AfriConnect+, un programme de soutien à l’Internet des objets en Afrique. Il est aujourd’hui incubé à TÀGGU NDAW ÑI, l’incubateur de l’Université Cheikh Anta Diop. La plateforme est construite ; le projet a été présenté au colloque COC’2026 à Thiès, et l’article est en accès libre sur HAL. Nous préparons nos premiers sites pilotes avec des coopératives : c’est le bon moment pour nous rejoindre, comme utilisateur, partenaire ou financeur." },
   { q: "Utilisez-vous les images satellites ?", a: "Pas encore dans la plateforme. Les images satellites gratuites montrent la santé des cultures vue d’en haut, sur de grandes surfaces ; nos capteurs mesurent ce qu’elles ne voient pas, l’eau du sol et l’intérieur des magasins. Combiner les deux est la direction que nous prenons, seuls ou avec des partenaires." },
   { q: "J’ai déjà une pompe ou un arrosage automatique. Est-ce utile ?", a: "Oui. Les capteurs s’ajoutent à votre installation sans rien remplacer : ils disent quand arroser et vérifient que l’eau arrive bien dans le sol. Quand le matériel le permet, l’arrosage peut aussi se commander depuis l’application." },
   { q: "Faut-il internet sur la parcelle ?", a: "Non. Les capteurs parlent par radio LoRaWAN à une passerelle installée dans un local proche, qui envoie les mesures par la 4G. Les alertes arrivent par SMS, sans application ni données mobiles." },
@@ -819,16 +813,18 @@ export function WhatsAppLink({ href, children }: { href: string; children: React
   );
 }
 
-export function Contact() {
+/** Bloc de contact ; en titre de page (`level={1}`) sur /contact. */
+export function Contact({ level = 2 }: { level?: 1 | 2 }) {
+  const H = level === 1 ? "h1" : "h2";
   return (
     <section id="contact" className="relative scroll-mt-20 overflow-hidden bg-[#0b2e24] text-[#f4efe6]" aria-labelledby="contact-titre">
       <SignTrace className="-bottom-48 -left-40 w-[560px] opacity-60" color="#ef6a22" />
       <div className={cn(wrap, "relative grid gap-12 py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20 lg:py-28")}>
         <div>
-          <h2 id="contact-titre" className={cn(h2, "text-[#f4efe6]")}>
-            Vous voulez essayer ? Appelez-nous.
-          </h2>
-          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Par WhatsApp ou par téléphone. Ou laissez votre numéro : nous vous rappelons.</p>
+          <H id="contact-titre" className={cn(level === 1 ? h1 : h2, "text-[#f4efe6]")}>
+            Contactez-nous.
+          </H>
+          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Un champ, un magasin, un partenariat ? Appelez-nous sur WhatsApp, écrivez-nous, ou laissez votre numéro : nous vous rappelons.</p>
           <div className="mt-8 flex flex-col items-start gap-3">
             <WhatsAppLink href={TIDIANE.href}>
               {TIDIANE.name} · <span className="font-mono text-[15px] font-medium">{TIDIANE.display}</span>
@@ -840,6 +836,16 @@ export function Contact() {
               {EMAIL.contact}
             </a>
           </div>
+          <h2 className="mt-12 font-display text-[13px] font-semibold uppercase tracking-[0.12em] text-[#f4efe6]">Suivez-nous</h2>
+          <ul className="mt-4 flex flex-wrap gap-2.5">
+            {SOCIAL.map((s) => (
+              <li key={s.name}>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex h-10 items-center gap-1.5 rounded-full border border-[#f4efe6]/40 px-4 font-display text-[14.5px] font-semibold text-[#f4efe6] hover:bg-white/10">
+                  {s.name} <ArrowUpRight className="size-4" aria-hidden />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="rounded-[24px] bg-surface p-5 text-ink shadow-3 sm:p-8">
           <ContactForm />
@@ -859,7 +865,7 @@ export function CtaBand({ title = "Un terrain, un stock, un projet ?", profil = 
         <h2 id="cta-titre" className={cn(h2, "max-w-[18ch] text-[#f4efe6]")}>
           {title}
         </h2>
-        <ButtonLink to={`/?profil=${profil}#contact`} size="lg" className="bg-[#f4efe6] text-[#0b2e24] hover:bg-white">
+        <ButtonLink to={`/contact?profil=${profil}`} size="lg" className="bg-[#f4efe6] text-[#0b2e24] hover:bg-white">
           Parlons-en
         </ButtonLink>
       </div>

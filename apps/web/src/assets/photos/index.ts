@@ -1,7 +1,7 @@
 /**
  * Photographies du site : vraies photos prises au Sénégal, publiées sur Wikimedia Commons sous licence libre.
  * Elles illustrent le contexte (cultures, récoltes, marchés) ; ce ne sont ni des clients ni des sites SaytuMbay.
- * Licence CC BY-SA : auteur et licence cités sous chaque photo et dans les mentions légales ; images recadrées
+ * Licence CC BY-SA : auteur, licence et lien cités dans les mentions légales (rubrique « Crédits ») ; images recadrées
  * et réduites (WebP). À remplacer par les photos de l'équipe dès qu'elles existent (liste dans docs/PHOTOS.md).
  */
 import champ640 from "./champ-goutte-640.webp";
