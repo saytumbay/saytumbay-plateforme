@@ -17,8 +17,9 @@ interface Solution {
   photo: PhotoKey;
   position: string;
   alt: string;
-  /** Exemple de SMS posé sur la photo. */
+  /** Exemple de SMS posé sur la photo, en haut ou en bas selon la zone libre de l'image. */
   sms: string;
+  smsAt: "top" | "bottom";
 }
 
 const SOLUTIONS: Solution[] = [
@@ -36,6 +37,7 @@ const SOLUTIONS: Solution[] = [
     position: "50% 60%",
     alt: "Rangs d’oignons irrigués au goutte-à-goutte à Diamniadio.",
     sms: "Parcelle B : le sol est sec. Arrosez aujourd’hui.",
+    smsAt: "top",
   },
   {
     id: "stockage",
@@ -51,6 +53,7 @@ const SOLUTIONS: Solution[] = [
     position: "55% 30%",
     alt: "Une femme porte sur la tête un grand sac d’oignons rouges.",
     sms: "Magasin : la rangée 3 chauffe. Aérez cette nuit.",
+    smsAt: "bottom",
   },
 ];
 
@@ -109,7 +112,7 @@ function SolutionBlock({ s, flip }: { s: Solution; flip: boolean }) {
         </div>
         <div className={cn(flip && "lg:order-1")} data-reveal="1">
           <Photo name={s.photo} alt={s.alt} sizes="(min-width: 1024px) 560px, 100vw" position={s.position} frameClassName="aspect-[4/3] rounded-[28px]">
-            <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-[#f4efe6]/95 p-4 text-[#0b2e24] shadow-3 sm:inset-x-auto sm:left-5 sm:max-w-[320px]">
+            <div className={cn("absolute inset-x-4 rounded-2xl bg-[#f4efe6]/95 p-4 text-[#0b2e24] shadow-3 sm:inset-x-auto sm:left-5 sm:max-w-[320px]", s.smsAt === "top" ? "top-4 sm:top-5" : "bottom-4 sm:bottom-5")}>
               <p className="text-[12.5px] font-semibold text-[#5b6660]">Exemple de SMS</p>
               <p className="mt-1 text-[16.5px] font-semibold leading-snug">{s.sms}</p>
             </div>
