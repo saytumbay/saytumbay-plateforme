@@ -88,19 +88,23 @@ export const PRINCIPLES = [
 
 export function Mission() {
   return (
-    <section className="border-y border-line bg-surface" aria-labelledby="mission-titre">
-      <div className={cn(wrap, "py-20 lg:py-28")}>
-        <p className={cn(eyebrow, "text-brand")} data-reveal>
+    <section className="relative isolate overflow-hidden bg-[#0b2e24] text-[#f4efe6]" aria-labelledby="mission-titre">
+      {/* Des planches de salade en fond, sous un voile vert : le texte reste lisible, clair comme sombre. */}
+      <Photo name="saladesRangs" alt="" sizes="100vw" position="50% 50%" className="absolute inset-0 -z-10" frameClassName="h-full" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#0b2e24]/85 via-[#0b2e24]/65 to-[#0b2e24]/90" aria-hidden />
+      <div className={cn(wrap, "py-24 lg:py-32")}>
+        <p className={cn(eyebrow, "text-[#f4efe6]")} data-reveal>
           Notre mission
         </p>
-        <h2 id="mission-titre" className="mt-4 max-w-[26ch] font-display text-[clamp(28px,3.6vw,46px)] font-semibold leading-[1.12] tracking-[-0.03em] text-balance" data-reveal>
+        <h2 id="mission-titre" className="mt-4 max-w-[26ch] font-display text-[clamp(28px,3.6vw,46px)] font-semibold leading-[1.12] tracking-[-0.03em] text-balance text-[#f4efe6]" data-reveal>
           Que chaque producteur, petit ou grand, ait la bonne information au bon moment, sur le téléphone qu’il a déjà.
         </h2>
-        <ul className="mt-14 grid gap-8 md:grid-cols-3 md:gap-6">
+        <ul className="mt-14 grid gap-4 md:grid-cols-3 md:gap-5">
           {PRINCIPLES.map((p, i) => (
-            <li key={p.title} className="border-t-2 border-sun pt-5" data-reveal={i}>
-              <h3 className="font-display text-[20px] font-semibold">{p.title}</h3>
-              <p className="mt-2 text-[16px] leading-relaxed text-ink-2">{p.text}</p>
+            <li key={p.title} className="rounded-[20px] border border-[#f4efe6]/20 bg-[#0b2e24]/55 p-6 backdrop-blur-sm" data-reveal={i}>
+              <span className="block h-1 w-10 rounded-full bg-[#ef6a22]" aria-hidden />
+              <h3 className="mt-4 font-display text-[20px] font-semibold text-[#f4efe6]">{p.title}</h3>
+              <p className="mt-2 text-[16px] leading-relaxed text-[#dfe6dc]">{p.text}</p>
             </li>
           ))}
         </ul>
@@ -152,11 +156,18 @@ export function Status() {
   return (
     <section id="etat" className="scroll-mt-20 border-t border-line" aria-labelledby="etat-titre">
       <div className={cn(wrap, "pb-14 pt-20 lg:pb-16 lg:pt-28")}>
-        <p className={cn(eyebrow, "text-brand")}>Où nous en sommes</p>
-        <h2 id="etat-titre" className={cn(h2, "mt-3 max-w-[22ch]")}>
-          Une jeune startup, une plateforme déjà construite.
-        </h2>
-        <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-ink-2">SaytuMbay démarre, et nous préférons le dire clairement : voici ce qui existe aujourd’hui, et ce qui reste à faire avec vous.</p>
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-16">
+          <div data-reveal>
+            <p className={cn(eyebrow, "text-brand")}>Où nous en sommes</p>
+            <h2 id="etat-titre" className={cn(h2, "mt-3 max-w-[22ch]")}>
+              Une jeune startup, une plateforme déjà construite.
+            </h2>
+            <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-ink-2">SaytuMbay démarre, et nous préférons le dire clairement : voici ce qui existe aujourd’hui, et ce qui reste à faire avec vous.</p>
+          </div>
+          <div data-reveal="1">
+            <Photo name="aubergines" alt="Des aubergines qui mûrissent sur pied, dans un champ au Sénégal." sizes="(min-width: 1024px) 440px, 100vw" position="50% 50%" frameClassName="aspect-[16/10] rounded-[24px] lg:aspect-[4/3]" />
+          </div>
+        </div>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {STATUS.map((c, i) => (
             <div key={c.title} className="rounded-[20px] border border-line bg-surface p-6" data-reveal={i}>

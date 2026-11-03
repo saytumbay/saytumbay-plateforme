@@ -38,6 +38,12 @@ import champChoux1200 from "./champ-choux-1200.webp";
 import champChoux1920 from "./champ-choux-1920.webp";
 import visiteGroupe640 from "./visite-groupe-640.webp";
 import visiteGroupe1200 from "./visite-groupe-1200.webp";
+import saladesRangs640 from "./salades-rangs-640.webp";
+import saladesRangs1200 from "./salades-rangs-1200.webp";
+import saladesRangs1920 from "./salades-rangs-1920.webp";
+import aubergines640 from "./aubergines-640.webp";
+import aubergines1200 from "./aubergines-1200.webp";
+import aubergines1920 from "./aubergines-1920.webp";
 import esp640 from "./esp-640.webp";
 import esp1200 from "./esp-1200.webp";
 import esp1920 from "./esp-1920.webp";
@@ -75,6 +81,9 @@ export const PHOTOS = {
   tomateSeche: { srcs: [[640, tomateSeche640], [1200, tomateSeche1200], [1920, tomateSeche1920]], width: 4928, height: 3264, place: "Sénégal · plant de tomate qui dépérit", author: "Pacocreat", ...BYSA4, source: commons("Tomates_(_s%C3%A9n%C3%A9gal_)_12.jpg") },
   esp: { srcs: [[640, esp640], [1200, esp1200], [1920, esp1920]], width: 2048, height: 1536, place: "Dakar · École supérieure polytechnique (UCAD)", author: "Nathysy", ...BYSA3, source: commons("ESPDakar.jpg") },
   pompage: { srcs: [[640, pompage640], [1200, pompage1200], [1920, pompage1920]], width: 4176, height: 2784, place: "Vallée du fleuve Sénégal · station de pompage pour l’irrigation", author: "Africa Rice Center", ...BYSA3, source: commons("Pumping_station_for_rice_and_vegetables_cultivation_in_the_Senegal_River_Valley_-_panoramio.jpg") },
+  // Bas de l'image recadré : il portait le filigrane du photographe.
+  saladesRangs: { srcs: [[640, saladesRangs640], [1200, saladesRangs1200], [1920, saladesRangs1920]], width: 4928, height: 2807, place: "Sénégal · planches de salade", author: "Pacocreat", ...BYSA4, source: commons("Salades_verte_(_s%C3%A9n%C3%A9gal_)_06.jpg") },
+  aubergines: { srcs: [[640, aubergines640], [1200, aubergines1200], [1920, aubergines1920]], width: 4032, height: 3024, place: "Sénégal · aubergines sur pied", author: "Cukrucum", ...BYSA4, source: commons("Aubergines_au_S%C3%A9n%C3%A9gal_04.jpg") },
   // Espace client et connexion
   rangs: { srcs: [[640, rangs640], [1200, rangs1200], [1920, rangs1920]], width: 3840, height: 2543, place: "Diamniadio · rangs d’oignon irrigués", author: "Pacocreat", ...BYSA4, source: commons("Ognons_(_s%C3%A9n%C3%A9gal_)_22.jpg") },
   diamniadio: { srcs: [[640, diamniadio640], [1200, diamniadio1200]], width: 3024, height: 4032, place: "Diamniadio · parcelle d’oignons", author: "Wuzyprod", ...BYSA4, source: commons("Onions_from_Diamniadio,_Senegal_02.jpg") },

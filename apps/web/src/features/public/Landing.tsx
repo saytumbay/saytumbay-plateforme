@@ -89,8 +89,8 @@ function SmsCard() {
 /* ——— 2. Le problème : un chiffre sourcé, puis ses deux causes, qui annoncent nos deux solutions ——— */
 
 const CAUSES = [
-  { where: "Au champ", text: "Une parcelle sèche en un après-midi d’harmattan." },
-  { where: "Au magasin", text: "L’oignon pourrit au cœur des sacs, sans bruit." },
+  { where: "Au champ", text: "La terre manque d’eau, les plants sèchent." },
+  { where: "Au magasin", text: "Les oignons pourrissent au fond des sacs." },
 ];
 
 function Problem() {
@@ -117,7 +117,7 @@ function Problem() {
           ))}
         </ul>
         <p className="mx-auto mt-10 font-display text-[clamp(20px,2vw,26px)] font-semibold text-[#f4efe6]" data-reveal>
-          Souvent, on le voit trop tard.
+          Et souvent, on s’en rend compte trop tard.
         </p>
         <LossSources className="mx-auto mt-12 max-w-[70ch] text-[12.5px] leading-relaxed text-[#d6dbd2]" linkClassName="hover:text-white" />
       </div>
@@ -138,7 +138,7 @@ function Solutions() {
       <div className={cn(wrap, "pb-12 pt-20 text-center lg:pb-14 lg:pt-28")} data-reveal>
         <p className={cn(eyebrow, "text-brand")}>Nos solutions</p>
         <h2 id="solutions-titre" className={cn(display, "mx-auto mt-3 max-w-[16ch]")}>
-          Prévenu à temps, au champ comme au magasin.
+          Un SMS vous prévient avant qu’il ne soit trop tard.
         </h2>
       </div>
       <div className="mx-auto w-full max-w-[1440px] px-3 pb-3 sm:px-4 sm:pb-4">

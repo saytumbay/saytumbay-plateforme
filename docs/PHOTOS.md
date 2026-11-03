@@ -2,7 +2,7 @@
 
 ## Aujourd'hui
 
-Le site utilise treize vraies photos prises au Sénégal (lieu vérifié pour chacune sur Commons, aucun enfant), sous licence **CC BY-SA 4.0** ou **3.0**, ou versées au **domaine public**. Elles montrent le contexte (cultures, récoltes, marché) : ni clients, ni sites SaytuMbay.
+Le site utilise quinze vraies photos prises au Sénégal (lieu vérifié pour chacune sur Commons, aucun enfant), sous licence **CC BY-SA 4.0** ou **3.0**, ou versées au **domaine public**. Elles montrent le contexte (cultures, récoltes, marché) : ni clients, ni sites SaytuMbay.
 
 Sur le site public, chaque photo n'apparaît qu'une fois et correspond au texte qu'elle accompagne ; les oignons sont réservés au stockage.
 
@@ -16,6 +16,8 @@ La licence impose de citer l'auteur et la licence : c'est fait dans les mentions
 | `salade-telephone` | Solutions, en-tête | Champ de salade, téléphone en main | Youfadiarragaye |
 | `goutte-poste` | Solutions, les champs | Poste de goutte-à-goutte devant les rangs (Agnam-Goly, Matam ; domaine public) | Adama Diop |
 | `sacs-legumes` | Solutions, le stockage | Sacs de choux et d'oignons | Thiam Babel Design |
+| `salades-rangs` | À propos, fond de « Notre mission » (bas recadré : filigrane) | Planches de salade | Pacocreat |
+| `aubergines` | À propos, « Où nous en sommes » | Aubergines sur pied | Cukrucum |
 | `champ-choux` | À propos, en-tête | Champ de choux | Pacocreat |
 | `visite-groupe` | Contact, fond de « Travaillons ensemble » | Visite d'un champ en groupe (Niaga) | Kikanakana |
 | `tomate-seche` | Accueil, fond du chiffre des pertes | Plant de tomate qui dépérit | Pacocreat |

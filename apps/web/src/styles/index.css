@@ -292,8 +292,21 @@
 
 /* Site public : défilement doux vers les ancres, sous l'en-tête fixe. */
 html { scroll-padding-top: 88px; }
-/* Barre de défilement fine, aux couleurs du site (la piste se fond dans le fond de page, clair ou sombre). */
-html { scrollbar-width: thin; scrollbar-color: color-mix(in oklab, var(--ink) 30%, transparent) var(--bg); }
+/* Barre de défilement aux couleurs de la marque : pilule verte qui passe à l'orange au survol, sur une piste
+   fondue dans le fond de page (clair ou sombre). Chrome, Edge, Safari : ::-webkit-scrollbar ; Firefox : couleurs seules. */
+html::-webkit-scrollbar { width: 12px; }
+html::-webkit-scrollbar-track { background: var(--bg); }
+html::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--brand) 75%, var(--bg));
+  border: 3px solid var(--bg);
+  border-radius: 999px;
+  min-height: 48px;
+}
+html::-webkit-scrollbar-thumb:hover { background: var(--sun); }
+html::-webkit-scrollbar-thumb:active { background: var(--sun-ink); }
+@supports not selector(::-webkit-scrollbar) {
+  html { scrollbar-width: thin; scrollbar-color: color-mix(in oklab, var(--brand) 75%, var(--bg)) var(--bg); }
+}
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
