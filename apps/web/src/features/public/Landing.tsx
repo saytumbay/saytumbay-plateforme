@@ -23,7 +23,7 @@ export default function Landing() {
       <Steps />
       <ForWhat />
       <Proofs />
-      <CtaBand title="Vous voulez essayer ? Parlons-en." profil="cooperative" />
+      <CtaBand title="Vous voulez essayer ? Parlons-en." profil="cooperative" />
     </>
   );
 }
@@ -37,12 +37,12 @@ function Hero() {
   return (
     <section className={cn("relative isolate overflow-hidden bg-[#0b2e24]", onPhoto)} aria-labelledby="hero-titre">
       <Photo
-        name="champGoutte"
+        name="tomates"
         priority
         caption={false}
-        alt="Main d’un maraîcher qui sort un oignon rouge de la terre, à côté d’un tuyau de goutte-à-goutte."
+        alt="Tomates mûres sur un plant, dans un champ au Sénégal."
         sizes="100vw"
-        position="45% 50%"
+        position="60% 50%"
         className="absolute inset-0 -z-10"
         frameClassName="hero-photo h-full"
       />
@@ -50,7 +50,7 @@ function Hero() {
       <div className={cn(wrap, "flex min-h-[calc(100svh-64px)] flex-col justify-between gap-10 pb-8 pt-6 lg:min-h-[calc(100svh-72px)] lg:flex-row lg:items-center lg:justify-between lg:pb-10")}>
         <div className="anim-rise max-w-[640px]">
           <h1 id="hero-titre" className="font-display text-[#f4efe6] text-[clamp(44px,7vw,92px)] font-bold leading-[0.98] tracking-[-0.045em] text-balance">
-            <span className="block">Votre champ a soif ?</span>
+            <span className="block">Votre champ a soif ?</span>
             <span className="block text-[#ef6a22]">Vous recevez un SMS.</span>
           </h1>
           <p className="mt-6 max-w-[30ch] text-[clamp(18px,1.7vw,22px)] leading-snug text-[#e6e2d8]">De petits capteurs veillent sur vos champs et vos magasins.</p>
@@ -101,7 +101,7 @@ function BigNumber() {
         </h2>
         <p className="mx-auto mt-6 text-[clamp(18px,1.7vw,22px)] text-[#e6e2d8]">Souvent, personne ne le voit venir. Nous, si.</p>
         <p className="mx-auto mt-14 max-w-[70ch] text-[12.5px] leading-relaxed text-[#d6dbd2]">
-          Source : estimation relayée par Le Soleil, 17 février 2026 (
+          Source : estimation relayée par Le Soleil, 17 février 2026 (
           <a href="https://fr.allafrica.com/stories/202602170606.html" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-white">
             AllAfrica
           </a>
@@ -154,7 +154,7 @@ function Steps() {
 /* ——— Pour quoi : les champs, les stocks ——— */
 
 const TILES: Array<{ to: string; photo: PhotoKey; position: string; alt: string; eyebrow: string; title: string }> = [
-  { to: "/solutions#champs", photo: "rangs", position: "50% 60%", alt: "Rangs d’oignons irrigués au goutte-à-goutte à Diamniadio.", eyebrow: "Pour vos champs", title: "Arroser au bon moment." },
+  { to: "/solutions#champs", photo: "arrosoirs", position: "50% 70%", alt: "Un maraîcher arrose ses légumes avec deux arrosoirs.", eyebrow: "Pour vos champs", title: "Arroser au bon moment." },
   { to: "/solutions#stockage", photo: "sac", position: "55% 30%", alt: "Une femme porte sur la tête un grand sac d’oignons rouges.", eyebrow: "Pour vos stocks", title: "Garder vos oignons sains." },
 ];
 

@@ -37,7 +37,8 @@ export function PublicLayout() {
         return;
       }
     }
-    window.scrollTo(0, 0);
+    // Nouvelle page : on repart du haut sans animation (le défilement doux est réservé aux ancres).
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [hash, pathname]);
   return (
     <div className="flex min-h-dvh flex-col bg-bg">
@@ -68,7 +69,7 @@ function PublicHeader() {
   }, []);
   useEffect(() => setOpen(false), [loc.pathname, loc.hash]);
   return (
-    <header className={cn("sticky top-0 z-40 transition-[background-color,border-color,box-shadow] duration-200", scrolled ? "border-b border-line bg-surface/85 backdrop-blur-md" : "border-b border-transparent bg-bg")}>
+    <header className={cn("sticky top-0 z-40 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out", scrolled ? "border-b border-line bg-surface/85 backdrop-blur-md" : "border-b border-transparent bg-bg")}>
       <div className="mx-auto flex h-16 max-w-[1200px] items-center gap-6 px-4 sm:px-6 lg:h-[72px]">
         <Link to="/" className="rounded-md" aria-label="SaytuMbay, accueil">
           <Logo height={46} />
@@ -119,7 +120,7 @@ function PublicHeader() {
 function PublicFooter() {
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-14 sm:px-6 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
         <div>
           <Logo height={44} tagline />
           <p className="mt-4 text-[14px] text-ink-3">Dakar, Sénégal</p>

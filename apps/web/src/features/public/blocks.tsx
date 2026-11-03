@@ -66,16 +66,16 @@ export function Context() {
         </p>
         <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-14">
           <div className="flex flex-col gap-6 text-[16.5px] leading-relaxed text-ink-2" data-reveal>
-          <p>Une bonne partie se joue sans témoin : une parcelle qui sèche pendant un après-midi d’harmattan, une vanne restée ouverte toute la nuit, un sol qui se charge en sel au fil des saisons.</p>
+          <p>Une bonne partie se joue sans témoin : une parcelle qui sèche pendant un après-midi d’harmattan, une vanne restée ouverte toute la nuit, un sol qui se charge en sel au fil des saisons.</p>
           <p>Dans les magasins, l’oignon commence à pourrir au cœur des sacs, là où personne ne regarde. Quand l’odeur arrive à la porte, une partie du stock est déjà perdue.</p>
           </div>
           <div data-reveal="1">
-            <Photo name="niague" alt="Champ d’oignons à Niague Noflaye, avec des maraîchers au travail au fond de la parcelle." sizes="(min-width: 1024px) 560px, 100vw" position="50% 60%" frameClassName="aspect-[16/10] rounded-[24px]" />
+            <Photo name="tomateSeche" alt="Un plant de tomate qui dépérit, ses fruits encore verts." sizes="(min-width: 1024px) 560px, 100vw" position="50% 50%" frameClassName="aspect-[16/10] rounded-[24px]" />
           </div>
         </div>
-        <p className="mt-10 max-w-[62ch] border-l-4 border-sun pl-5 font-display text-[clamp(19px,2vw,23px)] font-semibold leading-snug text-ink">Ces pertes préviennent presque toujours. Notre travail : rendre ces signaux visibles assez tôt pour agir.</p>
+        <p className="mt-10 max-w-[62ch] border-l-4 border-sun pl-5 font-display text-[clamp(19px,2vw,23px)] font-semibold leading-snug text-ink">Ces pertes préviennent presque toujours. Notre travail : rendre ces signaux visibles assez tôt pour agir.</p>
         <p className="mt-10 max-w-[80ch] text-[13px] text-ink-3">
-          Source : estimation relayée par Le Soleil, 17 février 2026 (
+          Source : estimation relayée par Le Soleil, 17 février 2026 (
           <a href="https://fr.allafrica.com/stories/202602170606.html" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink">
             AllAfrica
           </a>
@@ -118,7 +118,7 @@ export const SUPPORT = ["Incubé à TÀGGU NDAW ÑI, l’incubateur de l’Unive
 
 /** Article présenté au COC'2026 et archivé sur HAL (métadonnées vérifiées sur l'archive ouverte). */
 export const PAPER = {
-  title: "SaytuMbay : une plateforme IoT-IA pour l’agriculture de précision au Sénégal",
+  title: "SaytuMbay : une plateforme IoT-IA pour l’agriculture de précision au Sénégal",
   /** Forme courte d'usage : la liste complète des auteurs reste sur la notice HAL. */
   authors: "Tidiane Sow, Ibrahima Fall et al.",
   venue: "Colloque sur les Objets et systèmes Connectés COC’2026 · Thiès, 25-26 mars 2026",
@@ -133,7 +133,7 @@ export function Status() {
         <h2 id="etat-titre" className={cn(h2, "mt-3 max-w-[22ch]")}>
           Une jeune startup, une plateforme déjà construite.
         </h2>
-        <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-ink-2">SaytuMbay démarre, et nous préférons le dire clairement : voici ce qui existe aujourd’hui, et ce qui reste à faire avec vous.</p>
+        <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-ink-2">SaytuMbay démarre, et nous préférons le dire clairement : voici ce qui existe aujourd’hui, et ce qui reste à faire avec vous.</p>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {STATUS.map((c, i) => (
             <div key={c.title} className="rounded-[20px] border border-line bg-surface p-6" data-reveal={i}>
@@ -241,13 +241,13 @@ export function Team() {
             Nés à Dakar. Construits pour grandir.
           </h2>
           <div className="mt-5 flex max-w-[58ch] flex-col gap-4 text-[17px] leading-relaxed text-ink-2">
-            <p>Réseaux, objets connectés, logiciel : nous concevons la solution, l’installons avec des techniciens partenaires et la maintenons dans la durée.</p>
+            <p>Réseaux, objets connectés, logiciel : nous concevons la solution, l’installons avec des techniciens partenaires et la maintenons dans la durée.</p>
             <p>Nous nous sommes rencontrés en master à l’École supérieure polytechnique (ESP) de l’Université Cheikh Anta Diop de Dakar, où SaytuMbay est né.</p>
             <p>Nous commençons au Sénégal, avec des organisations d’ici. Mais l’eau qui manque, la chaleur qui abîme et les récoltes qui se perdent sont les mêmes partout où l’on cultive. C’est pour cela que nous construisons une solution capable d’aller bien au-delà.</p>
           </div>
         </div>
         <div className="flex flex-col gap-4" data-reveal="1">
-          <Photo name="diamniadio" alt="Jeunes plants d’oignon alignés dans une parcelle de Diamniadio." sizes="(min-width: 1024px) 480px, 100vw" position="50% 55%" frameClassName="aspect-[16/10] rounded-[24px]" />
+          <Photo name="esp" alt="L’entrée de l’École supérieure polytechnique de Dakar, où SaytuMbay est né." sizes="(min-width: 1024px) 480px, 100vw" position="50% 40%" frameClassName="aspect-[16/10] rounded-[24px]" />
         <ul className="flex flex-col gap-4">
           {TEAM.map((m, i) => (
             <li key={m.name} className="flex items-center gap-4 rounded-[20px] border border-line bg-surface p-5">
@@ -274,16 +274,16 @@ export function Team() {
 /* ——— Questions fréquentes ——— */
 
 export const FAQ = [
-  { q: "Où en est SaytuMbay ?", a: "Le projet est né à l’ESP de Dakar, dans le cadre d’AfriConnect+, un programme de soutien à l’Internet des objets en Afrique. Il est aujourd’hui incubé à TÀGGU NDAW ÑI, l’incubateur de l’Université Cheikh Anta Diop. La plateforme est construite ; le projet a été présenté au colloque COC’2026 à Thiès, et l’article est en accès libre sur HAL. Nous préparons nos premiers sites pilotes avec des coopératives : c’est le bon moment pour nous rejoindre, comme utilisateur, partenaire ou financeur." },
-  { q: "Utilisez-vous les images satellites ?", a: "Pas encore dans la plateforme. Les images satellites gratuites montrent la santé des cultures vue d’en haut, sur de grandes surfaces ; nos capteurs mesurent ce qu’elles ne voient pas, l’eau du sol et l’intérieur des magasins. Combiner les deux est la direction que nous prenons, seuls ou avec des partenaires." },
-  { q: "J’ai déjà une pompe ou un arrosage automatique. Est-ce utile ?", a: "Oui. Les capteurs s’ajoutent à votre installation sans rien remplacer : ils disent quand arroser et vérifient que l’eau arrive bien dans le sol. Quand le matériel le permet, l’arrosage peut aussi se commander depuis l’application." },
-  { q: "Faut-il internet sur la parcelle ?", a: "Non. Les capteurs parlent par radio LoRaWAN à une passerelle installée dans un local proche, qui envoie les mesures par la 4G. Les alertes arrivent par SMS, sans application ni données mobiles." },
-  { q: "Qui reçoit les alertes ?", a: "La personne responsable de la parcelle ou du magasin, désignée par votre organisation. Chaque membre voit uniquement ce qui le concerne : un exploitant ses parcelles, un technicien les capteurs, le responsable l’ensemble." },
-  { q: "Pour quelles cultures et quels usages ?", a: "Le maraîchage irrigué (oignon, tomate, chou, piment, gombo…) et le stockage d’oignon et de pomme de terre. Pour une chambre froide, un forage ou un autre équipement, parlons-en : le même socle s’adapte." },
-  { q: "Et si un capteur tombe en panne ?", a: "La plateforme le signale dès qu’il ne répond plus ou que sa pile faiblit, et crée une tâche pour le technicien. Un capteur remplacé garde l’historique de l’ancien." },
-  { q: "À qui appartiennent les données ?", a: "À votre organisation. Vous pouvez les exporter à tout moment. Leur traitement suit la loi sénégalaise n° 2008-12 sur les données personnelles ; le détail est dans notre politique de confidentialité." },
-  { q: "Combien ça coûte ?", a: "Cela dépend du nombre de capteurs et du site. Chaque projet commence par une visite, puis un pilote à prix réduit avec des objectifs fixés ensemble. Écrivez-nous pour en parler." },
-  { q: "Qui installe et qui forme ?", a: "Notre équipe, avec des techniciens partenaires sur le terrain. La formation se fait sur place, en wolof ou en français." },
+  { q: "Où en est SaytuMbay ?", a: "Le projet est né à l’ESP de Dakar, dans le cadre d’AfriConnect+, un programme de soutien à l’Internet des objets en Afrique. Il est aujourd’hui incubé à TÀGGU NDAW ÑI, l’incubateur de l’Université Cheikh Anta Diop. La plateforme est construite ; le projet a été présenté au colloque COC’2026 à Thiès, et l’article est en accès libre sur HAL. Nous préparons nos premiers sites pilotes avec des coopératives : c’est le bon moment pour nous rejoindre, comme utilisateur, partenaire ou financeur." },
+  { q: "Utilisez-vous les images satellites ?", a: "Pas encore dans la plateforme. Les images satellites gratuites montrent la santé des cultures vue d’en haut, sur de grandes surfaces ; nos capteurs mesurent ce qu’elles ne voient pas, l’eau du sol et l’intérieur des magasins. Combiner les deux est la direction que nous prenons, seuls ou avec des partenaires." },
+  { q: "J’ai déjà une pompe ou un arrosage automatique. Est-ce utile ?", a: "Oui. Les capteurs s’ajoutent à votre installation sans rien remplacer : ils disent quand arroser et vérifient que l’eau arrive bien dans le sol. Quand le matériel le permet, l’arrosage peut aussi se commander depuis l’application." },
+  { q: "Faut-il internet sur la parcelle ?", a: "Non. Les capteurs parlent par radio LoRaWAN à une passerelle installée dans un local proche, qui envoie les mesures par la 4G. Les alertes arrivent par SMS, sans application ni données mobiles." },
+  { q: "Qui reçoit les alertes ?", a: "La personne responsable de la parcelle ou du magasin, désignée par votre organisation. Chaque membre voit uniquement ce qui le concerne : un exploitant ses parcelles, un technicien les capteurs, le responsable l’ensemble." },
+  { q: "Pour quelles cultures et quels usages ?", a: "Le maraîchage irrigué (oignon, tomate, chou, piment, gombo…) et le stockage d’oignon et de pomme de terre. Pour une chambre froide, un forage ou un autre équipement, parlons-en : le même socle s’adapte." },
+  { q: "Et si un capteur tombe en panne ?", a: "La plateforme le signale dès qu’il ne répond plus ou que sa pile faiblit, et crée une tâche pour le technicien. Un capteur remplacé garde l’historique de l’ancien." },
+  { q: "À qui appartiennent les données ?", a: "À votre organisation. Vous pouvez les exporter à tout moment. Leur traitement suit la loi sénégalaise n° 2008-12 sur les données personnelles ; le détail est dans notre politique de confidentialité." },
+  { q: "Combien ça coûte ?", a: "Cela dépend du nombre de capteurs et du site. Chaque projet commence par une visite, puis un pilote à prix réduit avec des objectifs fixés ensemble. Écrivez-nous pour en parler." },
+  { q: "Qui installe et qui forme ?", a: "Notre équipe, avec des techniciens partenaires sur le terrain. La formation se fait sur place, en wolof ou en français." },
 ];
 
 export function Faq() {
@@ -344,7 +344,7 @@ export function Contact({ level = 2 }: { level?: 1 | 2 }) {
           <H id="contact-titre" className={cn(level === 1 ? h1 : h2, "text-[#f4efe6]")}>
             {level === 1 ? "Contactez-nous." : "Écrivez-nous."}
           </H>
-          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Un champ, un magasin, un partenariat ? Appelez-nous sur WhatsApp, écrivez-nous, ou laissez votre numéro : nous vous rappelons.</p>
+          <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Un champ, un magasin, un partenariat ? Appelez-nous sur WhatsApp, écrivez-nous, ou laissez votre numéro : nous vous rappelons.</p>
           <div className="mt-8 flex flex-col items-start gap-3">
             <WhatsAppLink href={TIDIANE.href}>
               {TIDIANE.name} · <span className="font-mono text-[15px] font-medium">{TIDIANE.display}</span>
@@ -367,7 +367,7 @@ export function Contact({ level = 2 }: { level?: 1 | 2 }) {
 
 /* ——— Appel à l'action en bas des pages détaillées ——— */
 
-export function CtaBand({ title = "Un terrain, un stock, un projet ?", profil = "cooperative" }: { title?: string; profil?: string }) {
+export function CtaBand({ title = "Un terrain, un stock, un projet ?", profil = "cooperative" }: { title?: string; profil?: string }) {
   return (
     <section className="relative overflow-hidden bg-[#0b2e24] text-[#f4efe6]" aria-labelledby="cta-titre">
       <SignTrace className="-bottom-40 -right-32 w-[460px] opacity-60" color="#ef6a22" />

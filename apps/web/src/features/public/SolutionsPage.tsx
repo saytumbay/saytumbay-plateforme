@@ -33,10 +33,10 @@ const SOLUTIONS: Solution[] = [
       { icon: BellRing, text: "Un SMS quand il faut arroser, même sur un petit téléphone" },
       { icon: Wrench, text: "Avec votre pompe ou votre goutte-à-goutte, sans rien changer" },
     ],
-    photo: "rangs",
-    position: "50% 60%",
-    alt: "Rangs d’oignons irrigués au goutte-à-goutte à Diamniadio.",
-    sms: "Parcelle B : le sol est sec. Arrosez aujourd’hui.",
+    photo: "goutteLigne",
+    position: "50% 50%",
+    alt: "Une ligne de goutte-à-goutte au pied des cultures, à Dakar.",
+    sms: "Parcelle B : le sol est sec. Arrosez aujourd’hui.",
     smsAt: "top",
   },
   {
@@ -49,10 +49,10 @@ const SOLUTIONS: Solution[] = [
       { icon: BellRing, text: "Un SMS avant que le stock ne s’abîme" },
       { icon: Package, text: "Vous savez quels sacs vendre en premier" },
     ],
-    photo: "sac",
-    position: "55% 30%",
-    alt: "Une femme porte sur la tête un grand sac d’oignons rouges.",
-    sms: "Magasin : la rangée 3 chauffe. Aérez cette nuit.",
+    photo: "sacsLegumes",
+    position: "50% 40%",
+    alt: "Des sacs de choux et d’oignons chargés pour le marché.",
+    sms: "Magasin : la rangée 3 chauffe. Aérez cette nuit.",
     smsAt: "bottom",
   },
 ];
@@ -67,9 +67,9 @@ export default function SolutionsPage() {
         id="solutions-titre"
         label="Solutions"
         title="Agir avant que la récolte ne se perde."
-        photo="goutte"
-        position="50% 60%"
-        alt="Un plant d’oignon le long d’un tuyau de goutte-à-goutte, au Sénégal."
+        photo="salade"
+        position="40% 50%"
+        alt="Dans un champ de salade, une main tient un téléphone."
       >
         <ul className="mt-8 flex flex-wrap gap-3">
           {SOLUTIONS.map((s) => (
@@ -84,7 +84,7 @@ export default function SolutionsPage() {
       {SOLUTIONS.map((s, i) => (
         <SolutionBlock key={s.id} s={s} flip={i % 2 === 1} />
       ))}
-      <CtaBand title="Un champ ou un magasin à surveiller ?" profil="cooperative" />
+      <CtaBand title="Un champ ou un magasin à surveiller ?" profil="cooperative" />
     </>
   );
 }

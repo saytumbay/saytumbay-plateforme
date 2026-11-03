@@ -14,9 +14,9 @@ export default function AboutPage() {
         label="À propos"
         title="Voir la perte avant qu’elle arrive."
         text="D’où vient SaytuMbay, et où nous en sommes aujourd’hui."
-        photo="rangees"
-        position="50% 45%"
-        alt="Rangées d’oignons dans une parcelle au Sénégal."
+        photo="visiteNiague"
+        position="50% 60%"
+        alt="Une agricultrice examine ses cultures dans un champ à Niague."
       />
       <Context />
       <Status />

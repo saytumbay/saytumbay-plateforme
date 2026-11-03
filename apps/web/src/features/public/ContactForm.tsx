@@ -37,7 +37,7 @@ function draft(v: Form): { text: string; subject: string } {
   if (v.region?.trim()) lines.push(`Localité : ${v.region.trim()}`);
   // Le schéma rend le numéro sans espaces (771234567) : on le remet en groupes lisibles.
   lines.push(`Téléphone : ${v.phone.trim().replace(/^(\d{2})(\d{3})(\d{2})(\d{2})$/, "$1 $2 $3 $4")}`);
-  return { text: lines.join("\n"), subject: `Contact depuis le site : ${v.name.trim()}${v.organization?.trim() ? ` (${v.organization.trim()})` : ""}` };
+  return { text: lines.join("\n"), subject: `Contact depuis le site : ${v.name.trim()}${v.organization?.trim() ? ` (${v.organization.trim()})` : ""}` };
 }
 function channelUrl(channel: Channel, v: Form): string {
   const d = draft(v);
@@ -76,7 +76,7 @@ export function ContactForm() {
         <h3 className="font-display text-[22px] font-semibold tracking-tight">
           Merci{drafted.name ? ` ${drafted.name}` : ""}, votre message est prêt {drafted.channel === "whatsapp" ? "dans WhatsApp" : "dans votre messagerie"}.
         </h3>
-        <p className="text-[15.5px] leading-relaxed text-ink-2">Il ne reste qu’à appuyer sur « Envoyer ». Rien ne s’est ouvert ? Utilisez le bouton ci-dessous.</p>
+        <p className="text-[15.5px] leading-relaxed text-ink-2">Il ne reste qu’à appuyer sur « Envoyer ». Rien ne s’est ouvert ? Utilisez le bouton ci-dessous.</p>
         <div className="flex flex-wrap gap-3">
           <a href={drafted.url} target={drafted.channel === "whatsapp" ? "_blank" : undefined} rel="noopener noreferrer" className="inline-flex h-11 items-center gap-2 rounded-lg bg-brand px-4 font-display text-sm font-semibold text-brand-ink hover:bg-brand-strong">
             {drafted.channel === "whatsapp" ? <MessageCircle className="size-4" aria-hidden /> : <Mail className="size-4" aria-hidden />}
@@ -129,7 +129,7 @@ export function ContactForm() {
           </Select>
         </Field>
       </div>
-      <Field label="Localité" optional hint="Exemple : Mboro, Potou, Rufisque">
+      <Field label="Localité" optional hint="Exemple : Mboro, Potou, Rufisque">
         <Input autoComplete="address-level2" {...form.register("region")} />
       </Field>
       <Field label="Votre message" error={e.message?.message}>
@@ -150,7 +150,7 @@ export function ContactForm() {
               invalid={!!e.consent}
               label={
                 <>
-                  J’accepte que SaytuMbay utilise ces informations pour me recontacter.{IS_DEMO ? " Le message part depuis votre WhatsApp ou votre messagerie : rien n’est enregistré sur ce site." : ""}{" "}
+                  J’accepte que SaytuMbay utilise ces informations pour me recontacter.{IS_DEMO ? " Le message part depuis votre WhatsApp ou votre messagerie : rien n’est enregistré sur ce site." : ""}{" "}
                   <Link to="/confidentialite" className="font-medium text-brand underline underline-offset-2">
                     En savoir plus
                   </Link>

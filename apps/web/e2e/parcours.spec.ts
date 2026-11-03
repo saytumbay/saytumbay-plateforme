@@ -4,7 +4,7 @@ test.describe("site public", () => {
   test("accueil : contenu, accessibilité, pas d'erreur ni de débordement", async ({ page, errors }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Votre champ a soif ?");
-    await expect(page.getByRole("img", { name: /sort un oignon rouge/ })).toBeVisible();
+    await expect(page.getByRole("img", { name: /Tomates mûres/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Simple comme un SMS." })).toBeAttached();
     // Site vitrine : ni connexion ni démo proposées aux visiteurs.
     await expect(page.getByRole("link", { name: /se connecter|démo/i })).toHaveCount(0);

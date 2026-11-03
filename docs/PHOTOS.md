@@ -2,18 +2,27 @@
 
 ## Aujourd'hui
 
-Le site utilise six vraies photos prises au Sénégal (lieu vérifié pour chacune, aucun enfant), publiées sur Wikimedia Commons, sous licence **CC BY-SA 4.0**. Elles montrent le contexte (cultures, récoltes, marché) : ni clients, ni sites SaytuMbay.
+Le site utilise treize vraies photos prises au Sénégal (lieu vérifié pour chacune sur Commons, aucun enfant), sous licence **CC BY-SA 4.0** ou **3.0**. Elles montrent le contexte (cultures, récoltes, marché) : ni clients, ni sites SaytuMbay.
 
-La licence impose de citer l'auteur et la licence. C'est fait sous chaque photo et dans les mentions légales (section « Crédits »). Elle autorise l'usage commercial.
+Sur le site public, chaque photo n'apparaît qu'une fois et correspond au texte qu'elle accompagne ; les oignons sont réservés au stockage.
+
+La licence impose de citer l'auteur et la licence : c'est fait dans les mentions légales (section « Crédits »), qui listent toutes les photos. Elle autorise l'usage commercial.
 
 | Fichier | Où | Sujet | Auteur |
 |---|---|---|---|
-| `champ-goutte` | Accueil, héros | Main qui sort un oignon, goutte-à-goutte (Diamniadio) | Pacocreat |
-| `niague` | Accueil, « Le problème » | Champ d'oignons à Niague Noflaye | Zul pro le Geni |
-| `sac` | Accueil, Onion ; tableau de bord Onion | Sac d'oignons porté vers le marché | Thiam Babel Design |
-| `rangs` | Accueil, AgriTech | Rangs d'oignon irrigués (Diamniadio) | Pacocreat |
-| `diamniadio` | Accueil, « Du champ au marché » ; écran de connexion | Parcelle d'oignons | Wuzyprod |
-| `marche` | Accueil, « Du champ au marché » | Marché de Case Ba, Parcelles Assainies | Pacocreat |
+| `tomates` | Accueil, héros (SMS « parcelle de tomates ») | Tomates mûres sur pied | Pacocreat |
+| `marche` | Accueil, chiffre des pertes | Marché de Case Ba, Parcelles Assainies | Pacocreat |
+| `arrosoirs` | Accueil, « Pour vos champs » | Arrosage des légumes (région de Ziguinchor) | Fatou kine doucoure |
+| `sac` | Accueil, « Pour vos stocks » ; tableau de bord stockage | Sac d'oignons porté vers le marché | Thiam Babel Design |
+| `salade-telephone` | Solutions, en-tête | Champ de salade, téléphone en main | Youfadiarragaye |
+| `goutte-ligne` | Solutions, les champs | Goutte-à-goutte (Patte d'Oie, Dakar) | 4MAPS |
+| `sacs-legumes` | Solutions, le stockage | Sacs de choux et d'oignons | Thiam Babel Design |
+| `visite-niague` | À propos, en-tête | Visite d'un champ à Niague | Kikanakana |
+| `tomate-seche` | À propos, « Le problème » | Plant de tomate qui dépérit | Pacocreat |
+| `esp` | À propos, l'équipe | Entrée de l'ESP de Dakar (CC BY-SA 3.0) | Nathysy |
+| `pompage` | À propos, questions fréquentes | Station de pompage, vallée du fleuve (CC BY-SA 3.0) | Africa Rice Center |
+| `rangs` | Tableau de bord des champs | Rangs d'oignon irrigués (Diamniadio) | Pacocreat |
+| `diamniadio` | Écran de connexion | Parcelle d'oignons | Wuzyprod |
 
 Les fichiers sont dans `apps/web/src/assets/photos`, en WebP à 640, 1200 et 1920 px de large. Leurs métadonnées (lieu, auteur, licence, lien) sont dans `index.ts`.
 

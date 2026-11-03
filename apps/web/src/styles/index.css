@@ -290,6 +290,18 @@
 }
 @media (prefers-reduced-motion: reduce) { .plan-pulse { animation: none; opacity: 0.6; } }
 
+/* Site public : défilement doux vers les ancres, sous l'en-tête fixe. */
+html { scroll-padding-top: 88px; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+/* Liens et boutons : les couleurs changent en douceur (couche de base : les classes utilitaires gardent la main). */
+@layer base {
+  @media (prefers-reduced-motion: no-preference) {
+    a, button, summary, [role="button"] { transition-property: color, background-color, border-color, text-decoration-color, box-shadow, opacity; transition-duration: 180ms; transition-timing-function: var(--ease-out); }
+  }
+}
+
 /* Site public : fondu entre les pages, photos qui apparaissent une fois chargées, cartes qui se soulèvent au survol. */
 @keyframes page-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
