@@ -14,14 +14,14 @@ test.describe("site public", () => {
     expect(errors).toEqual([]);
   });
 
-  test("thème sombre : accueil et « Notre histoire » restent lisibles", async ({ page }) => {
+  test("thème sombre : accueil et contact restent lisibles", async ({ page }) => {
     await page.emulateMedia({ colorScheme: "dark", reducedMotion: "reduce" });
     await page.goto("/");
     await expect(page.getByRole("heading", { name: "Simple comme un SMS." })).toBeVisible();
     expect(await axe(page), "/").toEqual([]);
-    await page.goto("/a-propos");
+    await page.goto("/contact");
     await expect(page.getByRole("heading", { level: 3, name: "Investisseurs, bailleurs, incubateurs" })).toBeVisible();
-    expect(await axe(page), "/a-propos").toEqual([]);
+    expect(await axe(page), "/contact").toEqual([]);
   });
 
   test("formulaire de contact : validation puis message rédigé dans WhatsApp (site sans serveur)", async ({ page }) => {
@@ -69,7 +69,7 @@ test.describe("site public", () => {
     // Les anciennes adresses mènent à la bonne solution.
     await page.goto("/onion");
     await expect(page).toHaveURL(/\/solutions#stockage$/);
-    await expect(page.getByRole("heading", { name: /Sauver le stock/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Garder vos oignons sains." })).toBeVisible();
     expect(errors).toEqual([]);
   });
 });

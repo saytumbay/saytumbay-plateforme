@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
-import { ArrowUpRight, Mail, Menu, MessageCircle } from "lucide-react";
+import { Mail, Menu, MessageCircle } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
+import { SocialLinks } from "@/components/brand/SocialIcons";
 import { Sheet } from "@/components/ui/overlay";
 import { cn } from "@/lib/cn";
 
@@ -67,7 +68,7 @@ function PublicHeader() {
     <header className={cn("sticky top-0 z-40 transition-[background-color,border-color,box-shadow] duration-200", scrolled ? "border-b border-line bg-surface" : "border-b border-transparent bg-bg")}>
       <div className="mx-auto flex h-16 max-w-[1200px] items-center gap-6 px-4 sm:px-6 lg:h-[72px]">
         <Link to="/" className="rounded-md" aria-label="SaytuMbay, accueil">
-          <Logo height={32} />
+          <Logo height={46} />
         </Link>
         <nav aria-label="Navigation principale" className="ml-auto hidden md:block">
           <ul className="flex items-center gap-1">
@@ -117,18 +118,10 @@ function PublicFooter() {
     <footer className="border-t border-line bg-surface">
       <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
         <div>
-          <Logo height={34} tagline />
+          <Logo height={44} tagline />
           <p className="mt-4 text-[14px] text-ink-3">Dakar, Sénégal</p>
           <h2 className="mt-8 font-display text-[14px] font-semibold">Suivez-nous</h2>
-          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-[14.5px] text-ink-2">
-            {SOCIAL.map((s) => (
-              <li key={s.name}>
-                <a href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-ink">
-                  {s.name} <ArrowUpRight className="size-3.5" aria-hidden />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <SocialLinks links={SOCIAL} className="mt-3" />
         </div>
         <FooterCol
           title="Solutions"

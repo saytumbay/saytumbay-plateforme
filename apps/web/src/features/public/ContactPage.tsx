@@ -1,8 +1,16 @@
-/** « Contact » : WhatsApp, e-mail, réseaux sociaux et formulaire. */
+/** « Contact » : WhatsApp, e-mail et formulaire, puis « Travaillons ensemble » (producteurs, financeurs, institutions). */
 import { usePageTitle } from "@/components/ui/page";
-import { Contact } from "./blocks";
+import { useReveal } from "@/lib/reveal";
+import { Contact, Together, useHashScroll } from "./blocks";
 
 export default function ContactPage() {
   usePageTitle("Contact");
-  return <Contact level={1} />;
+  useReveal();
+  useHashScroll();
+  return (
+    <>
+      <Contact level={1} />
+      <Together />
+    </>
+  );
 }
