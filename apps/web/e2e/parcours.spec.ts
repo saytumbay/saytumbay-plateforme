@@ -59,7 +59,7 @@ test.describe("site public", () => {
     for (const [path, title] of [
       ["/solutions", /Agir avant que la récolte/],
       ["/a-propos", /veiller sur l’agriculture/],
-      ["/contact", /Travaillons ensemble/],
+      ["/contact", /Parlons-en/],
     ] as const) {
       await page.goto(path);
       await expect(page.getByRole("heading", { level: 1 })).toContainText(title);

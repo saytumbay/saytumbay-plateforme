@@ -130,7 +130,7 @@ export const STATUS: Array<{ title: string; tone: "brand" | "sun" | "ink"; items
     tone: "sun",
     items: [
       "Les SMS en wolof.",
-      "Le repérage automatique des mesures anormales, issu du prototype présenté au COC’2026.",
+      "Une alerte automatique dès qu’une mesure est anormale.",
       "Les premiers sites pilotes, avec des coopératives.",
     ],
   },
@@ -155,7 +155,7 @@ export const PAPER = {
 export function Status() {
   return (
     <section id="etat" className="scroll-mt-20 border-t border-line" aria-labelledby="etat-titre">
-      <div className={cn(wrap, "pb-14 pt-20 lg:pb-16 lg:pt-28")}>
+      <div className={cn(wrap, "pb-8 pt-20 lg:pb-8 lg:pt-28")}>
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-16">
           <div data-reveal>
             <p className={cn(eyebrow, "text-brand")}>Où nous en sommes</p>
@@ -242,7 +242,7 @@ export function Together({ level = 2 }: { level?: 1 | 2 }) {
           {level === 1 ? "Travaillons ensemble." : "Chacun peut nous aider à aller plus loin."}
         </H>
         <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-[#dfe6dc]" data-reveal>
-          Choisissez ce qui vous ressemble, ou écrivez-nous directement. Nous répondons à chaque message.
+          Choisissez ce qui vous ressemble : le formulaire se remplit avec votre profil.
         </p>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {AUDIENCES.map((a, i) => (
@@ -271,36 +271,37 @@ export const TEAM = [
 export function Team() {
   return (
     <section id="equipe" className="scroll-mt-20" aria-labelledby="equipe-titre">
-      <div className={cn(wrap, "grid gap-14 pb-20 pt-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20 lg:pb-28 lg:pt-16")}>
+      {/* Texte et fondateurs à gauche, photo de l'ESP sur toute la hauteur à droite : pas de vide sous l'une des colonnes. */}
+      <div className={cn(wrap, "grid gap-10 pb-16 pt-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16 lg:pb-20 lg:pt-8")}>
         <div data-reveal>
           <p className={cn(eyebrow, "text-brand")}>L’équipe</p>
           <h2 id="equipe-titre" className={cn(h2, "mt-3")}>
             Nés à Dakar. Construits pour grandir.
           </h2>
           <div className="mt-5 flex max-w-[58ch] flex-col gap-4 text-[17px] leading-relaxed text-ink-2">
-            <p>Réseaux, objets connectés, logiciel : nous maîtrisons toute la chaîne, du capteur planté dans le sol jusqu’au SMS sur votre téléphone.</p>
+            <p>Réseaux, objets connectés, logiciel : nous maîtrisons toute la chaîne, du capteur planté dans le sol jusqu’au SMS sur votre téléphone.</p>
             <p>Nous nous sommes rencontrés en master à l’École supérieure polytechnique (ESP) de l’Université Cheikh Anta Diop de Dakar, où SaytuMbay est né.</p>
           </div>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+            {TEAM.map((m, i) => (
+              <li key={m.name} className="flex items-center gap-4 rounded-[20px] border border-line bg-surface p-5">
+                <span className={cn("flex size-14 shrink-0 items-center justify-center rounded-full font-display text-[18px] font-semibold", i ? "bg-sun-soft text-sun-ink" : "bg-brand-soft text-brand-strong dark:text-brand")} aria-hidden>
+                  {m.name
+                    .split(" ")
+                    .map((w) => w[0])
+                    .join("")
+                    .slice(0, 2)}
+                </span>
+                <span>
+                  <span className="block font-display text-[17.5px] font-semibold">{m.name}</span>
+                  <span className="block text-[15px] text-ink-3">{m.role}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="flex flex-col gap-4" data-reveal="1">
-          <Photo name="esp" alt="L’entrée de l’École supérieure polytechnique de Dakar, où SaytuMbay est né." sizes="(min-width: 1024px) 480px, 100vw" position="50% 40%" frameClassName="aspect-[16/10] rounded-[24px]" />
-        <ul className="flex flex-col gap-4">
-          {TEAM.map((m, i) => (
-            <li key={m.name} className="flex items-center gap-4 rounded-[20px] border border-line bg-surface p-5">
-              <span className={cn("flex size-14 shrink-0 items-center justify-center rounded-full font-display text-[18px] font-semibold", i ? "bg-sun-soft text-sun-ink" : "bg-brand-soft text-brand-strong dark:text-brand")} aria-hidden>
-                {m.name
-                  .split(" ")
-                  .map((w) => w[0])
-                  .join("")
-                  .slice(0, 2)}
-              </span>
-              <span>
-                <span className="block font-display text-[17.5px] font-semibold">{m.name}</span>
-                <span className="block text-[15px] text-ink-3">{m.role}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
+        <div data-reveal="1">
+          <Photo name="esp" alt="L’entrée de l’École supérieure polytechnique de Dakar, où SaytuMbay est né." sizes="(min-width: 1024px) 480px, 100vw" position="50% 40%" className="lg:h-full" frameClassName="aspect-[16/10] rounded-[24px] lg:aspect-auto lg:h-full" />
         </div>
       </div>
     </section>
@@ -377,7 +378,7 @@ export function Contact({ level = 2 }: { level?: 1 | 2 }) {
       <div className={cn(wrap, "relative grid gap-12 py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20 lg:py-28")}>
         <div>
           <H id="contact-titre" className={cn(level === 1 ? h1 : h2, "text-[#f4efe6]")}>
-            {level === 1 ? "Contactez-nous." : "Écrivez-nous."}
+            {level === 1 ? "Parlons-en." : "Écrivez-nous."}
           </H>
           <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Un champ, un magasin, un partenariat ? Appelez-nous sur WhatsApp, écrivez-nous, ou laissez votre numéro : nous vous rappelons.</p>
           <div className="mt-8 flex flex-col items-start gap-3">

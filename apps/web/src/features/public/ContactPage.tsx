@@ -1,4 +1,4 @@
-/** « Contact » : « Travaillons ensemble » (producteurs, financeurs, institutions), puis WhatsApp, e-mail et formulaire. */
+/** « Contact » : WhatsApp, e-mail et formulaire d'abord, puis « Travaillons ensemble » (producteurs, financeurs, institutions). */
 import { usePageTitle } from "@/components/ui/page";
 import { useReveal } from "@/lib/reveal";
 import { Contact, Together, useHashScroll } from "./blocks";
@@ -9,8 +9,8 @@ export default function ContactPage() {
   useHashScroll();
   return (
     <>
-      <Together level={1} />
-      <Contact />
+      <Contact level={1} />
+      <Together />
     </>
   );
 }
