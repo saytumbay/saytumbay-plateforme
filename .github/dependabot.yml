@@ -1,0 +1,27 @@
+# Mises à jour automatiques proposées par GitHub (dépôt public) : une demande groupée par mois,
+# en plus des alertes de sécurité, qui arrivent dès qu'une faille est connue.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 5
+    groups:
+      dependances:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+    commit-message:
+      prefix: "Dépendances"
+  - package-ecosystem: docker
+    directory: /apps/api
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "Docker"
+  - package-ecosystem: docker-compose
+    directory: /infra
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "Docker"

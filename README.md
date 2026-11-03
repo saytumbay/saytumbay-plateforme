@@ -47,7 +47,7 @@ npm run dev:api        # API sur :4000, base PGlite embarquée, données de dém
 npm run dev:web-api    # site branché sur l'API (proxy /api) : http://localhost:5173
 ```
 
-Comptes de démonstration, **base de développement uniquement** :
+Comptes de démonstration, **base de développement uniquement**. Leur mot de passe est public : en production (`NODE_ENV=production`), l'API refuse de démarrer avec `SEED_DEMO` ou `DEMO_LOGIN`, et `npm run db:seed` refuse de s'exécuter.
 
 | Profil | E-mail | Rôle |
 |---|---|---|
@@ -66,7 +66,7 @@ Tant que `SMS_PROVIDER=console`, les SMS sont écrits dans les journaux de l'API
 
 ```bash
 npm run typecheck      # TypeScript strict, trois paquets
-npm test               # 67 tests : règles partagées, sécurité de l'API (PGlite en mémoire), site
+npm test               # 69 tests : règles partagées, sécurité de l'API (PGlite en mémoire), site
 npm run e2e            # 24 parcours Playwright + axe (ordinateur et téléphone), sous la vraie politique de sécurité
 ```
 
@@ -112,3 +112,9 @@ npm run build                          # site en mode API + API (apps/api/dist)
 Né à l'École supérieure polytechnique (ESP) de Dakar, dans le programme AfriConnect+. Incubé à TÀGGU NDAW ÑI (Université Cheikh Anta Diop). Article : [SaytuMbay : une plateforme IoT-IA pour l'agriculture de précision au Sénégal](https://hal.science/hal-05571878v1), Tidiane Sow, Ibrahima Fall et al., colloque COC'2026, Thiès.
 
 Contact : contact@saytumbay.com
+
+## Sécurité et droits
+
+Une faille ? Écrivez à contact@saytumbay.com plutôt que d'ouvrir un ticket public (voir [SECURITY.md](SECURITY.md)).
+
+Le code est visible publiquement, mais il n'est pas sous licence libre : © 2026 SaytuMbay, tous droits réservés. Les photos ont leurs propres licences, citées dans les mentions légales du site.

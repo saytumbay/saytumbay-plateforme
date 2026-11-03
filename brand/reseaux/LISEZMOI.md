@@ -132,7 +132,7 @@ Cinq sujets qui reviennent :
 1. **Le terrain** : une parcelle, un magasin, une rencontre avec un producteur (avec son accord).
 2. **Les coulisses** : souder un capteur, tester une passerelle, une journée à l'incubateur. TikTok : vidéos de 15 à 30 s, filmées au téléphone, en wolof ou en français.
 3. **Apprendre** : « Pourquoi l'oignon pourrit au cœur du tas », « Arroser le soir ou le matin ? », « C'est quoi LoRaWAN ? ».
-4. **Les preuves** : COC'2026, Dakar Night Market, hackathon ISOC ESMT, un pilote qui démarre.
+4. **Les preuves** : COC'2026, Dakar Night Market, hackathon ISOC ESMT, puis le démarrage des premiers pilotes, le moment venu.
 5. **L'équipe** : qui nous sommes, pourquoi nous faisons ça.
 
 ## Photos et vidéos
