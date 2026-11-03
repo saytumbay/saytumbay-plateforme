@@ -78,27 +78,32 @@ export function LossSources({ className, linkClassName }: { className?: string; 
   );
 }
 
-/* ——— Le problème, chiffre sourcé ——— */
+/* ——— Notre mission (À propos) : le pourquoi, sans redire le problème déjà chiffré sur l'accueil ——— */
 
-export function Context() {
+export const PRINCIPLES = [
+  { title: "Simple", text: "Un SMS clair plutôt qu’une application de plus. Le wolof arrive : les messages sont en relecture." },
+  { title: "Honnête", text: "Nous disons ce qui est prêt et ce qui reste à faire, sans promettre de chiffres que nous n’avons pas mesurés." },
+  { title: "D’ici", text: "Conçu à Dakar, pour les cultures, les magasins et les téléphones du Sénégal." },
+];
+
+export function Mission() {
   return (
-    <section className="border-y border-line bg-surface" aria-label="Le problème">
-      <div className={cn(wrap, "py-16 lg:py-24")}>
-        <p className={cn(eyebrow, "text-brand")}>Le problème</p>
-        <p className="mt-4 max-w-[30ch] font-display text-[clamp(26px,3.3vw,42px)] font-semibold leading-[1.15] tracking-[-0.025em] text-balance">
-          Au Sénégal, 30 % des légumes se perdent avant même de quitter le champ.
+    <section className="border-y border-line bg-surface" aria-labelledby="mission-titre">
+      <div className={cn(wrap, "py-20 lg:py-28")}>
+        <p className={cn(eyebrow, "text-brand")} data-reveal>
+          Notre mission
         </p>
-        <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-14">
-          <div className="flex flex-col gap-6 text-[16.5px] leading-relaxed text-ink-2" data-reveal>
-          <p>Une bonne partie se joue sans témoin : une parcelle qui sèche pendant un après-midi d’harmattan, une vanne restée ouverte toute la nuit, un sol qui se charge en sel au fil des saisons.</p>
-          <p>Dans les magasins, l’oignon commence à pourrir au cœur des sacs, là où personne ne regarde. Quand l’odeur arrive à la porte, une partie du stock est déjà perdue.</p>
-          </div>
-          <div data-reveal="1">
-            <Photo name="tomateSeche" alt="Un plant de tomate qui dépérit, ses fruits encore verts." sizes="(min-width: 1024px) 560px, 100vw" position="50% 50%" frameClassName="aspect-[16/10] rounded-[24px]" />
-          </div>
-        </div>
-        <p className="mt-10 max-w-[62ch] border-l-4 border-sun pl-5 font-display text-[clamp(19px,2vw,23px)] font-semibold leading-snug text-ink">Ces pertes préviennent presque toujours. Notre travail : rendre ces signaux visibles assez tôt pour agir.</p>
-        <LossSources className="mt-10 max-w-[80ch] text-[13px] leading-relaxed text-ink-3" linkClassName="hover:text-ink" />
+        <h2 id="mission-titre" className="mt-4 max-w-[26ch] font-display text-[clamp(28px,3.6vw,46px)] font-semibold leading-[1.12] tracking-[-0.03em] text-balance" data-reveal>
+          Que chaque producteur, petit ou grand, ait la bonne information au bon moment, sur le téléphone qu’il a déjà.
+        </h2>
+        <ul className="mt-14 grid gap-8 md:grid-cols-3 md:gap-6">
+          {PRINCIPLES.map((p, i) => (
+            <li key={p.title} className="border-t-2 border-sun pt-5" data-reveal={i}>
+              <h3 className="font-display text-[20px] font-semibold">{p.title}</h3>
+              <p className="mt-2 text-[16px] leading-relaxed text-ink-2">{p.text}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
@@ -262,7 +267,7 @@ export function Team() {
             Nés à Dakar. Construits pour grandir.
           </h2>
           <div className="mt-5 flex max-w-[58ch] flex-col gap-4 text-[17px] leading-relaxed text-ink-2">
-            <p>Réseaux, objets connectés, logiciel : nous concevons la solution, l’installons avec des techniciens partenaires et la maintenons dans la durée.</p>
+            <p>Réseaux, objets connectés, logiciel : nous maîtrisons toute la chaîne, du capteur planté dans le sol jusqu’au SMS sur votre téléphone.</p>
             <p>Nous nous sommes rencontrés en master à l’École supérieure polytechnique (ESP) de l’Université Cheikh Anta Diop de Dakar, où SaytuMbay est né.</p>
             <p>Nous commençons au Sénégal, avec des organisations d’ici. Mais l’eau qui manque, la chaleur qui abîme et les récoltes qui se perdent sont les mêmes partout où l’on cultive. C’est pour cela que nous construisons une solution capable d’aller bien au-delà.</p>
           </div>
@@ -295,7 +300,6 @@ export function Team() {
 /* ——— Questions fréquentes ——— */
 
 export const FAQ = [
-  { q: "Où en est SaytuMbay ?", a: "Le projet est né à l’ESP de Dakar, dans le cadre d’AfriConnect+, un programme de soutien à l’Internet des objets en Afrique. Il est aujourd’hui incubé à TÀGGU NDAW ÑI, l’incubateur de l’Université Cheikh Anta Diop. La plateforme est construite ; le projet a été présenté au colloque COC’2026 à Thiès, et l’article est en accès libre sur HAL. Nous préparons nos premiers sites pilotes avec des coopératives : c’est le bon moment pour nous rejoindre, comme utilisateur, partenaire ou financeur." },
   { q: "Utilisez-vous les images satellites ?", a: "Pas encore dans la plateforme. Les images satellites gratuites montrent la santé des cultures vue d’en haut, sur de grandes surfaces ; nos capteurs mesurent ce qu’elles ne voient pas, l’eau du sol et l’intérieur des magasins. Combiner les deux est la direction que nous prenons, seuls ou avec des partenaires." },
   { q: "J’ai déjà une pompe ou un arrosage automatique. Est-ce utile ?", a: "Oui. Les capteurs s’ajoutent à votre installation sans rien remplacer : ils disent quand arroser et vérifient que l’eau arrive bien dans le sol. Quand le matériel le permet, l’arrosage peut aussi se commander depuis l’application." },
   { q: "Faut-il internet sur la parcelle ?", a: "Non. Les capteurs parlent par radio LoRaWAN à une passerelle installée dans un local proche, qui envoie les mesures par la 4G. Les alertes arrivent par SMS, sans application ni données mobiles." },

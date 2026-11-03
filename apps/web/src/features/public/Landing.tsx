@@ -1,6 +1,7 @@
 /**
- * Accueil, pensé pour quelqu'un qui n'y connaît rien (un agriculteur d'abord) : des images plein écran,
- * une idée par écran, quelques mots. Les détails sont sur /solutions, /a-propos et /contact.
+ * Accueil, pensé pour quelqu'un qui n'y connaît rien (un agriculteur d'abord). Une histoire en cinq temps, une idée par écran :
+ * la promesse, le problème (seule page où il est chiffré), nos deux solutions, comment ça marche, notre parcours.
+ * Le détail est ailleurs, sans redite : /solutions (comment), /a-propos (qui), /contact (agir).
  */
 import { Link } from "react-router";
 import { ArrowRight, Eye, MessageSquareText, Sprout } from "lucide-react";
@@ -19,9 +20,9 @@ export default function Landing() {
   return (
     <>
       <Hero />
-      <BigNumber />
+      <Problem />
+      <Solutions />
       <Steps />
-      <ForWhat />
       <Proofs />
       <CtaBand title="Vous voulez essayer ? Parlons-en." profil="cooperative" />
     </>
@@ -31,7 +32,7 @@ export default function Landing() {
 /** Texte clair posé sur une photo assombrie : mêmes couleurs dans les deux thèmes. */
 const onPhoto = "text-[#f4efe6]";
 
-/* ——— Ce que c'est : une photo, une phrase, un SMS ——— */
+/* ——— 1. La promesse : une photo, une phrase, un SMS ——— */
 
 function Hero() {
   return (
@@ -53,7 +54,7 @@ function Hero() {
             <span className="block">Votre champ a soif ?</span>
             <span className="block text-[#ef6a22]">Vous recevez un SMS.</span>
           </h1>
-          <p className="mt-6 max-w-[30ch] text-[clamp(18px,1.7vw,22px)] leading-snug text-[#e6e2d8]">De petits capteurs veillent sur vos champs et vos magasins.</p>
+          <p className="mt-6 max-w-[32ch] text-[clamp(18px,1.7vw,22px)] leading-snug text-[#e6e2d8]">De petits capteurs veillent jour et nuit sur vos champs et vos magasins.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <ButtonLink to="/contact?profil=cooperative" size="lg" className="bg-[#f4efe6] text-[#0b2e24] hover:bg-white">
               Je veux essayer
@@ -85,40 +86,100 @@ function SmsCard() {
   );
 }
 
-/* ——— Pourquoi : un chiffre ——— */
+/* ——— 2. Le problème : un chiffre sourcé, puis ses deux causes, qui annoncent nos deux solutions ——— */
 
-function BigNumber() {
+const CAUSES = [
+  { where: "Au champ", text: "Une parcelle sèche en un après-midi d’harmattan." },
+  { where: "Au magasin", text: "L’oignon pourrit au cœur des sacs, sans bruit." },
+];
+
+function Problem() {
   return (
     <section className={cn("relative isolate overflow-hidden bg-[#0b2e24]", onPhoto)} aria-labelledby="chiffre-titre">
-      <Photo name="marche" caption={false} alt="" sizes="100vw" position="50% 40%" className="absolute inset-0 -z-10" frameClassName="h-full" />
-      <div className="absolute inset-0 -z-10 bg-[#0b2e24]/80" aria-hidden />
-      <div className={cn(wrap, "py-24 text-center lg:py-36")} data-reveal>
-        <h2 id="chiffre-titre" className="text-[#f4efe6]">
+      <Photo name="tomateSeche" caption={false} alt="" sizes="100vw" position="50% 50%" className="absolute inset-0 -z-10" frameClassName="h-full" />
+      <div className="absolute inset-0 -z-10 bg-[#0b2e24]/82" aria-hidden />
+      <div className={cn(wrap, "py-24 text-center lg:py-32")}>
+        <p className={cn(eyebrow, "text-[#f4efe6]")} data-reveal>
+          Le problème
+        </p>
+        <h2 id="chiffre-titre" className="mt-4 text-[#f4efe6]" data-reveal>
           <span className="block font-display text-[clamp(64px,15vw,200px)] font-bold leading-none tracking-[-0.05em] text-[#ef6a22]">30 %</span>
-          <span className="mx-auto mt-6 block max-w-[20ch] font-display text-[clamp(24px,2.8vw,36px)] font-semibold leading-snug tracking-[-0.02em] text-balance">
-            des légumes du Sénégal se perdent avant même de quitter le champ.
+          <span className="mx-auto mt-6 block max-w-[22ch] font-display text-[clamp(24px,2.8vw,36px)] font-semibold leading-snug tracking-[-0.02em] text-balance">
+            des légumes du Sénégal se perdent avant même d’arriver au marché.
           </span>
         </h2>
-        <p className="mx-auto mt-6 text-[clamp(18px,1.7vw,22px)] text-[#e6e2d8]">Souvent, personne ne le voit venir. Nous, si.</p>
-        <LossSources className="mx-auto mt-14 max-w-[70ch] text-[12.5px] leading-relaxed text-[#d6dbd2]" linkClassName="hover:text-white" />
+        <ul className="mx-auto mt-12 grid max-w-[820px] gap-4 text-left sm:grid-cols-2">
+          {CAUSES.map((c, i) => (
+            <li key={c.where} className="rounded-[20px] border border-[#f4efe6]/20 bg-[#0b2e24]/50 p-5 backdrop-blur-sm" data-reveal={i}>
+              <span className={cn(eyebrow, "block text-[#ef6a22]")}>{c.where}</span>
+              <span className="mt-2 block text-[18px] leading-snug text-pretty text-[#f4efe6]">{c.text}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mx-auto mt-10 font-display text-[clamp(20px,2vw,26px)] font-semibold text-[#f4efe6]" data-reveal>
+          Souvent, on le voit trop tard.
+        </p>
+        <LossSources className="mx-auto mt-12 max-w-[70ch] text-[12.5px] leading-relaxed text-[#d6dbd2]" linkClassName="hover:text-white" />
       </div>
     </section>
   );
 }
 
-/* ——— Comment : trois étapes ——— */
+/* ——— 3. Nos solutions : une par cause. Titres propres à l'accueil, le détail est sur /solutions. ——— */
+
+const TILES: Array<{ to: string; photo: PhotoKey; position: string; alt: string; eyebrow: string; title: string }> = [
+  { to: "/solutions#champs", photo: "arrosoirs", position: "50% 70%", alt: "Un maraîcher arrose ses légumes avec deux arrosoirs.", eyebrow: "Solution 1 · Au champ", title: "Un SMS quand il faut arroser." },
+  { to: "/solutions#stockage", photo: "sac", position: "55% 30%", alt: "Une femme porte sur la tête un grand sac d’oignons rouges, vers le marché.", eyebrow: "Solution 2 · Au magasin", title: "Des oignons sains jusqu’à la vente." },
+];
+
+function Solutions() {
+  return (
+    <section className="bg-surface" aria-labelledby="solutions-titre">
+      <div className={cn(wrap, "pb-12 pt-20 text-center lg:pb-14 lg:pt-28")} data-reveal>
+        <p className={cn(eyebrow, "text-brand")}>Nos solutions</p>
+        <h2 id="solutions-titre" className={cn(display, "mx-auto mt-3 max-w-[16ch]")}>
+          Prévenu à temps, au champ comme au magasin.
+        </h2>
+      </div>
+      <div className="mx-auto w-full max-w-[1440px] px-3 pb-3 sm:px-4 sm:pb-4">
+        <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
+          {TILES.map((t, i) => (
+            <div key={t.to} data-reveal={i}>
+              <Link to={t.to} className="group relative block overflow-hidden rounded-[28px]">
+                <Photo name={t.photo} caption={false} alt={t.alt} sizes="(min-width: 768px) 50vw, 100vw" position={t.position} frameClassName="aspect-[4/5] lg:aspect-[6/7] [&>img]:transition-transform [&>img]:duration-700 group-hover:[&>img]:scale-[1.03] motion-reduce:[&>img]:transition-none" />
+                <span className="absolute inset-0 bg-gradient-to-t from-[#0b2e24]/90 via-[#0b2e24]/25 to-transparent" aria-hidden />
+                <span className="absolute inset-x-0 bottom-0 p-7 text-[#f4efe6] sm:p-10">
+                  <span className={cn(eyebrow, "block text-[#f4efe6]")}>{t.eyebrow}</span>
+                  <span className="mt-3 block max-w-[14ch] font-display text-[clamp(32px,3.8vw,52px)] font-bold leading-[1.02] tracking-[-0.035em]">{t.title}</span>
+                  <span className="mt-5 inline-flex items-center gap-1.5 font-display text-[16px] font-semibold underline-offset-4 group-hover:underline">
+                    Voir la solution <ArrowRight className="size-4" aria-hidden />
+                  </span>
+                </span>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ——— 4. Comment ça marche : trois étapes, valables pour les deux solutions ——— */
 
 const STEPS = [
-  { icon: Sprout, title: "On pose un capteur", text: "Dans le champ ou le magasin." },
-  { icon: Eye, title: "Il surveille", text: "Jour et nuit." },
-  { icon: MessageSquareText, title: "Vous recevez un SMS", text: "Au bon moment." },
+  { icon: Sprout, title: "On pose un capteur", text: "Dans le sol du champ, ou entre les sacs du magasin." },
+  { icon: Eye, title: "Il surveille", text: "Jour et nuit, même quand personne n’est là." },
+  { icon: MessageSquareText, title: "Vous recevez un SMS", text: "Sur le téléphone que vous avez déjà, sans internet." },
 ];
 
 function Steps() {
   return (
     <section aria-labelledby="etapes-titre">
       <div className={cn(wrap, "py-24 lg:py-32")}>
-        <h2 id="etapes-titre" className={cn(display, "text-center")} data-reveal>
+        <p className={cn(eyebrow, "text-center text-brand")} data-reveal>
+          Comment ça marche
+        </p>
+        <h2 id="etapes-titre" className={cn(display, "mt-3 text-center")} data-reveal>
           Simple comme un SMS.
         </h2>
         <ol className="relative mx-auto mt-16 grid max-w-[1000px] gap-12 md:grid-cols-3 md:gap-8">
@@ -136,7 +197,7 @@ function Steps() {
                 <span className="sr-only">Étape {i + 1} : </span>
                 {s.title}
               </h3>
-              <p className="mt-1.5 text-[18px] text-ink-2">{s.text}</p>
+              <p className="mt-1.5 max-w-[26ch] text-[18px] leading-snug text-ink-2">{s.text}</p>
             </li>
           ))}
         </ol>
@@ -145,49 +206,13 @@ function Steps() {
   );
 }
 
-/* ——— Pour quoi : les champs, les stocks ——— */
+/* ——— 5. Confiance : une ligne ; l'histoire complète est sur /a-propos ——— */
 
-const TILES: Array<{ to: string; photo: PhotoKey; position: string; alt: string; eyebrow: string; title: string }> = [
-  { to: "/solutions#champs", photo: "arrosoirs", position: "50% 70%", alt: "Un maraîcher arrose ses légumes avec deux arrosoirs.", eyebrow: "Pour vos champs", title: "Arroser au bon moment." },
-  { to: "/solutions#stockage", photo: "sac", position: "55% 30%", alt: "Une femme porte sur la tête un grand sac d’oignons rouges.", eyebrow: "Pour vos stocks", title: "Garder vos oignons sains." },
-];
-
-function ForWhat() {
-  return (
-    <section className="bg-surface" aria-labelledby="pourquoi-titre">
-      <div className="mx-auto w-full max-w-[1440px] px-3 py-3 sm:px-4 sm:py-4">
-        <h2 id="pourquoi-titre" className="sr-only">
-          Pour vos champs et vos stocks
-        </h2>
-        <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
-          {TILES.map((t, i) => (
-            <div key={t.to} data-reveal={i}>
-              <Link to={t.to} className="group relative block overflow-hidden rounded-[28px]">
-                <Photo name={t.photo} caption={false} alt={t.alt} sizes="(min-width: 768px) 50vw, 100vw" position={t.position} frameClassName="aspect-[4/5] lg:aspect-[6/7] [&>img]:transition-transform [&>img]:duration-700 group-hover:[&>img]:scale-[1.03] motion-reduce:[&>img]:transition-none" />
-                <span className="absolute inset-0 bg-gradient-to-t from-[#0b2e24]/90 via-[#0b2e24]/25 to-transparent" aria-hidden />
-                <span className="absolute inset-x-0 bottom-0 p-7 text-[#f4efe6] sm:p-10">
-                  <span className={cn(eyebrow, "block text-[#f4efe6]")}>{t.eyebrow}</span>
-                  <span className="mt-3 block font-display text-[clamp(34px,4.2vw,56px)] font-bold leading-[1.0] tracking-[-0.035em]">{t.title}</span>
-                  <span className="mt-5 inline-flex items-center gap-1.5 font-display text-[16px] font-semibold underline-offset-4 group-hover:underline">
-                    Découvrir <ArrowRight className="size-4" aria-hidden />
-                  </span>
-                </span>
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ——— Confiance : une ligne ——— */
-
-const PROOFS = ["Né à l’ESP de Dakar", "Incubé à TÀGGU NDAW ÑI", "Publié au colloque COC’2026", "Présenté au Dakar Night Market 2026"];
+const PROOFS = ["Né à l’ESP de Dakar", "Incubé à TÀGGU NDAW ÑI", "Publié au colloque COC’2026", "2e place au hackathon ISOC ESMT 2026"];
 
 function Proofs() {
   return (
-    <section aria-labelledby="parcours-titre">
+    <section className="border-t border-line" aria-labelledby="parcours-titre">
       <div className={cn(wrap, "flex flex-col items-center gap-6 py-16 text-center lg:py-20")} data-reveal>
         <h2 id="parcours-titre" className={cn(eyebrow, "text-ink-3")}>
           Notre parcours
@@ -201,7 +226,7 @@ function Proofs() {
           ))}
         </ul>
         <Link to="/a-propos" className="inline-flex items-center gap-1.5 font-display text-[16px] font-semibold text-brand underline-offset-4 hover:underline">
-          À propos de nous <ArrowRight className="size-4" aria-hidden />
+          Qui sommes-nous ? <ArrowRight className="size-4" aria-hidden />
         </Link>
       </div>
     </section>

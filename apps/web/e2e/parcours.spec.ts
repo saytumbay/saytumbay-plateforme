@@ -58,7 +58,7 @@ test.describe("site public", () => {
   test("pages Solutions, À propos et Contact", async ({ page, errors }) => {
     for (const [path, title] of [
       ["/solutions", /Agir avant que la récolte/],
-      ["/a-propos", /Voir la perte/],
+      ["/a-propos", /veiller sur l’agriculture/],
       ["/contact", /Travaillons ensemble/],
     ] as const) {
       await page.goto(path);

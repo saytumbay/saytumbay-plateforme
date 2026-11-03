@@ -17,7 +17,7 @@ interface Solution {
   photo: PhotoKey;
   position: string;
   alt: string;
-  /** Exemple de SMS posé sur la photo, en haut ou en bas selon la zone libre de l'image. */
+  /** Exemple de SMS posé sur la photo, en haut ou en bas selon la zone libre de l'image (toujours en bas sur téléphone, où la carte couvre presque la moitié de la photo). */
   sms: string;
   smsAt: "top" | "bottom";
 }
@@ -33,9 +33,9 @@ const SOLUTIONS: Solution[] = [
       { icon: BellRing, text: "Un SMS quand il faut arroser, même sur un petit téléphone" },
       { icon: Wrench, text: "Avec votre pompe ou votre goutte-à-goutte, sans rien changer" },
     ],
-    photo: "goutteLigne",
-    position: "50% 50%",
-    alt: "Une ligne de goutte-à-goutte au pied des cultures, à Dakar.",
+    photo: "gouttePoste",
+    position: "50% 70%",
+    alt: "Un poste de goutte-à-goutte, avec ses filtres et sa vanne, devant des rangs de cultures bien vertes.",
     sms: "Parcelle B : le sol est sec. Arrosez aujourd’hui.",
     smsAt: "top",
   },
@@ -112,7 +112,7 @@ function SolutionBlock({ s, flip }: { s: Solution; flip: boolean }) {
         </div>
         <div className={cn(flip && "lg:order-1")} data-reveal="1">
           <Photo name={s.photo} alt={s.alt} sizes="(min-width: 1024px) 560px, 100vw" position={s.position} frameClassName="aspect-[4/3] rounded-[28px]">
-            <div className={cn("absolute inset-x-4 rounded-2xl bg-[#f4efe6]/95 p-4 text-[#0b2e24] shadow-3 sm:inset-x-auto sm:left-5 sm:max-w-[320px]", s.smsAt === "top" ? "top-4 sm:top-5" : "bottom-4 sm:bottom-5")}>
+            <div className={cn("absolute inset-x-4 rounded-2xl bg-[#f4efe6]/95 p-4 text-[#0b2e24] shadow-3 sm:inset-x-auto sm:left-5 sm:max-w-[320px]", s.smsAt === "top" ? "bottom-4 sm:bottom-auto sm:top-5" : "bottom-4 sm:bottom-5")}>
               <p className="text-[12.5px] font-semibold text-[#5b6660]">Exemple de SMS</p>
               <p className="mt-1 text-[16.5px] font-semibold leading-snug">{s.sms}</p>
             </div>

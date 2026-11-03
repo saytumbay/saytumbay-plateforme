@@ -13,9 +13,6 @@ import sac1200 from "./sac-1200.webp";
 import sac1920 from "./sac-1920.webp";
 import diamniadio640 from "./diamniadio-640.webp";
 import diamniadio1200 from "./diamniadio-1200.webp";
-import marche640 from "./marche-640.webp";
-import marche1200 from "./marche-1200.webp";
-import marche1920 from "./marche-1920.webp";
 import pompage640 from "./pompage-640.webp";
 import pompage1200 from "./pompage-1200.webp";
 import pompage1920 from "./pompage-1920.webp";
@@ -27,9 +24,9 @@ import tomateSeche1200 from "./tomate-seche-1200.webp";
 import tomateSeche1920 from "./tomate-seche-1920.webp";
 import arrosoirs640 from "./arrosoirs-640.webp";
 import arrosoirs1200 from "./arrosoirs-1200.webp";
-import goutteLigne640 from "./goutte-ligne-640.webp";
-import goutteLigne1200 from "./goutte-ligne-1200.webp";
-import goutteLigne1920 from "./goutte-ligne-1920.webp";
+import gouttePoste640 from "./goutte-poste-640.webp";
+import gouttePoste1200 from "./goutte-poste-1200.webp";
+import gouttePoste1920 from "./goutte-poste-1920.webp";
 import sacsLegumes640 from "./sacs-legumes-640.webp";
 import sacsLegumes1200 from "./sacs-legumes-1200.webp";
 import sacsLegumes1920 from "./sacs-legumes-1920.webp";
@@ -53,7 +50,7 @@ export interface PhotoAsset {
   /** Lieu et sujet, cités dans les crédits. */
   place: string;
   author: string;
-  license: "CC BY-SA 4.0" | "CC BY-SA 3.0";
+  license: "CC BY-SA 4.0" | "CC BY-SA 3.0" | "Domaine public";
   licenseUrl: string;
   /** Page de la photo sur Wikimedia Commons. */
   source: string;
@@ -61,16 +58,17 @@ export interface PhotoAsset {
 
 const BYSA4 = { license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/deed.fr" } as const;
 const BYSA3 = { license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/deed.fr" } as const;
+/** Versée au domaine public par son auteur : aucune obligation, mais nous la citons comme les autres. */
+const PD = { license: "Domaine public", licenseUrl: "https://commons.wikimedia.org/wiki/Template:PD-self" } as const;
 const commons = (file: string) => `https://commons.wikimedia.org/wiki/File:${file}`;
 
 export const PHOTOS = {
   // Site public
   tomates: { srcs: [[640, tomates640], [1200, tomates1200], [1920, tomates1920]], width: 4928, height: 3264, place: "Sénégal · tomates mûres sur pied", author: "Pacocreat", ...BYSA4, source: commons("Tomates_(_s%C3%A9n%C3%A9gal_)_06.jpg") },
-  marche: { srcs: [[640, marche640], [1200, marche1200], [1920, marche1920]], width: 3840, height: 2543, place: "Dakar · marché de Case Ba, Parcelles Assainies", author: "Pacocreat", ...BYSA4, source: commons("Vendeurs_de_L%C3%A9gumes_Parcelle_Case_Ba_(_S%C3%A9n%C3%A9gal_)_03.jpg") },
   arrosoirs: { srcs: [[640, arrosoirs640], [1200, arrosoirs1200]], width: 1440, height: 2960, place: "Région de Ziguinchor · arrosage des légumes", author: "Fatou kine doucoure", ...BYSA4, source: commons("Arrosage_de_l%C3%A9gumes.jpg") },
   sac: { srcs: [[640, sac640], [1200, sac1200], [1920, sac1920]], width: 3840, height: 2157, place: "Sénégal · un sac d’oignons vers le marché", author: "Thiam Babel Design", ...BYSA4, source: commons("Un_sac_d%27oignon_sur_la_t%C3%AAte.jpg") },
   salade: { srcs: [[640, salade640], [1200, salade1200], [1920, salade1920]], width: 4000, height: 2250, place: "Sénégal · champ de salade, téléphone en main", author: "Youfadiarragaye", ...BYSA4, source: commons("Champ_de_salade.jpg") },
-  goutteLigne: { srcs: [[640, goutteLigne640], [1200, goutteLigne1200], [1920, goutteLigne1920]], width: 5184, height: 3456, place: "Dakar, Patte d’Oie · goutte-à-goutte", author: "4MAPS", ...BYSA4, source: commons("Arrosage_distribution_06.jpg") },
+  gouttePoste: { srcs: [[640, gouttePoste640], [1200, gouttePoste1200], [1920, gouttePoste1920]], width: 3072, height: 2304, place: "Agnam-Goly (Matam) · poste de goutte-à-goutte devant les rangs", author: "Adama Diop", ...PD, source: commons("Syst%C3%A9me_d%27irrigation_de_goutte_%C3%A0_goutte.jpg") },
   sacsLegumes: { srcs: [[640, sacsLegumes640], [1200, sacsLegumes1200], [1920, sacsLegumes1920]], width: 5044, height: 2834, place: "Sénégal · sacs de choux et d’oignons", author: "Thiam Babel Design", ...BYSA4, source: commons("Des_sacs_de_choux_et_d%27oignons.jpg") },
   champChoux: { srcs: [[640, champChoux640], [1200, champChoux1200], [1920, champChoux1920]], width: 4928, height: 3264, place: "Sénégal · champ de choux", author: "Pacocreat", ...BYSA4, source: commons("Choux_(_S%C3%A9n%C3%A9gal_)_09.jpg") },
   visiteGroupe: { srcs: [[640, visiteGroupe640], [1200, visiteGroupe1200]], width: 2976, height: 3968, place: "Niaga · visite d’un champ en groupe", author: "Kikanakana", ...BYSA4, source: commons("Les_participants_de_WLA_2025_au_S%C3%A9n%C3%A9gal_en_visite_dans_un_champ_%C3%A0_Niaga.jpg") },

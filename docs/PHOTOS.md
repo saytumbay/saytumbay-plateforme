@@ -2,24 +2,23 @@
 
 ## Aujourd'hui
 
-Le site utilise quatorze vraies photos prises au Sénégal (lieu vérifié pour chacune sur Commons, aucun enfant), sous licence **CC BY-SA 4.0** ou **3.0**. Elles montrent le contexte (cultures, récoltes, marché) : ni clients, ni sites SaytuMbay.
+Le site utilise treize vraies photos prises au Sénégal (lieu vérifié pour chacune sur Commons, aucun enfant), sous licence **CC BY-SA 4.0** ou **3.0**, ou versées au **domaine public**. Elles montrent le contexte (cultures, récoltes, marché) : ni clients, ni sites SaytuMbay.
 
 Sur le site public, chaque photo n'apparaît qu'une fois et correspond au texte qu'elle accompagne ; les oignons sont réservés au stockage.
 
-La licence impose de citer l'auteur et la licence : c'est fait dans les mentions légales (section « Crédits »), qui listent toutes les photos. Elle autorise l'usage commercial.
+La licence impose de citer l'auteur et la licence : c'est fait dans les mentions légales (section « Crédits »), qui listent toutes les photos. Elle autorise l’usage commercial. Les photos du domaine public n’imposent rien, mais nous les citons aussi.
 
 | Fichier | Où | Sujet | Auteur |
 |---|---|---|---|
 | `tomates` | Accueil, héros (SMS « parcelle de tomates ») | Tomates mûres sur pied | Pacocreat |
-| `marche` | Accueil, chiffre des pertes | Marché de Case Ba, Parcelles Assainies | Pacocreat |
 | `arrosoirs` | Accueil, « Pour vos champs » | Arrosage des légumes (région de Ziguinchor) | Fatou kine doucoure |
 | `sac` | Accueil, « Pour vos stocks » ; tableau de bord stockage | Sac d'oignons porté vers le marché | Thiam Babel Design |
 | `salade-telephone` | Solutions, en-tête | Champ de salade, téléphone en main | Youfadiarragaye |
-| `goutte-ligne` | Solutions, les champs | Goutte-à-goutte (Patte d'Oie, Dakar) | 4MAPS |
+| `goutte-poste` | Solutions, les champs | Poste de goutte-à-goutte devant les rangs (Agnam-Goly, Matam ; domaine public) | Adama Diop |
 | `sacs-legumes` | Solutions, le stockage | Sacs de choux et d'oignons | Thiam Babel Design |
 | `champ-choux` | À propos, en-tête | Champ de choux | Pacocreat |
 | `visite-groupe` | Contact, fond de « Travaillons ensemble » | Visite d'un champ en groupe (Niaga) | Kikanakana |
-| `tomate-seche` | À propos, « Le problème » | Plant de tomate qui dépérit | Pacocreat |
+| `tomate-seche` | Accueil, fond du chiffre des pertes | Plant de tomate qui dépérit | Pacocreat |
 | `esp` | À propos, l'équipe | Entrée de l'ESP de Dakar (CC BY-SA 3.0) | Nathysy |
 | `pompage` | À propos, questions fréquentes | Station de pompage, vallée du fleuve (CC BY-SA 3.0) | Africa Rice Center |
 | `rangs` | Tableau de bord des champs | Rangs d'oignon irrigués (Diamniadio) | Pacocreat |
