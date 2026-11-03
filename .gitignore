@@ -19,3 +19,4 @@ infra/mosquitto/passwd
 site-demo-a-publier/
 apps/api/.data/
 apps/api/dist/
+.vercel/

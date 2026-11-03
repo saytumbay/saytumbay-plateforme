@@ -1,9 +1,32 @@
 import { SECURITY_HEADERS } from "./security-headers";
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 import path from "node:path";
+import fs from "node:fs";
+
+/** Sur Vercel (variable VERCEL), le site est écrit dans .vercel/output/static (voir build.outDir) ; ce module y ajoute
+ *  la configuration de Vercel : en-têtes de sécurité tirés de security-headers.ts, cache, routes de l'application.
+ *  L'adresse vercel.app n'est pas indexée (noindex) : elle ne doit pas concurrencer saytumbay.com. */
+function vercelOutput(): Plugin {
+  const noCache = { "Cache-Control": "no-cache" };
+  return {
+    name: "saytumbay-vercel-output",
+    apply: "build",
+    closeBundle() {
+      if (!process.env.VERCEL) return;
+      const routes = [
+        { src: "/(.*)", headers: { ...SECURITY_HEADERS, "Strict-Transport-Security": "max-age=63072000; includeSubDomains", "X-Robots-Tag": "noindex" }, continue: true },
+        { src: "/assets/(.*)", headers: { "Cache-Control": "public, max-age=31536000, immutable" }, continue: true },
+        { src: "/(index\\.html|sw\\.js|registerSW\\.js|manifest\\.webmanifest)", headers: noCache, continue: true },
+        { handle: "filesystem" },
+        { src: "/(.*)", dest: "/index.html", headers: noCache },
+      ];
+      fs.writeFileSync(path.resolve(__dirname, ".vercel/output/config.json"), JSON.stringify({ version: 3, routes }, null, 2));
+    },
+  };
+}
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
@@ -62,6 +85,7 @@ export default defineConfig(({ mode }) => {
           ],
         },
       }),
+      vercelOutput(),
     ],
     preview: { headers: SECURITY_HEADERS },
     server: {
@@ -69,6 +93,8 @@ export default defineConfig(({ mode }) => {
       proxy: apiMode === "api" ? { "/api": { target: env.VITE_API_PROXY ?? "http://localhost:4000", changeOrigin: false } } : undefined,
     },
     build: {
+      // Sur Vercel : sortie au format « Build Output API », complétée par vercelOutput().
+      outDir: process.env.VERCEL ? ".vercel/output/static" : "dist",
       target: "es2022",
       sourcemap: false,
       chunkSizeWarningLimit: 700,
