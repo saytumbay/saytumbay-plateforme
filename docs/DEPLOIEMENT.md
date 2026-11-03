@@ -4,6 +4,16 @@ Le domaine saytumbay.com est chez Hostinger. Deux options, à choisir selon l'é
 
 **Décision actuelle (novembre 2026) : option A seulement.** Le site vitrine et la démo ne stockent aucune donnée personnelle, donc aucune démarche CDP n'est nécessaire à ce stade. La plateforme avec de vraies données viendra ensuite, de préférence sur des machines hébergées au Sénégal (voir « Option C »). Hostinger ou Vercel conviennent tous deux pour l'option A ; le `.htaccess` fourni est prévu pour Hostinger.
 
+## En ligne aujourd'hui : Vercel (adresse vercel.app)
+
+Depuis le 3 novembre 2026, le site public et la démo sont en ligne sur **https://saytumbay-plateforme.vercel.app**, sans lien avec saytumbay.com.
+
+- Projet Vercel « saytumbay-plateforme », relié au dépôt GitHub `saytumbayIF/saytumbay-plateforme`, branche `main`.
+- Réglages : Root Directory `apps/web`, Framework Preset « Other », aucune variable d'environnement, aucun domaine personnalisé.
+- **Chaque push sur `main` redéploie le site.** Lancer `npm run typecheck`, `npm test` et `npm run e2e` avant de pousser.
+- Le build (`npm run build:demo`, fixé dans `apps/web/vercel.json`) écrit le site au format Build Output API de Vercel. Le module `vercelOutput` de `apps/web/vite.config.ts` y ajoute les routes de l'application, le cache et les en-têtes de sécurité tirés de `security-headers.ts`. Hors Vercel, le build ne change pas.
+- L'adresse vercel.app envoie `X-Robots-Tag: noindex` : elle n'est pas indexée et ne concurrencera pas saytumbay.com.
+
 ## Option A — Site et démo sur l'hébergement mutualisé (Dakar Night Market, présentation)
 
 Pas de serveur à administrer : le site public et la démo complète (données simulées, dans le navigateur).
