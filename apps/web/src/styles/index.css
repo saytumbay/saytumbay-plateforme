@@ -292,6 +292,8 @@
 
 /* Site public : défilement doux vers les ancres, sous l'en-tête fixe. */
 html { scroll-padding-top: 88px; }
+/* Barre de défilement fine, aux couleurs du site (la piste se fond dans le fond de page, clair ou sombre). */
+html { scrollbar-width: thin; scrollbar-color: color-mix(in oklab, var(--ink) 30%, transparent) var(--bg); }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }

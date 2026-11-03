@@ -10,7 +10,7 @@ import { Photo } from "@/components/ui/photo";
 import type { PhotoKey } from "@/assets/photos";
 import { useReveal } from "@/lib/reveal";
 import { cn } from "@/lib/cn";
-import { CtaBand, display, Dot, eyebrow, useHashScroll, wrap } from "./blocks";
+import { CtaBand, display, Dot, eyebrow, LossSources, useHashScroll, wrap } from "./blocks";
 
 export default function Landing() {
   usePageTitle(null);
@@ -94,19 +94,13 @@ function BigNumber() {
       <div className="absolute inset-0 -z-10 bg-[#0b2e24]/80" aria-hidden />
       <div className={cn(wrap, "py-24 text-center lg:py-36")} data-reveal>
         <h2 id="chiffre-titre" className="text-[#f4efe6]">
-          <span className="block font-display text-[clamp(64px,15vw,200px)] font-bold leading-none tracking-[-0.05em] text-[#ef6a22]">30 à 40 %</span>
+          <span className="block font-display text-[clamp(64px,15vw,200px)] font-bold leading-none tracking-[-0.05em] text-[#ef6a22]">30 %</span>
           <span className="mx-auto mt-6 block max-w-[20ch] font-display text-[clamp(24px,2.8vw,36px)] font-semibold leading-snug tracking-[-0.02em] text-balance">
-            des fruits et légumes du Sénégal se perdent après la récolte.
+            des légumes du Sénégal se perdent avant même de quitter le champ.
           </span>
         </h2>
         <p className="mx-auto mt-6 text-[clamp(18px,1.7vw,22px)] text-[#e6e2d8]">Souvent, personne ne le voit venir. Nous, si.</p>
-        <p className="mx-auto mt-14 max-w-[70ch] text-[12.5px] leading-relaxed text-[#d6dbd2]">
-          Source : estimation relayée par Le Soleil, 17 février 2026 (
-          <a href="https://fr.allafrica.com/stories/202602170606.html" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-white">
-            AllAfrica
-          </a>
-          ).
-        </p>
+        <LossSources className="mx-auto mt-14 max-w-[70ch] text-[12.5px] leading-relaxed text-[#d6dbd2]" linkClassName="hover:text-white" />
       </div>
     </section>
   );

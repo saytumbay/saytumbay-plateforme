@@ -36,8 +36,11 @@ import sacsLegumes1920 from "./sacs-legumes-1920.webp";
 import salade640 from "./salade-telephone-640.webp";
 import salade1200 from "./salade-telephone-1200.webp";
 import salade1920 from "./salade-telephone-1920.webp";
-import visiteNiague640 from "./visite-niague-640.webp";
-import visiteNiague1200 from "./visite-niague-1200.webp";
+import champChoux640 from "./champ-choux-640.webp";
+import champChoux1200 from "./champ-choux-1200.webp";
+import champChoux1920 from "./champ-choux-1920.webp";
+import visiteGroupe640 from "./visite-groupe-640.webp";
+import visiteGroupe1200 from "./visite-groupe-1200.webp";
 import esp640 from "./esp-640.webp";
 import esp1200 from "./esp-1200.webp";
 import esp1920 from "./esp-1920.webp";
@@ -69,7 +72,8 @@ export const PHOTOS = {
   salade: { srcs: [[640, salade640], [1200, salade1200], [1920, salade1920]], width: 4000, height: 2250, place: "Sénégal · champ de salade, téléphone en main", author: "Youfadiarragaye", ...BYSA4, source: commons("Champ_de_salade.jpg") },
   goutteLigne: { srcs: [[640, goutteLigne640], [1200, goutteLigne1200], [1920, goutteLigne1920]], width: 5184, height: 3456, place: "Dakar, Patte d’Oie · goutte-à-goutte", author: "4MAPS", ...BYSA4, source: commons("Arrosage_distribution_06.jpg") },
   sacsLegumes: { srcs: [[640, sacsLegumes640], [1200, sacsLegumes1200], [1920, sacsLegumes1920]], width: 5044, height: 2834, place: "Sénégal · sacs de choux et d’oignons", author: "Thiam Babel Design", ...BYSA4, source: commons("Des_sacs_de_choux_et_d%27oignons.jpg") },
-  visiteNiague: { srcs: [[640, visiteNiague640], [1200, visiteNiague1200]], width: 2976, height: 3968, place: "Niague · visite d’un champ", author: "Kikanakana", ...BYSA4, source: commons("Visite_d%27un_champ_agricole_%C3%A0_Niague_au_S%C3%A9n%C3%A9gal.jpg") },
+  champChoux: { srcs: [[640, champChoux640], [1200, champChoux1200], [1920, champChoux1920]], width: 4928, height: 3264, place: "Sénégal · champ de choux", author: "Pacocreat", ...BYSA4, source: commons("Choux_(_S%C3%A9n%C3%A9gal_)_09.jpg") },
+  visiteGroupe: { srcs: [[640, visiteGroupe640], [1200, visiteGroupe1200]], width: 2976, height: 3968, place: "Niaga · visite d’un champ en groupe", author: "Kikanakana", ...BYSA4, source: commons("Les_participants_de_WLA_2025_au_S%C3%A9n%C3%A9gal_en_visite_dans_un_champ_%C3%A0_Niaga.jpg") },
   tomateSeche: { srcs: [[640, tomateSeche640], [1200, tomateSeche1200], [1920, tomateSeche1920]], width: 4928, height: 3264, place: "Sénégal · plant de tomate qui dépérit", author: "Pacocreat", ...BYSA4, source: commons("Tomates_(_s%C3%A9n%C3%A9gal_)_12.jpg") },
   esp: { srcs: [[640, esp640], [1200, esp1200], [1920, esp1920]], width: 2048, height: 1536, place: "Dakar · École supérieure polytechnique (UCAD)", author: "Nathysy", ...BYSA3, source: commons("ESPDakar.jpg") },
   pompage: { srcs: [[640, pompage640], [1200, pompage1200], [1920, pompage1920]], width: 4176, height: 2784, place: "Vallée du fleuve Sénégal · station de pompage pour l’irrigation", author: "Africa Rice Center", ...BYSA3, source: commons("Pumping_station_for_rice_and_vegetables_cultivation_in_the_Senegal_River_Valley_-_panoramio.jpg") },

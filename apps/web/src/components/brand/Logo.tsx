@@ -26,7 +26,8 @@ export function Logo({ height = 36, tagline = false, className, title = "SaytuMb
       {MARK_LAYERS.map((l, i) => (
         <path key={i} d={l.d} fill={FILL[l.role]} />
       ))}
-      <path d={WORDMARK_D} fill="var(--logo-word)" />
+      {/* Sans signature, le mot-symbole descend au milieu du signe (disque de y 14 à 112, mot de y 18 à 72). */}
+      <path d={WORDMARK_D} fill="var(--logo-word)" transform={tagline ? undefined : "translate(0 17)"} />
       {tagline && <path d={TAGLINE_D} fill="var(--logo-tag)" />}
     </svg>
   );

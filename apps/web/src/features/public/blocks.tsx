@@ -54,6 +54,30 @@ export function PageHeader({ id, label, title, text, photo, position, alt, child
   );
 }
 
+/* ——— Le chiffre des pertes et ses sources (vérifiées en novembre 2026) ——— */
+
+/** Étude de terrain au Sénégal (oignon, tomate, piment), indexée par la FAO dans AGRIS. */
+export const LOSS_STUDY = { url: "https://agris.fao.org/search/en/records/6748cf147625988a3720f93b", label: "Beye et Komarek, Université de Bonn (ZEF), 2020" };
+/** Indicateur ODD 12.3.1 de la FAO : 25,4 % des fruits et légumes perdus entre la récolte et la vente au détail en 2023. */
+export const LOSS_FAO = { url: "https://www.fao.org/sustainable-development-goals-data-portal/data/indicators/1231-global-food-losses", label: "FAO, indicateur ODD 12.3.1, 2023" };
+
+export function LossSources({ className, linkClassName }: { className?: string; linkClassName?: string }) {
+  const a = cn("underline underline-offset-2", linkClassName);
+  return (
+    <p className={className}>
+      Sources : au Sénégal, étude sur l’oignon, la tomate et le piment (
+      <a href={LOSS_STUDY.url} target="_blank" rel="noopener noreferrer" className={a}>
+        {LOSS_STUDY.label}
+      </a>
+      ). Dans le monde, 25 % des fruits et légumes se perdent entre la récolte et la vente (
+      <a href={LOSS_FAO.url} target="_blank" rel="noopener noreferrer" className={a}>
+        {LOSS_FAO.label}
+      </a>
+      ).
+    </p>
+  );
+}
+
 /* ——— Le problème, chiffre sourcé ——— */
 
 export function Context() {
@@ -62,7 +86,7 @@ export function Context() {
       <div className={cn(wrap, "py-16 lg:py-24")}>
         <p className={cn(eyebrow, "text-brand")}>Le problème</p>
         <p className="mt-4 max-w-[30ch] font-display text-[clamp(26px,3.3vw,42px)] font-semibold leading-[1.15] tracking-[-0.025em] text-balance">
-          Au Sénégal, 30 à 40 % de la production horticole se perd après la récolte.
+          Au Sénégal, 30 % des légumes se perdent avant même de quitter le champ.
         </p>
         <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-14">
           <div className="flex flex-col gap-6 text-[16.5px] leading-relaxed text-ink-2" data-reveal>
@@ -74,13 +98,7 @@ export function Context() {
           </div>
         </div>
         <p className="mt-10 max-w-[62ch] border-l-4 border-sun pl-5 font-display text-[clamp(19px,2vw,23px)] font-semibold leading-snug text-ink">Ces pertes préviennent presque toujours. Notre travail : rendre ces signaux visibles assez tôt pour agir.</p>
-        <p className="mt-10 max-w-[80ch] text-[13px] text-ink-3">
-          Source : estimation relayée par Le Soleil, 17 février 2026 (
-          <a href="https://fr.allafrica.com/stories/202602170606.html" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink">
-            AllAfrica
-          </a>
-          ).
-        </p>
+        <LossSources className="mt-10 max-w-[80ch] text-[13px] leading-relaxed text-ink-3" linkClassName="hover:text-ink" />
       </div>
     </section>
   );
@@ -195,8 +213,11 @@ export const AUDIENCES: Array<{ title: string; text: string; cta: string; to: st
 export function Together({ level = 2 }: { level?: 1 | 2 }) {
   const H = level === 1 ? "h1" : "h2";
   return (
-    <section id="ensemble" className="relative scroll-mt-20 overflow-hidden bg-[#0f5a44] text-[#f4efe6]" aria-labelledby="ensemble-titre">
-      <SignTrace className="-right-40 -top-24 hidden w-[620px] opacity-70 lg:block" color="#ef6a22" />
+    <section id="ensemble" className="relative isolate scroll-mt-20 overflow-hidden bg-[#0f5a44] text-[#f4efe6]" aria-labelledby="ensemble-titre">
+      {/* Une visite de champ en groupe, sous un voile vert : le texte reste lisible. */}
+      <Photo name="visiteGroupe" alt="" sizes="100vw" position="50% 55%" className="absolute inset-0 -z-10" frameClassName="h-full" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#0f5a44]/92 via-[#0f5a44]/85 to-[#0b2e24]/95" aria-hidden />
+      <SignTrace className="-right-40 -top-24 hidden w-[620px] opacity-50 lg:block" color="#ef6a22" />
       <div className={cn(wrap, "relative py-20 lg:py-28")}>
         <p className={cn(eyebrow, "text-[#f4efe6]")} data-reveal>
           {level === 1 ? "Contact" : "Travaillons ensemble"}
