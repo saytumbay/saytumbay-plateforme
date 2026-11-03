@@ -130,7 +130,7 @@ export const STATUS: Array<{ title: string; tone: "brand" | "sun" | "ink"; items
     tone: "sun",
     items: [
       "Les SMS en wolof.",
-      "Une alerte automatique dès qu’une mesure est anormale.",
+      "L’intelligence artificielle (IA) qui repère seule les mesures anormales.",
       "Les premiers sites pilotes, avec des coopératives.",
     ],
   },
