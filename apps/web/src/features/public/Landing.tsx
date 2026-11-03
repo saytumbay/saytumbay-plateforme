@@ -80,7 +80,7 @@ function SmsCard() {
         SaytuMbay
         <span className="ml-auto font-normal">Exemple de SMS</span>
       </p>
-      <p className="mt-2.5 text-[18px] font-semibold leading-snug">Votre parcelle B a soif. Arrosez aujourd’hui.</p>
+      <p className="mt-2.5 text-[18px] font-semibold leading-snug">Votre champ manque d’eau. Pensez à arroser ce soir.</p>
     </div>
   );
 }
@@ -97,16 +97,11 @@ function BigNumber() {
           <span className="block font-display text-[clamp(64px,15vw,200px)] font-bold leading-none tracking-[-0.05em] text-[#ef6a22]">30 à 40 %</span>
           <span className="mx-auto mt-6 block max-w-[20ch] font-display text-[clamp(24px,2.8vw,36px)] font-semibold leading-snug tracking-[-0.02em] text-balance">
             des fruits et légumes du Sénégal se perdent après la récolte.
-            <sup className="ml-0.5 align-super text-[0.5em] font-medium text-[#d6dbd2]">
-              <a href="#source-1" aria-describedby="source-1">
-                1
-              </a>
-            </sup>
           </span>
         </h2>
         <p className="mx-auto mt-6 text-[clamp(18px,1.7vw,22px)] text-[#e6e2d8]">Souvent, personne ne le voit venir. Nous, si.</p>
-        <p id="source-1" className="mx-auto mt-14 max-w-[70ch] text-[12.5px] leading-relaxed text-[#d6dbd2]">
-          1. Estimation des pertes après récolte de la production horticole, relayée par Le Soleil, 17 février 2026 (
+        <p className="mx-auto mt-14 max-w-[70ch] text-[12.5px] leading-relaxed text-[#d6dbd2]">
+          Source : estimation relayée par Le Soleil, 17 février 2026 (
           <a href="https://fr.allafrica.com/stories/202602170606.html" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-white">
             AllAfrica
           </a>

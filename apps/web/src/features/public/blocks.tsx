@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight, BookOpen, ChevronDown, MessageCircle } from "
 import { ButtonLink } from "@/components/ui/button";
 import { SignTrace } from "@/components/brand/SignTrace";
 import { Photo } from "@/components/ui/photo";
+import type { PhotoKey } from "@/assets/photos";
 import { EMAIL, TIDIANE, WHATSAPP } from "@/layouts/PublicLayout";
 import { cn } from "@/lib/cn";
 import { ContactForm } from "./ContactForm";
@@ -35,6 +36,24 @@ export function Dot({ tone = "sun", className }: { tone?: "sun" | "brand" | "ink
   return <span className={cn("inline-block size-2.5 shrink-0 rounded-full", { sun: "bg-sun", brand: "bg-brand", ink: "bg-ink-3" }[tone], className)} aria-hidden />;
 }
 
+/* ——— En-tête des pages intérieures : quelques mots à gauche, une photo à droite ——— */
+
+export function PageHeader({ id, label, title, text, photo, position, alt, children }: { id: string; label: string; title: string; text?: string; photo: PhotoKey; position?: string; alt: string; children?: ReactNode }) {
+  return (
+    <section className={cn(wrap, "grid items-center gap-10 pb-14 pt-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16 lg:pb-20 lg:pt-16")} aria-labelledby={id}>
+      <div className="anim-rise">
+        <p className={cn(eyebrow, "text-brand")}>{label}</p>
+        <h1 id={id} className={cn(h1, "mt-3 max-w-[18ch]")}>
+          {title}
+        </h1>
+        {text && <p className="mt-5 max-w-[48ch] text-[18px] leading-relaxed text-ink-2">{text}</p>}
+        {children}
+      </div>
+      <Photo name={photo} priority alt={alt} sizes="(min-width: 1024px) 520px, 100vw" position={position} frameClassName="hero-photo aspect-[16/10] rounded-[28px] lg:aspect-[5/4]" />
+    </section>
+  );
+}
+
 /* ——— Le problème, chiffre sourcé ——— */
 
 export function Context() {
@@ -44,11 +63,6 @@ export function Context() {
         <p className={cn(eyebrow, "text-brand")}>Le problème</p>
         <p className="mt-4 max-w-[30ch] font-display text-[clamp(26px,3.3vw,42px)] font-semibold leading-[1.15] tracking-[-0.025em] text-balance">
           Au Sénégal, 30 à 40 % de la production horticole se perd après la récolte.
-          <sup className="ml-0.5 align-super text-[0.45em] font-medium text-ink-3">
-            <a href="#source-1" aria-describedby="source-1">
-              1
-            </a>
-          </sup>
         </p>
         <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-14">
           <div className="flex flex-col gap-6 text-[16.5px] leading-relaxed text-ink-2" data-reveal>
@@ -60,12 +74,12 @@ export function Context() {
           </div>
         </div>
         <p className="mt-10 max-w-[62ch] border-l-4 border-sun pl-5 font-display text-[clamp(19px,2vw,23px)] font-semibold leading-snug text-ink">Ces pertes préviennent presque toujours. Notre travail : rendre ces signaux visibles assez tôt pour agir.</p>
-        <p id="source-1" className="mt-10 max-w-[80ch] text-[13px] text-ink-3">
-          1. Estimation publique relayée par Le Soleil lors du lancement du projet national de stockage et de conservation des produits horticoles, Ngomène, 17 février 2026 (
+        <p className="mt-10 max-w-[80ch] text-[13px] text-ink-3">
+          Source : estimation relayée par Le Soleil, 17 février 2026 (
           <a href="https://fr.allafrica.com/stories/202602170606.html" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink">
-            article sur AllAfrica
+            AllAfrica
           </a>
-          ). L’auteur du chiffre n’est pas précisé : il s’agit d’une estimation.
+          ).
         </p>
       </div>
     </section>
@@ -114,7 +128,7 @@ export const PAPER = {
 export function Status() {
   return (
     <section id="etat" className="scroll-mt-20 border-t border-line" aria-labelledby="etat-titre">
-      <div className={cn(wrap, "py-20 lg:py-28")}>
+      <div className={cn(wrap, "pb-14 pt-20 lg:pb-16 lg:pt-28")}>
         <p className={cn(eyebrow, "text-brand")}>Où nous en sommes</p>
         <h2 id="etat-titre" className={cn(h2, "mt-3 max-w-[22ch]")}>
           Une jeune startup, une plateforme déjà construite.
@@ -177,19 +191,25 @@ export const AUDIENCES: Array<{ title: string; text: string; cta: string; to: st
 ];
 
 
-export function Together() {
+/** `level={1}` : titre de la page /contact. */
+export function Together({ level = 2 }: { level?: 1 | 2 }) {
+  const H = level === 1 ? "h1" : "h2";
   return (
     <section id="ensemble" className="relative scroll-mt-20 overflow-hidden bg-[#0f5a44] text-[#f4efe6]" aria-labelledby="ensemble-titre">
       <SignTrace className="-right-40 -top-24 hidden w-[620px] opacity-70 lg:block" color="#ef6a22" />
       <div className={cn(wrap, "relative py-20 lg:py-28")}>
-        <p className={cn(eyebrow, "text-[#f4efe6]")}>Travaillons ensemble</p>
-        <h2 id="ensemble-titre" className={cn(h2, "mt-3 max-w-[20ch] text-[#f4efe6]")}>
-          Chacun peut nous aider à aller plus loin.
-        </h2>
-        <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-[#dfe6dc]">Nous répondons à chaque message.</p>
+        <p className={cn(eyebrow, "text-[#f4efe6]")} data-reveal>
+          {level === 1 ? "Contact" : "Travaillons ensemble"}
+        </p>
+        <H id="ensemble-titre" className={cn(level === 1 ? h1 : h2, "mt-3 max-w-[20ch] text-[#f4efe6]")} data-reveal>
+          {level === 1 ? "Travaillons ensemble." : "Chacun peut nous aider à aller plus loin."}
+        </H>
+        <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-[#dfe6dc]" data-reveal>
+          Choisissez ce qui vous ressemble, ou écrivez-nous directement. Nous répondons à chaque message.
+        </p>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {AUDIENCES.map((a, i) => (
-            <div key={a.title} className="flex flex-col rounded-[20px] bg-[#f4efe6] p-6 text-[#0b2e24]" data-reveal={i}>
+            <div key={a.title} className="lift flex flex-col rounded-[20px] bg-[#f4efe6] p-6 text-[#0b2e24]" data-reveal={i}>
               {/* Couleur fixée : la carte reste sable en thème sombre, le titre ne doit pas prendre l'encre claire du thème. */}
               <h3 className="font-display text-[19px] font-semibold leading-snug text-[#0b2e24]">{a.title}</h3>
               <p className="mt-3 flex-1 text-[15.5px] leading-relaxed text-[#3c4a44]">{a.text}</p>
@@ -214,8 +234,8 @@ export const TEAM = [
 export function Team() {
   return (
     <section id="equipe" className="scroll-mt-20" aria-labelledby="equipe-titre">
-      <div className={cn(wrap, "grid gap-14 py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20 lg:py-28")}>
-        <div>
+      <div className={cn(wrap, "grid gap-14 pb-20 pt-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20 lg:pb-28 lg:pt-16")}>
+        <div data-reveal>
           <p className={cn(eyebrow, "text-brand")}>L’équipe</p>
           <h2 id="equipe-titre" className={cn(h2, "mt-3")}>
             Nés à Dakar. Construits pour grandir.
@@ -226,9 +246,11 @@ export function Team() {
             <p>Nous commençons au Sénégal, avec des organisations d’ici. Mais l’eau qui manque, la chaleur qui abîme et les récoltes qui se perdent sont les mêmes partout où l’on cultive. C’est pour cela que nous construisons une solution capable d’aller bien au-delà.</p>
           </div>
         </div>
-        <ul className="flex flex-col gap-4 self-end">
+        <div className="flex flex-col gap-4" data-reveal="1">
+          <Photo name="diamniadio" alt="Jeunes plants d’oignon alignés dans une parcelle de Diamniadio." sizes="(min-width: 1024px) 480px, 100vw" position="50% 55%" frameClassName="aspect-[16/10] rounded-[24px]" />
+        <ul className="flex flex-col gap-4">
           {TEAM.map((m, i) => (
-            <li key={m.name} className="flex items-center gap-4 rounded-[20px] border border-line bg-surface p-5" data-reveal={i}>
+            <li key={m.name} className="flex items-center gap-4 rounded-[20px] border border-line bg-surface p-5">
               <span className={cn("flex size-14 shrink-0 items-center justify-center rounded-full font-display text-[18px] font-semibold", i ? "bg-sun-soft text-sun-ink" : "bg-brand-soft text-brand-strong dark:text-brand")} aria-hidden>
                 {m.name
                   .split(" ")
@@ -243,6 +265,7 @@ export function Team() {
             </li>
           ))}
         </ul>
+        </div>
       </div>
     </section>
   );
@@ -267,7 +290,7 @@ export function Faq() {
   return (
     <section id="faq" className="scroll-mt-20 border-t border-line bg-surface" aria-labelledby="faq-titre">
       <div className={cn(wrap, "grid gap-10 py-20 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20 lg:py-28")}>
-        <div>
+        <div className="lg:sticky lg:top-28 lg:self-start" data-reveal>
           <h2 id="faq-titre" className={h2}>
             Questions fréquentes
           </h2>
@@ -278,6 +301,7 @@ export function Faq() {
             </a>
             .
           </p>
+          <Photo name="pompage" alt="Station de pompage pour l’irrigation des cultures dans la vallée du fleuve Sénégal." sizes="(min-width: 1024px) 440px, 100vw" frameClassName="mt-8 aspect-[4/3] rounded-[24px]" />
         </div>
         <Accordion.Root type="single" collapsible className="divide-y divide-line border-y border-line">
           {FAQ.map((f, i) => (
@@ -318,7 +342,7 @@ export function Contact({ level = 2 }: { level?: 1 | 2 }) {
       <div className={cn(wrap, "relative grid gap-12 py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20 lg:py-28")}>
         <div>
           <H id="contact-titre" className={cn(level === 1 ? h1 : h2, "text-[#f4efe6]")}>
-            Contactez-nous.
+            {level === 1 ? "Contactez-nous." : "Écrivez-nous."}
           </H>
           <p className="mt-5 max-w-[46ch] text-[17px] leading-relaxed text-[#d6dbd2]">Un champ, un magasin, un partenariat ? Appelez-nous sur WhatsApp, écrivez-nous, ou laissez votre numéro : nous vous rappelons.</p>
           <div className="mt-8 flex flex-col items-start gap-3">

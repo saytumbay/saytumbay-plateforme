@@ -46,7 +46,10 @@ export function PublicLayout() {
       </a>
       <PublicHeader />
       <main id="contenu" className="flex-1">
-        <Outlet />
+        {/* Changement de page : fondu court (rien si les animations sont réduites). */}
+        <div key={pathname} className="page-in">
+          <Outlet />
+        </div>
       </main>
       <PublicFooter />
     </div>
@@ -65,7 +68,7 @@ function PublicHeader() {
   }, []);
   useEffect(() => setOpen(false), [loc.pathname, loc.hash]);
   return (
-    <header className={cn("sticky top-0 z-40 transition-[background-color,border-color,box-shadow] duration-200", scrolled ? "border-b border-line bg-surface" : "border-b border-transparent bg-bg")}>
+    <header className={cn("sticky top-0 z-40 transition-[background-color,border-color,box-shadow] duration-200", scrolled ? "border-b border-line bg-surface/85 backdrop-blur-md" : "border-b border-transparent bg-bg")}>
       <div className="mx-auto flex h-16 max-w-[1200px] items-center gap-6 px-4 sm:px-6 lg:h-[72px]">
         <Link to="/" className="rounded-md" aria-label="SaytuMbay, accueil">
           <Logo height={46} />

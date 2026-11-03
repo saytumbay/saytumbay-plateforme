@@ -1,8 +1,7 @@
 /** « À propos » : le problème, où nous en sommes, l'équipe, la FAQ. */
 import { usePageTitle } from "@/components/ui/page";
 import { useReveal } from "@/lib/reveal";
-import { cn } from "@/lib/cn";
-import { Context, eyebrow, Faq, h1, Status, Team, useHashScroll, wrap } from "./blocks";
+import { Context, Faq, PageHeader, Status, Team, useHashScroll } from "./blocks";
 
 export default function AboutPage() {
   usePageTitle("À propos");
@@ -10,13 +9,15 @@ export default function AboutPage() {
   useHashScroll();
   return (
     <>
-      <section className={cn(wrap, "pb-10 pt-12 lg:pb-14 lg:pt-20")} aria-labelledby="histoire-titre">
-        <p className={cn(eyebrow, "text-brand")}>À propos</p>
-        <h1 id="histoire-titre" className={cn(h1, "mt-3 max-w-[18ch]")}>
-          Voir la perte avant qu’elle arrive.
-        </h1>
-        <p className="mt-5 max-w-[56ch] text-[18px] leading-relaxed text-ink-2">D’où vient SaytuMbay, et où nous en sommes aujourd’hui.</p>
-      </section>
+      <PageHeader
+        id="histoire-titre"
+        label="À propos"
+        title="Voir la perte avant qu’elle arrive."
+        text="D’où vient SaytuMbay, et où nous en sommes aujourd’hui."
+        photo="rangees"
+        position="50% 45%"
+        alt="Rangées d’oignons dans une parcelle au Sénégal."
+      />
       <Context />
       <Status />
       <Team />

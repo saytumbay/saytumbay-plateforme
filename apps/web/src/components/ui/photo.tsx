@@ -1,5 +1,5 @@
 /** Photo responsive (WebP en plusieurs largeurs). Les crédits (auteur, licence) sont regroupés dans les mentions légales. */
-import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { PHOTOS, type PhotoKey } from "@/assets/photos";
 import { cn } from "@/lib/cn";
 
@@ -53,6 +53,12 @@ export function Photo({
   children?: ReactNode;
 }) {
   const p = PHOTOS[name];
+  // Fondu à l'arrivée de l'image (déjà en cache : affichée tout de suite).
+  const ref = useRef<HTMLImageElement>(null);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    if (ref.current?.complete) setLoaded(true);
+  }, []);
   return (
     <figure className={cn("min-w-0", className)}>
       <div className={cn("relative overflow-hidden bg-surface-3", frameClassName)}>
@@ -66,7 +72,10 @@ export function Photo({
           loading={priority ? "eager" : "lazy"}
           fetchPriority={priority ? "high" : undefined}
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover"
+          ref={ref}
+          onLoad={() => setLoaded(true)}
+          data-loaded={loaded || undefined}
+          className="photo-img absolute inset-0 h-full w-full object-cover"
           style={position ? { objectPosition: position } : undefined}
         />
         {children}

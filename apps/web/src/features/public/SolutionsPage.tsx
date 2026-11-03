@@ -6,7 +6,7 @@ import { Photo } from "@/components/ui/photo";
 import type { PhotoKey } from "@/assets/photos";
 import { useReveal } from "@/lib/reveal";
 import { cn } from "@/lib/cn";
-import { CtaBand, eyebrow, h1, h2, useHashScroll, wrap } from "./blocks";
+import { CtaBand, eyebrow, h2, PageHeader, useHashScroll, wrap } from "./blocks";
 
 interface Solution {
   id: string;
@@ -60,21 +60,24 @@ export default function SolutionsPage() {
   useHashScroll();
   return (
     <>
-      <section className={cn(wrap, "pb-12 pt-12 lg:pb-16 lg:pt-20")} aria-labelledby="solutions-titre">
-        <p className={cn(eyebrow, "text-brand")}>Solutions</p>
-        <h1 id="solutions-titre" className={cn(h1, "mt-3 max-w-[20ch]")}>
-          Agir avant que la récolte ne se perde.
-        </h1>
+      <PageHeader
+        id="solutions-titre"
+        label="Solutions"
+        title="Agir avant que la récolte ne se perde."
+        photo="goutte"
+        position="50% 60%"
+        alt="Un plant d’oignon le long d’un tuyau de goutte-à-goutte, au Sénégal."
+      >
         <ul className="mt-8 flex flex-wrap gap-3">
           {SOLUTIONS.map((s) => (
             <li key={s.id}>
-              <Link to={`#${s.id}`} className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-5 font-display text-[15px] font-semibold hover:bg-surface-2">
+              <Link to={`#${s.id}`} className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-5 font-display text-[15px] font-semibold transition-colors hover:border-brand hover:bg-brand hover:text-brand-ink">
                 {s.label} <ArrowDown className="size-4" aria-hidden />
               </Link>
             </li>
           ))}
         </ul>
-      </section>
+      </PageHeader>
       {SOLUTIONS.map((s, i) => (
         <SolutionBlock key={s.id} s={s} flip={i % 2 === 1} />
       ))}
@@ -87,7 +90,7 @@ function SolutionBlock({ s, flip }: { s: Solution; flip: boolean }) {
   return (
     <section id={s.id} className={cn("scroll-mt-20 border-t border-line", flip ? "bg-bg" : "bg-surface")} aria-labelledby={`${s.id}-titre`}>
       <div className={cn(wrap, "grid items-center gap-10 py-20 lg:grid-cols-2 lg:gap-16 lg:py-24")}>
-        <div className={cn(flip && "lg:order-2")}>
+        <div className={cn(flip && "lg:order-2")} data-reveal>
           <p className={cn(eyebrow, "text-brand")}>{s.label}</p>
           <h2 id={`${s.id}-titre`} className={cn(h2, "mt-3")}>
             {s.title}
