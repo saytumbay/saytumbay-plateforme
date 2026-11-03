@@ -11,12 +11,12 @@ export const WHATSAPP = { name: "Ibrahima Fall", display: "77 833 57 81", href: 
 export const EMAIL = { contact: "contact@saytumbay.com", tidiane: "tidianesow@saytumbay.com", ibrahima: "ibrahimafall@saytumbay.com" };
 /** Ligne directe de Tidiane Sow, directeur général (WhatsApp). */
 export const TIDIANE = { name: "Tidiane Sow", display: "77 088 94 08", href: "https://wa.me/221770889408?text=" + encodeURIComponent("Bonjour Tidiane, je souhaite en savoir plus sur les capteurs SaytuMbay.") };
-/** Comptes officiels sur les réseaux sociaux (identifiant @saytumbay, voir brand/reseaux/LISEZMOI.md). */
+/** Comptes officiels sur les réseaux sociaux (confirmés par l'équipe ; sur Instagram, l'identifiant est saytumbay.officiel). */
 export const SOCIAL = [
-  { name: "LinkedIn", href: "https://www.linkedin.com/company/saytumbay" },
-  { name: "Instagram", href: "https://www.instagram.com/saytumbay" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/saytumbay/" },
+  { name: "Instagram", href: "https://www.instagram.com/saytumbay.officiel" },
   { name: "TikTok", href: "https://www.tiktok.com/@saytumbay" },
-  { name: "X", href: "https://x.com/saytumbay" },
+  { name: "X", href: "https://x.com/SaytuMbay" },
 ];
 
 const NAV = [
