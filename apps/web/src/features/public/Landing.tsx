@@ -119,6 +119,9 @@ function Problem() {
         <p className="mx-auto mt-10 font-display text-[clamp(20px,2vw,26px)] font-semibold text-[#f4efe6]" data-reveal>
           Et souvent, on s’en rend compte trop tard.
         </p>
+        <p className="mx-auto mt-4 max-w-[48ch] text-[17px] leading-relaxed text-[#dfe6dc] text-balance" data-reveal>
+          Et ce n’est pas qu’au Sénégal : dans le monde, un fruit ou un légume sur quatre se perd entre la récolte et la vente.
+        </p>
         <LossSources className="mx-auto mt-12 max-w-[70ch] text-[12.5px] leading-relaxed text-[#d6dbd2]" linkClassName="hover:text-white" />
       </div>
     </section>

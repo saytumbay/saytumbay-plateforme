@@ -83,7 +83,7 @@ export function LossSources({ className, linkClassName }: { className?: string; 
 export const PRINCIPLES = [
   { title: "Simple", text: "Un SMS clair plutôt qu’une application de plus. Le wolof arrive : les messages sont en relecture." },
   { title: "Honnête", text: "Nous disons ce qui est prêt et ce qui reste à faire, sans promettre de chiffres que nous n’avons pas mesurés." },
-  { title: "D’ici", text: "Conçu à Dakar, pour les cultures, les magasins et les téléphones du Sénégal." },
+  { title: "Pensé pour le monde", text: "Nous commençons au Sénégal. Mais l’eau qui manque et les récoltes qui pourrissent sont les mêmes partout : nous construisons pour aller bien au-delà." },
 ];
 
 export function Mission() {
@@ -97,7 +97,7 @@ export function Mission() {
           Notre mission
         </p>
         <h2 id="mission-titre" className="mt-4 max-w-[26ch] font-display text-[clamp(28px,3.6vw,46px)] font-semibold leading-[1.12] tracking-[-0.03em] text-balance text-[#f4efe6]" data-reveal>
-          Que chaque producteur, petit ou grand, ait la bonne information au bon moment, sur le téléphone qu’il a déjà.
+          Que chaque producteur, au Sénégal comme partout dans le monde, ait la bonne information au bon moment.
         </h2>
         <ul className="mt-14 grid gap-4 md:grid-cols-3 md:gap-5">
           {PRINCIPLES.map((p, i) => (
@@ -280,7 +280,6 @@ export function Team() {
           <div className="mt-5 flex max-w-[58ch] flex-col gap-4 text-[17px] leading-relaxed text-ink-2">
             <p>Réseaux, objets connectés, logiciel : nous maîtrisons toute la chaîne, du capteur planté dans le sol jusqu’au SMS sur votre téléphone.</p>
             <p>Nous nous sommes rencontrés en master à l’École supérieure polytechnique (ESP) de l’Université Cheikh Anta Diop de Dakar, où SaytuMbay est né.</p>
-            <p>Nous commençons au Sénégal, avec des organisations d’ici. Mais l’eau qui manque, la chaleur qui abîme et les récoltes qui se perdent sont les mêmes partout où l’on cultive. C’est pour cela que nous construisons une solution capable d’aller bien au-delà.</p>
           </div>
         </div>
         <div className="flex flex-col gap-4" data-reveal="1">
