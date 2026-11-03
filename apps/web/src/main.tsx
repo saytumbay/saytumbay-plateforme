@@ -38,6 +38,8 @@ declare module "@tanstack/react-query" {
   }
 }
 
+const followRoutes = (onPath: (pathname: string) => void) => router.subscribe((s) => onPath(s.location.pathname));
+
 function ThemedToaster() {
   const { dark } = useTheme();
   return <Toaster theme={dark ? "dark" : "light"} position="bottom-center" richColors closeButton toastOptions={{ style: { fontFamily: "var(--font-sans)" } }} />;
@@ -45,7 +47,7 @@ function ThemedToaster() {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider>
+    <ThemeProvider subscribe={followRoutes}>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider delayDuration={300}>
           <RouterProvider router={router} />

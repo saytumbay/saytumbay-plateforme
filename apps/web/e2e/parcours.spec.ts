@@ -14,14 +14,19 @@ test.describe("site public", () => {
     expect(errors).toEqual([]);
   });
 
-  test("thème sombre : accueil et contact restent lisibles", async ({ page }) => {
+  test("ordinateur en thème sombre : le site public reste clair, l'espace client passe en sombre", async ({ page }) => {
     await page.emulateMedia({ colorScheme: "dark", reducedMotion: "reduce" });
     await page.goto("/");
+    await expect(page.locator("html")).not.toHaveClass(/dark/);
     await expect(page.getByRole("heading", { name: "Simple comme un SMS." })).toBeVisible();
     expect(await axe(page), "/").toEqual([]);
     await page.goto("/contact");
     await expect(page.getByRole("heading", { level: 3, name: "Investisseurs, bailleurs, incubateurs" })).toBeVisible();
     expect(await axe(page), "/contact").toEqual([]);
+    await expect(page.locator("html")).not.toHaveClass(/dark/);
+    await demoLogin(page, "Responsable de coopérative");
+    await expect(page.locator("html")).toHaveClass(/dark/);
+    expect(await axe(page), "/app sombre").toEqual([]);
   });
 
   test("formulaire de contact : validation puis message rédigé dans WhatsApp (site sans serveur)", async ({ page }) => {
