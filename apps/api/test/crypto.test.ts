@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { base32Decode, base32Encode, decrypt, encrypt, hashPassword, newRecoveryCodes, totpAt, verifyPassword, verifyTotp } from "../src/lib/crypto";
+import { loadEnv } from "../src/env";
 
 describe("TOTP (RFC 6238)", () => {
   // Vecteurs de l'annexe B de la RFC 6238 (SHA-1, secret ASCII « 12345678901234567890 »), 6 derniers chiffres.
@@ -51,5 +52,20 @@ describe("chiffrement et mots de passe", () => {
     expect(codes).toHaveLength(8);
     expect(new Set(codes).size).toBe(8);
     expect(codes.every((c) => /^\d{4}-\d{4}$/.test(c))).toBe(true);
+  });
+});
+
+describe("configuration de production", () => {
+  const prod = { NODE_ENV: "production", ENCRYPTION_KEY: "ab".repeat(32), DATABASE_URL: "postgres://u:p@localhost:5432/db" };
+
+  it("démarre avec une configuration de production complète, sans démo", () => {
+    const env = loadEnv(prod);
+    expect(env.seedDemo).toBe(false);
+    expect(env.demoLogin).toBe(false);
+  });
+
+  it("refuse les comptes et la connexion de démonstration (mot de passe public)", () => {
+    expect(() => loadEnv({ ...prod, SEED_DEMO: "true" })).toThrow(/SEED_DEMO/);
+    expect(() => loadEnv({ ...prod, DEMO_LOGIN: "true" })).toThrow(/DEMO_LOGIN/);
   });
 });

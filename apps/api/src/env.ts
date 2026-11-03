@@ -50,6 +50,9 @@ const schema = z
     if (e.NODE_ENV !== "production") return;
     if (!e.ENCRYPTION_KEY) ctx.addIssue({ code: "custom", path: ["ENCRYPTION_KEY"], message: "obligatoire en production" });
     if (!e.DATABASE_URL) ctx.addIssue({ code: "custom", path: ["DATABASE_URL"], message: "obligatoire en production (PostgreSQL)" });
+    // Le mot de passe des comptes de démonstration est public (dépôt ouvert) : jamais de comptes ni de connexion de démo en production.
+    if (e.SEED_DEMO === true) ctx.addIssue({ code: "custom", path: ["SEED_DEMO"], message: "interdit en production : les comptes de démonstration ont un mot de passe public" });
+    if (e.DEMO_LOGIN === true) ctx.addIssue({ code: "custom", path: ["DEMO_LOGIN"], message: "interdit en production : connexion de démonstration sans mot de passe" });
     if (e.COOKIE_SECURE === false) ctx.addIssue({ code: "custom", path: ["COOKIE_SECURE"], message: "doit rester actif en production" });
     if (e.SMS_PROVIDER === "orange" && !(e.ORANGE_CLIENT_ID && e.ORANGE_CLIENT_SECRET && e.ORANGE_SENDER)) ctx.addIssue({ code: "custom", path: ["ORANGE_CLIENT_ID"], message: "identifiants Orange incomplets" });
   });
