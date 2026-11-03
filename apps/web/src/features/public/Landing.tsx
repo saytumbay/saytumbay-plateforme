@@ -80,7 +80,7 @@ function SmsCard() {
         SaytuMbay
         <span className="ml-auto font-normal">Exemple de SMS</span>
       </p>
-      <p className="mt-2.5 text-[18px] font-semibold leading-snug">Votre champ manque d’eau. Pensez à arroser ce soir.</p>
+      <p className="mt-2.5 text-[18px] font-semibold leading-snug">Votre parcelle de tomates manque d’eau. Pensez à arroser ce soir.</p>
     </div>
   );
 }
